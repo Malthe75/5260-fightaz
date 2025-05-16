@@ -25,13 +25,13 @@ public class AnimatedController : MonoBehaviour
     [SerializeField] private Sprite[] hitSprites;
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite[] kickSprites;
+    [SerializeField] private Sprite[] duckSprites;
 
     private bool isHitting = false;
     private int hitSpriteIndex = 0;
     private Coroutine resetSpriteCoroutine;
 
 
-    private bool isKicking = false;
 
     [Header("Hitting")]
     [SerializeField] private float hitCooldown = 0.1f;
@@ -59,10 +59,16 @@ public class AnimatedController : MonoBehaviour
         if (inputHandler.HitInput && !isHitting)
         {
             ApplyHit();
+            inputHandler.HitInput = false; // Reset hit input to prevent multiple hits in a row
         }
         if (inputHandler.KickInput && !isHitting)
         {
             ApplyKick();
+            inputHandler.KickInput = false;
+        }
+        if(inputHandler.DuckInput && !isHitting && isGrounded)
+        {
+            sr.sprite = duckSprites[0];
         }
     }
 
@@ -158,6 +164,7 @@ public class AnimatedController : MonoBehaviour
     private IEnumerator ResetSprite(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Debug.Log("What?");
         sr.sprite = walkSprites[0];
         isHitting = false;
     }

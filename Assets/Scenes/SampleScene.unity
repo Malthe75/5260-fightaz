@@ -216,6 +216,7 @@ MonoBehaviour:
   jump: Jump
   hit: Hit
   kick: Kick
+  duck: Duck
 --- !u!4 &375145300
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +560,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 12b4fab2af38a1344ae4c76acd9a592a, type: 3}
   kickSprites:
   - {fileID: 21300000, guid: 6e4f9fd244b32c445ab5bad91b506e70, type: 3}
-  hitCooldown: 0.3
+  duckSprites:
+  - {fileID: 21300000, guid: 4d12dfe4d50b33c4f8e0a90c2a5cb292, type: 3}
+  hitCooldown: 0.2
   kickCooldown: 0.1
   animationSpeed: 0.2
 --- !u!50 &783200391

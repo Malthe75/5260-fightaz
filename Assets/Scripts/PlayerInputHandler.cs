@@ -17,33 +17,24 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string hit = "Hit";
     [SerializeField] private string kick = "Kick";
+    [SerializeField] private string duck = "Duck";
 
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction hitAction;
     private InputAction kickAction;
-    
+    private InputAction duckAction;
+
     public Vector2 MoveInput { get; private set; }
     public bool JumpInput { get; private set; }
 
-    public bool HitInput { get; private set; }
-    public bool KickInput { get; private set; }
+    public bool HitInput { get; set; }
+    public bool KickInput { get; set; }
+
+    public bool DuckInput { get; private set; }
 
     public static PlayerInputHandler Instance { get; private set; }
 
-    void Update()
-    {
-        if (HitInput)
-        {
-            Debug.Log("Do the hit action!");
-            HitInput = false; // Consume it, prevent re-triggering
-        }
-        if (KickInput)
-        {
-            Debug.Log("Do the kick action!");
-            KickInput = false; // Consume it, prevent re-triggering
-        }
-    }
 
     private void Awake()
     {
@@ -59,8 +50,10 @@ public class PlayerInputHandler : MonoBehaviour
 
         moveAction = playerControls.FindActionMap(actionMapName).FindAction(move);
         jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
+        duckAction = playerControls.FindActionMap(actionMapName).FindAction(duck);
         hitAction = playerControls.FindActionMap(actionMapName).FindAction(hit);
         kickAction = playerControls.FindActionMap(actionMapName).FindAction(kick);
+
         RegisterInputActions();
         PrintDevices();
     }
@@ -81,7 +74,13 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.canceled += context => MoveInput = Vector2.zero;
         jumpAction.performed += context => JumpInput = true;
         jumpAction.canceled += context => JumpInput = false;
+        duckAction.performed += context => DuckInput = true;
+        duckAction.canceled += context => DuckInput = false;
 
+        //hitAction.canceled += context => HitInput = false;
+        //kickAction.canceled += context => KickInput = false;
+        //hitAction.performed += ContextMenu => HitInput = true;
+        //kickAction.performed += context => KickInput = true;
         hitAction.performed += OnHitPerformed;
         kickAction.performed += OnKickPerformed;
     }
@@ -92,6 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Enable();
         hitAction.Enable();
         kickAction.Enable();
+        duckAction.Enable();
 
 
         InputSystem.onDeviceChange += OnDeviceChange;
@@ -104,13 +104,14 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Disable();
         hitAction.Disable();
         kickAction.Disable();
+        duckAction.Disable();
 
         InputSystem.onDeviceChange -= OnDeviceChange;
     }
 
     private void OnHitPerformed(InputAction.CallbackContext context)
     {
-        Debug.Log("Button Pressed Once");
+        Debug.Log($"Hit performed! Interaction: {context.interaction?.GetType().Name}");
         HitInput = true;
     }
     private void OnKickPerformed(InputAction.CallbackContext context)
