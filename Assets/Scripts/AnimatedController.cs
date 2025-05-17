@@ -3,9 +3,16 @@ using UnityEngine;
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AnimatedController : MonoBehaviour
 {
+
+    [Header("Experimental")]
+    public List<AttackData> attackLibray;
+    [SerializeField] private GameObject hitboxObject;
+    private BoxCollider2D hitboxCollider;
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float duckSpeed = 1f;
@@ -58,7 +65,13 @@ public class AnimatedController : MonoBehaviour
         input.OnShoot += () => TryAttack(shootSprites);
         input.OnTaunt += () => TryAttack(tauntSprites);
         input.OnSignature1 += () => TryAttack(characterTraitSprites);
-        input.OnSignature2 += () => TryAttack(specialSprites);
+        //input.OnSignature2 += () => TryAttack(specialSprites);
+        input.OnSignature2 += () => PlayAttack(attackLibray[0]);
+
+
+        // Experimental
+        hitboxCollider = hitboxObject.GetComponent<BoxCollider2D>();
+        hitboxObject.SetActive(false);
     }
 
     private void Update()
@@ -93,6 +106,79 @@ public class AnimatedController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+    [SerializeField] private int attackDamage = 1;
+    
+    // EXPERIMENTAL SECTION 
+    private bool isAttacking = false;
+    public void PlayAttack(AttackData attack)
+    {
+        StartCoroutine(PlayAttackCoroutine(attack));
+    }
+    void ActivateHitbox(Vector2 size, Vector2 offset)
+    {
+        // Set hitbox size and position
+        hitboxObject.transform.localPosition = offset;
+        hitboxCollider.size = size;
+        hitboxObject.SetActive(true);
+
+        // Manual collision detection
+        Vector2 hitboxWorldPos = hitboxObject.transform.position;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxWorldPos, size, 0f);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                Debug.Log("Hit enemy for " + attackDamage + " damage!");
+
+                var trigger = hitboxObject.GetComponent<HitboxTrigger>();
+                if (trigger != null)
+                {
+                    trigger.damage = attackDamage;
+                }
+
+                // Optional: Deal damage to enemy health script
+                // var health = hit.GetComponent<EnemyHealth>();
+                // if (health != null) health.TakeDamage(attackDamage);
+            }
+        }
+
+        StartCoroutine(DisableHitboxAfter(0.1f));
+    }
+
+    IEnumerator DisableHitboxAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        hitboxObject.SetActive(false);
+    }
+
+    private IEnumerator PlayAttackCoroutine(AttackData attack)
+    {
+        isAttacking = true;
+
+        foreach (var frame in attack.frames)
+        {
+            sr.sprite = frame.frameSprite;
+
+            if (frame.hasHitbox)
+            {
+                ActivateHitbox(frame.hitboxSize, frame.hitboxOffset);
+            }
+
+            if (frame.attackSound != null)
+            {
+                AudioSource.PlayClipAtPoint(frame.attackSound, transform.position);
+            }
+
+            yield return new WaitForSeconds(frame.frameDuration);
+        }
+
+        sr.sprite = walkSprites[0];
+        isAttacking = false;
+    }
+
+    /// //////////////////// EXPERIMENTAL SECTION ENDS HERE
 
     private void TryAttack(Sprite[] sprites)
     {
