@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class AnimatedController : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float duckSpeed = 1f;
+    [SerializeField] private float animationSpeed = 0.2f;
 
     [Header("Jump Parameters")]
     [SerializeField] private float jumpForce = 5f;
@@ -18,27 +17,30 @@ public class AnimatedController : MonoBehaviour
 
     private bool isGrounded = true;
     private bool shouldJump = false;
+    private bool isDucking = false;
 
-  
+
     private SpriteRenderer sr;
     [Header("Sprites")]
     [SerializeField] private Sprite[] hitSprites;
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite[] kickSprites;
     [SerializeField] private Sprite[] duckSprites;
+    [SerializeField] private Sprite[] duckHits;
+    [SerializeField] private Sprite[] duckKicks;
+    [SerializeField] private Sprite[] shootSprites;
+    [SerializeField] private Sprite[] tauntSprites;
+    [SerializeField] private Sprite[] characterTraitSprites;
+    [SerializeField] private Sprite[] specialSprites;
+
+    [Header("Hitting & Kicking")]
+    [SerializeField] private float hitCooldown = 0.2f;
+    [SerializeField] private float kickCooldown = 0.5f;
 
     private bool isHitting = false;
     private int hitSpriteIndex = 0;
     private Coroutine resetSpriteCoroutine;
 
-
-
-    [Header("Hitting")]
-    [SerializeField] private float hitCooldown = 0.1f;
-    [SerializeField] private float kickCooldown = 0.1f;
-
-    [Header("Animation Settings")]
-    [SerializeField] private float animationSpeed = 0.2f; // Speed of the animation frames
 
     private void Awake()
     {
@@ -56,19 +58,34 @@ public class AnimatedController : MonoBehaviour
         shouldJump = inputHandler.JumpInput && isGrounded;
 
 
+        // Handle hitting
         if (inputHandler.HitInput && !isHitting)
         {
             ApplyHit();
-            inputHandler.HitInput = false; // Reset hit input to prevent multiple hits in a row
+            inputHandler.HitInput = false;
         }
+        // Handle kicking
         if (inputHandler.KickInput && !isHitting)
         {
             ApplyKick();
             inputHandler.KickInput = false;
         }
-        if(inputHandler.DuckInput && !isHitting && isGrounded)
+
+        // Handle ducking
+        bool shouldDuck = inputHandler.DuckInput && !isHitting && isGrounded;
+        if (shouldDuck != isDucking)
         {
-            sr.sprite = duckSprites[0];
+            isDucking = shouldDuck;
+            if (isDucking)
+            {
+                sr.sprite = duckSprites[0];
+                moveSpeed = duckSpeed;
+            }
+            else
+            {
+                sr.sprite = walkSprites[0];
+                moveSpeed = 5f;
+            }
         }
     }
 
@@ -87,7 +104,7 @@ public class AnimatedController : MonoBehaviour
     {
         
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
-        if (isGrounded)
+        if (isGrounded && !isDucking && !isHitting)
         {
             animateMovement();
         }
@@ -98,6 +115,10 @@ public class AnimatedController : MonoBehaviour
     private bool usingFrame1 = true;
     void animateMovement()
     {
+        if(isDucking || isHitting)
+        {
+            return;
+        }
         if (Mathf.Abs(horizontalInput) > 0.01f)
         {
             animationTimer += Time.deltaTime;
@@ -108,14 +129,6 @@ public class AnimatedController : MonoBehaviour
                 animationTimer = 0f;
             }
         }
-        /*
-        else
-        {
-            // Reset to idle frame when not moving
-            sr.sprite = walkSprites[0];
-            usingFrame1 = true;
-            animationTimer = 0f;
-        }*/
     }
 
     void ApplyJump()
