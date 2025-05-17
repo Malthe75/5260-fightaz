@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-
     [Header("Input Action Asset")]
     [SerializeField] private InputActionAsset playerControls;
 
@@ -18,71 +16,60 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string hit = "Hit";
     [SerializeField] private string kick = "Kick";
     [SerializeField] private string duck = "Duck";
-
-    private InputAction moveAction;
-    private InputAction jumpAction;
-    private InputAction hitAction;
-    private InputAction kickAction;
-    private InputAction duckAction;
-
-    public Vector2 MoveInput { get; private set; }
-    public bool JumpInput { get; private set; }
-
-    public bool HitInput { get; set; }
-    public bool KickInput { get; set; }
-
-    public bool DuckInput { get; private set; }
+    [SerializeField] private string shoot = "Shoot";
+    [SerializeField] private string taunt = "Taunt";
+    [SerializeField] private string signature = "Signature1";
+    [SerializeField] private string signature2 = "Signature2";
 
     public static PlayerInputHandler Instance { get; private set; }
 
+    public event Action OnJump;
+    public event Action OnHit;
+    public event Action OnKick;
+    public event Action OnShoot;
+    public event Action OnTaunt;
+    public event Action OnSignature1;
+    public event Action OnSignature2;
+    public event Action<bool> OnDuckChanged;
+    public event Action<Vector2> OnMove;
+
+    private InputAction moveAction, jumpAction, hitAction, kickAction, duckAction, shootAction, tauntAction, signature1Action, signature2Action;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); return; }
 
-        moveAction = playerControls.FindActionMap(actionMapName).FindAction(move);
-        jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
-        duckAction = playerControls.FindActionMap(actionMapName).FindAction(duck);
-        hitAction = playerControls.FindActionMap(actionMapName).FindAction(hit);
-        kickAction = playerControls.FindActionMap(actionMapName).FindAction(kick);
+        var map = playerControls.FindActionMap(actionMapName);
+
+        moveAction = map.FindAction(move);
+        jumpAction = map.FindAction(jump);
+        hitAction = map.FindAction(hit);
+        kickAction = map.FindAction(kick);
+        duckAction = map.FindAction(duck);
+        shootAction = map.FindAction(shoot);
+        tauntAction = map.FindAction(taunt);
+        signature1Action = map.FindAction(signature);
+        signature2Action = map.FindAction(signature2);
 
         RegisterInputActions();
-        PrintDevices();
     }
 
-    void PrintDevices()
+    private void RegisterInputActions()
     {
-        foreach (var device in InputSystem.devices)
-        {
-            if (device.enabled)
-            {
-                Debug.Log("Active Device: " + device.name);
-            }
-        }
-    }
-    void RegisterInputActions()
-    {
-        moveAction.performed += context => MoveInput = context.ReadValue<Vector2>();
-        moveAction.canceled += context => MoveInput = Vector2.zero;
-        jumpAction.performed += context => JumpInput = true;
-        jumpAction.canceled += context => JumpInput = false;
-        duckAction.performed += context => DuckInput = true;
-        duckAction.canceled += context => DuckInput = false;
+        moveAction.performed += ctx => OnMove?.Invoke(ctx.ReadValue<Vector2>());
+        moveAction.canceled += ctx => OnMove?.Invoke(Vector2.zero);
 
-        //hitAction.canceled += context => HitInput = false;
-        //kickAction.canceled += context => KickInput = false;
-        //hitAction.performed += ContextMenu => HitInput = true;
-        //kickAction.performed += context => KickInput = true;
-        hitAction.performed += OnHitPerformed;
-        kickAction.performed += OnKickPerformed;
+        duckAction.performed += ctx => OnDuckChanged?.Invoke(true);
+        duckAction.canceled += ctx => OnDuckChanged?.Invoke(false);
+
+        jumpAction.performed += ctx => OnJump?.Invoke();
+        hitAction.performed += ctx => OnHit?.Invoke();
+        kickAction.performed += ctx => OnKick?.Invoke();
+        shootAction.performed += ctx => OnShoot?.Invoke();
+        tauntAction.performed += ctx => OnTaunt?.Invoke();
+        signature1Action.performed += ctx => OnSignature1?.Invoke();
+        signature2Action.performed += ctx => OnSignature2?.Invoke();
     }
 
     private void OnEnable()
@@ -92,11 +79,11 @@ public class PlayerInputHandler : MonoBehaviour
         hitAction.Enable();
         kickAction.Enable();
         duckAction.Enable();
-
-
-        InputSystem.onDeviceChange += OnDeviceChange;
+        shootAction.Enable();
+        tauntAction.Enable();
+        signature1Action.Enable();
+        signature2Action.Enable();
     }
-
 
     private void OnDisable()
     {
@@ -105,33 +92,10 @@ public class PlayerInputHandler : MonoBehaviour
         hitAction.Disable();
         kickAction.Disable();
         duckAction.Disable();
-
-        InputSystem.onDeviceChange -= OnDeviceChange;
-    }
-
-    private void OnHitPerformed(InputAction.CallbackContext context)
-    {
-        Debug.Log($"Hit performed! Interaction: {context.interaction?.GetType().Name}");
-        HitInput = true;
-    }
-    private void OnKickPerformed(InputAction.CallbackContext context)
-    {
-        Debug.Log("Kick Button Pressed Once");
-        KickInput = true;
-    }
-
-    private void OnDeviceChange(InputDevice device, InputDeviceChange change)
-    {
-        switch (change)
-        {
-            case InputDeviceChange.Disconnected:
-                Debug.Log($"Device Disconnected: {device.displayName}");
-                // HANDLE DISCONNECTION LOGIC HERE
-                break;
-            case InputDeviceChange.Reconnected:
-                Debug.Log($"Device Reconnected: {device.displayName}");
-                // HANDLE RECONNECTION LOGIC HERE
-                break;
-        }
+        shootAction.Disable();
+        tauntAction.Disable();
+        signature1Action.Disable();
+        signature2Action.Disable();
     }
 }
+

@@ -1,125 +1,79 @@
 using System.Collections;
 using UnityEngine;
 
+using UnityEngine;
+using System.Collections;
+
 public class AnimatedController : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float duckSpeed = 1f;
     [SerializeField] private float animationSpeed = 0.2f;
-
-    [Header("Jump Parameters")]
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float hitCooldown = 0.2f;
 
     private Rigidbody2D rb;
-    private PlayerInputHandler inputHandler;
-    private float horizontalInput;
-
-    private bool isGrounded = true;
-    private bool shouldJump = false;
-    private bool isDucking = false;
-
-
     private SpriteRenderer sr;
+    private Vector2 moveInput;
+    private bool isDucking = false;
+    private bool isGrounded = true;
+    private bool isHitting = false;
+
+    private Coroutine resetSpriteCoroutine;
+
     [Header("Sprites")]
-    [SerializeField] private Sprite[] hitSprites;
     [SerializeField] private Sprite[] walkSprites;
+    [SerializeField] private Sprite[] hitSprites;
     [SerializeField] private Sprite[] kickSprites;
     [SerializeField] private Sprite[] duckSprites;
-    [SerializeField] private Sprite[] duckHits;
-    [SerializeField] private Sprite[] duckKicks;
+    [SerializeField] private Sprite[] duckHitSprites;
+    [SerializeField] private Sprite[] duckKickSprites;
     [SerializeField] private Sprite[] shootSprites;
     [SerializeField] private Sprite[] tauntSprites;
     [SerializeField] private Sprite[] characterTraitSprites;
     [SerializeField] private Sprite[] specialSprites;
 
-    [Header("Hitting & Kicking")]
-    [SerializeField] private float hitCooldown = 0.2f;
-    [SerializeField] private float kickCooldown = 0.5f;
-
-    private bool isHitting = false;
     private int hitSpriteIndex = 0;
-    private Coroutine resetSpriteCoroutine;
+    private float animationTimer;
+    private bool usingFrame1 = true;
 
+    private Sprite[] lastSprites = null;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
+
     private void Start()
     {
-        sr = GetComponentInChildren<SpriteRenderer>();
-        inputHandler = PlayerInputHandler.Instance;
+        var input = PlayerInputHandler.Instance;
+
+        input.OnMove += val => moveInput = val;
+        input.OnDuckChanged += OnDuckChanged;
+        input.OnJump += TryJump;
+        input.OnHit += () => TryAttack(isDucking ? duckHitSprites : hitSprites);
+        input.OnKick += () => TryAttack(isDucking ? duckKickSprites : kickSprites);
+        input.OnShoot += () => TryAttack(shootSprites);
+        input.OnTaunt += () => TryAttack(tauntSprites);
+        input.OnSignature1 += () => TryAttack(characterTraitSprites);
+        input.OnSignature2 += () => TryAttack(specialSprites);
     }
 
     private void Update()
     {
-        horizontalInput = inputHandler.MoveInput.x;
-        shouldJump = inputHandler.JumpInput && isGrounded;
-
-
-        // Handle hitting
-        if (inputHandler.HitInput && !isHitting)
-        {
-            ApplyHit();
-            inputHandler.HitInput = false;
-        }
-        // Handle kicking
-        if (inputHandler.KickInput && !isHitting)
-        {
-            ApplyKick();
-            inputHandler.KickInput = false;
-        }
-
-        // Handle ducking
-        bool shouldDuck = inputHandler.DuckInput && !isHitting && isGrounded;
-        if (shouldDuck != isDucking)
-        {
-            isDucking = shouldDuck;
-            if (isDucking)
-            {
-                sr.sprite = duckSprites[0];
-                moveSpeed = duckSpeed;
-            }
-            else
-            {
-                sr.sprite = walkSprites[0];
-                moveSpeed = 5f;
-            }
-        }
+        ApplyMovement();
     }
-
 
     private void FixedUpdate()
     {
-        ApplyMovement();
-        // Jumping
-        if (shouldJump)
-        {
-            ApplyJump();
-        }
+        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
     }
 
-    void ApplyMovement()
+    private void ApplyMovement()
     {
-        
-        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
-        if (isGrounded && !isDucking && !isHitting)
-        {
-            animateMovement();
-        }
-
-    }
-
-    private float animationTimer;
-    private bool usingFrame1 = true;
-    void animateMovement()
-    {
-        if(isDucking || isHitting)
-        {
-            return;
-        }
-        if (Mathf.Abs(horizontalInput) > 0.01f)
+        if (isGrounded && !isDucking && !isHitting && Mathf.Abs(moveInput.x) > 0.01f)
         {
             animationTimer += Time.deltaTime;
             if (animationTimer >= animationSpeed)
@@ -131,55 +85,37 @@ public class AnimatedController : MonoBehaviour
         }
     }
 
-    void ApplyJump()
+    private void TryJump()
     {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        isGrounded = false;
-        shouldJump = false;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (isGrounded && !isHitting)
         {
-            isGrounded = true;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
         }
     }
 
-    private void ApplyHit()
+    private void TryAttack(Sprite[] sprites)
     {
+        if (isHitting) return;
+
+        if (sprites == null || sprites.Length == 0)
+        {
+            Debug.LogWarning("TryAttack called with empty or null sprites array!");
+            return;
+        }
+
+        if(lastSprites != sprites)
+        {
+            hitSpriteIndex = 0;
+            lastSprites = sprites;
+        }
         isHitting = true;
-        sr.sprite = hitSprites[hitSpriteIndex];
+        hitSpriteIndex = hitSpriteIndex % sprites.Length; // Just in case
+        sr.sprite = sprites[hitSpriteIndex];
+        hitSpriteIndex = (hitSpriteIndex + 1) % sprites.Length;
 
-        // Cycle to the next hit sprite
-        hitSpriteIndex = ( hitSpriteIndex + 1 ) % hitSprites.Length;
-
-        Debug.Log("HIT! " + hitSpriteIndex);
-
-        // Stop any existing coroutine (To reset timer)
-        if (resetSpriteCoroutine != null)
-        {
-            Debug.Log("Stopping coroutine!");
-            StopCoroutine(resetSpriteCoroutine);
-        }
-
+        if (resetSpriteCoroutine != null) StopCoroutine(resetSpriteCoroutine);
         resetSpriteCoroutine = StartCoroutine(ResetSpriteAfterDelay(0.5f));
-    }
-
-    private void ApplyKick()
-    {
-        isHitting = true;
-        sr.sprite = kickSprites[0];
-        StartCoroutine(ResetSprite(0.5f));
-
-    }
-
-    private IEnumerator ResetSprite(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Debug.Log("What?");
-        sr.sprite = walkSprites[0];
-        isHitting = false;
     }
 
     private IEnumerator ResetSpriteAfterDelay(float delay)
@@ -187,13 +123,20 @@ public class AnimatedController : MonoBehaviour
         yield return new WaitForSeconds(hitCooldown);
         isHitting = false;
         yield return new WaitForSeconds(delay);
-
-        hitSpriteIndex = 0; // Reset index to 0
-        Debug.Log(" Resetiing sprite!");
-        sr.sprite = walkSprites[0];
-        isHitting = false;
-        // Clear reference
+        sr.sprite = isDucking ? duckSprites[0] : walkSprites[0];
+        hitSpriteIndex = 0;
         resetSpriteCoroutine = null;
     }
 
+    private void OnDuckChanged(bool ducking)
+    {
+        isDucking = ducking;
+        sr.sprite = ducking ? duckSprites[0] : walkSprites[0];
+        moveSpeed = ducking ? duckSpeed : 5f;
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground")) isGrounded = true;
+    }
 }
