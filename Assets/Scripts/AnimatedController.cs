@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +39,7 @@ public class AnimatedController : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] private Sprite[] walkSprites;
-    [SerializeField] private Sprite[] hitSprites;
+    //[SerializeField] private Sprite[] hitSprites;
     [SerializeField] private Sprite[] kickSprites;
     [SerializeField] private Sprite[] duckSprites;
     [SerializeField] private Sprite[] duckHitSprites;
@@ -71,7 +70,7 @@ public class AnimatedController : MonoBehaviour
         input.OnDuckChanged += OnDuckChanged;
         input.OnJump += TryJump;
         //input.OnHit += () => TryAttack(isDucking ? duckHitSprites : hitSprites);
-        input.OnKick += () => TryAttack(isDucking ? duckKickSprites : kickSprites);
+        //input.OnKick += () => TryAttack(isDucking ? duckKickSprites : kickSprites);
         input.OnShoot += () => TryAttack(shootSprites);
         input.OnTaunt += () => TryAttack(tauntSprites);
         //input.OnSignature1 += () => TryAttack(characterTraitSprites);
@@ -80,17 +79,79 @@ public class AnimatedController : MonoBehaviour
         input.OnSignature2 += () => PlayAttack(GetAttackByName("Signature2"));
 
         //Combo system
+
+        //input.OnHit += () =>
+        //{
+        //    if (isAttacking)
+        //    {
+        //        if (canQueueNext)
+        //            queuedNextAttack = true;
+        //    }
+        //    else if(isDucking)
+        //    {
+        //        StartComboChain(comboSequenceCrouchHit);
+        //    }
+        //    else
+        //    {
+        //        StartComboChain(comboSequenceHit);
+        //    }
+        //};
+
         input.OnHit += () =>
         {
-            if (isAttacking)
+            var chosenCombo = isDucking ? comboSequenceCrouchHit : comboSequenceHit;
+
+            if (isAttacking && chosenCombo == currentComboSequence)
             {
                 if (canQueueNext)
                     queuedNextAttack = true;
             }
             else
             {
-                StartComboChain();
+                StartComboChain(chosenCombo);
             }
+        };
+
+
+
+        input.OnKick += () =>
+        {
+            var chosenCombo = isDucking ? comboSequenceCrouchKick : comboSequenceKick;
+
+            if (isAttacking && chosenCombo == currentComboSequence)
+            {
+                if (canQueueNext)
+                    queuedNextAttack = true;
+            }
+            else
+            {
+                StartComboChain(chosenCombo);
+            }
+            //else
+            //if (isDucking)
+            //{
+            //    if(isAttacking && comboSequenceCrouchKick == currentComboSequence)
+            //    {
+            //        if (canQueueNext)
+            //            queuedNextAttack = true;
+            //    }
+            //    else
+            //    {
+            //        StartComboChain(comboSequenceCrouchKick);
+            //    }
+            //}
+            //else
+            //{
+            //    if(isAttacking && comboSequenceKick == currentComboSequence)
+            //    {
+            //        if (canQueueNext)
+            //            queuedNextAttack = true;
+            //    }
+            //    else
+            //    {
+            //        StartComboChain(comboSequenceKick);
+            //    }
+            //}
         };
 
 
@@ -144,10 +205,16 @@ public class AnimatedController : MonoBehaviour
     private bool canQueueNext = false;
     private bool queuedNextAttack = false;
 
-    public List<string> comboSequence = new List<string> { "Hit1", "Hit2", "Hit3" };
+    public List<string> comboSequenceHit = new List<string> { "Hit1", "Hit2", "Hit3" };
+    public List<string> comboSequenceKick = new List<string> { "Kick1", "Kick2" };
+    public List<string> comboSequenceCrouchHit = new List<string> { "CrouchHit1", "CrouchHit2" };
+    public List<string> comboSequenceCrouchKick = new List<string> { "CrouchKick1", "CrouchKick2" };
 
-    void StartComboChain()
+    private List<string> currentComboSequence = new List<string>();
+
+    void StartComboChain(List<string> comboSequence)
     {
+        currentComboSequence = comboSequence;
         currentComboIndex = 0;
         PlayAttack(GetAttackByName(comboSequence[currentComboIndex]));
     }
@@ -226,8 +293,8 @@ public class AnimatedController : MonoBehaviour
                 canQueueNext = false;
                 currentComboIndex++;
 
-                if (currentComboIndex < comboSequence.Count){
-                    PlayAttack(GetAttackByName(comboSequence[currentComboIndex]));
+                if (currentComboIndex < currentComboSequence.Count){
+                    PlayAttack(GetAttackByName(currentComboSequence[currentComboIndex]));
                 }
                 else
                 {
