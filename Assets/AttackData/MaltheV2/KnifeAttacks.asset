@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edff4a6356234b14ab89488a5efbf3d8, type: 3}
+  m_Name: KnifeAttacks
+  m_EditorClassIdentifier: 
+  attackName: 
+  frames:
+  - frameSprite: {fileID: 21300000, guid: e1bc0be8ae3dbf84ba5b25e0724ea460, type: 3}
+    hitboxSize: {x: 0, y: 0}
+    hitboxOffset: {x: 0, y: 0}
+    hasHitbox: 0
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 0}
+    frameDuration: 0.4
+  - frameSprite: {fileID: 21300000, guid: 9b66b3e2f86dd4b44a6c0168093f628a, type: 3}
+    hitboxSize: {x: 2, y: 2}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: 2f5686eabf751b2478a3687d6d9f151c, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: ef708f75e60d53640a5a84f36e32721e, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: ef708f75e60d53640a5a84f36e32721e, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: ef708f75e60d53640a5a84f36e32721e, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.2
+  - frameSprite: {fileID: 21300000, guid: 5f6c102d16329224a8b6626c28c4564d, type: 3}
+    hitboxSize: {x: 6.1, y: 0.75}
+    hitboxOffset: {x: -2.6, y: 1.1}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
+    attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
+    frameDuration: 0.8

@@ -22,14 +22,14 @@ MonoBehaviour:
     attackSound: {fileID: 0}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 2f69f70daa15b7841bc393601a2d47b8, type: 3}
-    hitboxSize: {x: 8, y: 4}
-    hitboxOffset: {x: -2, y: 4}
+    hitboxSize: {x: 8, y: 8}
+    hitboxOffset: {x: -4, y: 4}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 871089fdfcebadf4795b6fa3408039e6, type: 3}
-    hitboxSize: {x: 8, y: 4}
+    hitboxSize: {x: 8, y: 8}
     hitboxOffset: {x: -4, y: 4}
     hasHitbox: 0
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}

@@ -9,7 +9,7 @@ public class AnimatedController : MonoBehaviour
 {
 
     [Header("Experimental")]
-    public List<AttackData> attackLibray;
+    public List<AttackData> attackLibrary;
     [SerializeField] private GameObject hitboxObject;
     private BoxCollider2D hitboxCollider;
 
@@ -64,9 +64,10 @@ public class AnimatedController : MonoBehaviour
         input.OnKick += () => TryAttack(isDucking ? duckKickSprites : kickSprites);
         input.OnShoot += () => TryAttack(shootSprites);
         input.OnTaunt += () => TryAttack(tauntSprites);
-        input.OnSignature1 += () => TryAttack(characterTraitSprites);
+        //input.OnSignature1 += () => TryAttack(characterTraitSprites);
         //input.OnSignature2 += () => TryAttack(specialSprites);
-        input.OnSignature2 += () => PlayAttack(attackLibray[0]);
+        input.OnSignature1 += () => PlayAttack(attackLibrary[1]);
+        input.OnSignature2 += () => PlayAttack(attackLibrary[0]);
 
 
         // Experimental
