@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edff4a6356234b14ab89488a5efbf3d8, type: 3}
+  m_Name: CrouchHit1
+  m_EditorClassIdentifier: 
+  attackName: CrouchHit1
+  frames:
+  - frameSprite: {fileID: 21300000, guid: 61501a44c4922a640b69a2f4a31446bf, type: 3}
+    hitboxSize: {x: 2, y: 0.44}
+    hitboxOffset: {x: -2.11, y: -0.98}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.2

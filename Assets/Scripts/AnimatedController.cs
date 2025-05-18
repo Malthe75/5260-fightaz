@@ -5,13 +5,22 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class NamedAttack
+{
+    public string attackName;
+    public AttackData attackData;
+}
+
 public class AnimatedController : MonoBehaviour
 {
 
     [Header("Experimental")]
-    public List<AttackData> attackLibrary;
+    public List<NamedAttack> attackLibrary = new List<NamedAttack>();
     [SerializeField] private GameObject hitboxObject;
     private BoxCollider2D hitboxCollider;
+    [SerializeField] private GameObject uiObject;
+    private UIHandler uiHandler;
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
@@ -51,6 +60,7 @@ public class AnimatedController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        uiHandler = uiObject.GetComponent<UIHandler>();
     }
 
     private void Start()
@@ -60,14 +70,28 @@ public class AnimatedController : MonoBehaviour
         input.OnMove += val => moveInput = val;
         input.OnDuckChanged += OnDuckChanged;
         input.OnJump += TryJump;
-        input.OnHit += () => TryAttack(isDucking ? duckHitSprites : hitSprites);
+        //input.OnHit += () => TryAttack(isDucking ? duckHitSprites : hitSprites);
         input.OnKick += () => TryAttack(isDucking ? duckKickSprites : kickSprites);
         input.OnShoot += () => TryAttack(shootSprites);
         input.OnTaunt += () => TryAttack(tauntSprites);
         //input.OnSignature1 += () => TryAttack(characterTraitSprites);
         //input.OnSignature2 += () => TryAttack(specialSprites);
-        input.OnSignature1 += () => PlayAttack(attackLibrary[1]);
-        input.OnSignature2 += () => PlayAttack(attackLibrary[0]);
+        input.OnSignature1 += () => PlayAttack(GetAttackByName("Signature1"));
+        input.OnSignature2 += () => PlayAttack(GetAttackByName("Signature2"));
+
+        //Combo system
+        input.OnHit += () =>
+        {
+            if (isAttacking)
+            {
+                if (canQueueNext)
+                    queuedNextAttack = true;
+            }
+            else
+            {
+                StartComboChain();
+            }
+        };
 
 
         // Experimental
@@ -109,9 +133,25 @@ public class AnimatedController : MonoBehaviour
     }
 
     [SerializeField] private int attackDamage = 1;
-    
+
     // EXPERIMENTAL SECTION 
+
+    private int currentComboIndex = 0;
+    private float comboTimer = 0f;
+    public float comboResetTime = 1f;
+
     private bool isAttacking = false;
+    private bool canQueueNext = false;
+    private bool queuedNextAttack = false;
+
+    public List<string> comboSequence = new List<string> { "Hit1", "Hit2", "Hit3" };
+
+    void StartComboChain()
+    {
+        currentComboIndex = 0;
+        PlayAttack(GetAttackByName(comboSequence[currentComboIndex]));
+    }
+
     public void PlayAttack(AttackData attack)
     {
         StartCoroutine(PlayAttackCoroutine(attack));
@@ -131,6 +171,7 @@ public class AnimatedController : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
+                uiHandler.TakeDamage(attackDamage);
                 Debug.Log("Hit enemy for " + attackDamage + " damage!");
 
                 var trigger = hitboxObject.GetComponent<HitboxTrigger>();
@@ -139,14 +180,12 @@ public class AnimatedController : MonoBehaviour
                     trigger.damage = attackDamage;
                 }
 
-                // Optional: Deal damage to enemy health script
-                // var health = hit.GetComponent<EnemyHealth>();
-                // if (health != null) health.TakeDamage(attackDamage);
             }
         }
 
         StartCoroutine(DisableHitboxAfter(0.1f));
     }
+
 
     IEnumerator DisableHitboxAfter(float delay)
     {
@@ -157,6 +196,8 @@ public class AnimatedController : MonoBehaviour
     private IEnumerator PlayAttackCoroutine(AttackData attack)
     {
         isAttacking = true;
+        queuedNextAttack = false;
+        canQueueNext = false;
 
         foreach (var frame in attack.frames)
         {
@@ -175,8 +216,34 @@ public class AnimatedController : MonoBehaviour
             yield return new WaitForSeconds(frame.frameDuration);
         }
 
-        sr.sprite = walkSprites[0];
+        // Open combo window
+        canQueueNext = true;
+        float timer = 0f;
+        while(timer < comboResetTime)
+        {
+            if (queuedNextAttack)
+            {
+                canQueueNext = false;
+                currentComboIndex++;
+
+                if (currentComboIndex < comboSequence.Count){
+                    PlayAttack(GetAttackByName(comboSequence[currentComboIndex]));
+                }
+                else
+                {
+                    currentComboIndex = 0;
+                    isAttacking = false;
+                }
+                yield break;
+            }
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // No next hit queued in time
         isAttacking = false;
+        currentComboIndex = 0;
+        sr.sprite = walkSprites[0];
     }
 
     /// //////////////////// EXPERIMENTAL SECTION ENDS HERE
@@ -225,5 +292,42 @@ public class AnimatedController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Ground")) isGrounded = true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // JUST DIctionary stuff
+
+    private Dictionary<string, AttackData> attackDict;
+
+    private void BuildAttackDict()
+    {
+        attackDict = new Dictionary<string, AttackData>();
+        foreach (var entry in attackLibrary)
+        {
+            if (!attackDict.ContainsKey(entry.attackName))
+            {
+                attackDict[entry.attackName] = entry.attackData;
+            }
+        }
+    }
+
+    public AttackData GetAttackByName(string name)
+    {
+        if (attackDict == null)
+            BuildAttackDict();
+
+        attackDict.TryGetValue(name, out var data);
+        return data;
     }
 }

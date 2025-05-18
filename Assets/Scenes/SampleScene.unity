@@ -395,7 +395,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e1bc0be8ae3dbf84ba5b25e0724ea460, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bef56fed7ed14a948b0c77add685d28b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ac06dd2d049b64e99222646cc50a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackToPreview: {fileID: 11400000, guid: 27ac15d0741cba148b6b350f735ee645, type: 2}
+  attackToPreview: {fileID: 11400000, guid: c6566700299f44344879bc7757a0346d, type: 2}
   frameIndex: 0
   spriteRenderer: {fileID: 430247825}
 --- !u!4 &430247827
@@ -429,8 +429,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430247824}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.09, y: -1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -630,8 +630,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 25}
+  m_AnchoredPosition: {x: -46.49878, y: 20.57483}
+  m_SizeDelta: {x: 764.9884, y: 66.1494}
   m_Pivot: {x: -0.1, y: 1.5}
 --- !u!114 &706337596
 MonoBehaviour:
@@ -646,18 +646,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0990566, g: 1, b: 0.22188878, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.037499666, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: f5dadcd08ed677540b8e5379fb04bc87, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1111,7 +1111,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2098669995}
@@ -1157,7 +1157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 77e9c495dec66974582a484821017262, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1571,8 +1571,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.80176353, y: -0.09110832}
-  m_Size: {x: 3.2697296, y: 18.602364}
+  m_Offset: {x: 0.58250976, y: -0.26163816}
+  m_Size: {x: 2.0516562, y: 9.6373415}
   m_Direction: 0
 --- !u!50 &2098669993
 Rigidbody2D:
@@ -1614,9 +1614,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackLibrary:
-  - {fileID: 11400000, guid: e7f07279d75404340a937fde8929daee, type: 2}
-  - {fileID: 11400000, guid: 27ac15d0741cba148b6b350f735ee645, type: 2}
+  - attackName: Hit1
+    attackData: {fileID: 11400000, guid: 25a5b02a2516f8e46ba4e8d45b6bc1fa, type: 2}
+  - attackName: Hit2
+    attackData: {fileID: 11400000, guid: f9e44c7398a03364297f7ee8a2a97313, type: 2}
+  - attackName: Hit3
+    attackData: {fileID: 11400000, guid: 488e673ca3f9bdc4ba1abc393fd43dec, type: 2}
+  - attackName: Signature2
+    attackData: {fileID: 11400000, guid: e7f07279d75404340a937fde8929daee, type: 2}
+  - attackName: Signature1
+    attackData: {fileID: 11400000, guid: 27ac15d0741cba148b6b350f735ee645, type: 2}
+  - attackName: Kick1
+    attackData: {fileID: 11400000, guid: dd0a35f5c2e516b4c92eb34d78428a93, type: 2}
+  - attackName: Kick2
+    attackData: {fileID: 11400000, guid: c6566700299f44344879bc7757a0346d, type: 2}
   hitboxObject: {fileID: 2059239554}
+  uiObject: {fileID: 2142404256}
   moveSpeed: 5
   duckSpeed: 1
   animationSpeed: 0.2
@@ -1659,6 +1672,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 871089fdfcebadf4795b6fa3408039e6, type: 3}
   - {fileID: 21300000, guid: 2bca37601446a454b94bffe7166c56b8, type: 3}
   attackDamage: 1
+  comboResetTime: 1
+  comboSequence:
+  - Hit1
+  - Hit2
+  - Hit3
 --- !u!4 &2098669995
 Transform:
   m_ObjectHideFlags: 0
@@ -1669,7 +1687,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.92, y: -1.03, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1302467679}
@@ -1760,6 +1778,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2142404256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2142404258}
+  - component: {fileID: 2142404257}
+  m_Layer: 0
+  m_Name: UIHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2142404257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142404256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b926f80366ca14e892cb328973e4e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarImage1: {fileID: 706337596}
+--- !u!4 &2142404258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142404256}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9424088, y: -1.6620657, z: 0.019984424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1775,3 +1838,4 @@ SceneRoots:
   - {fileID: 981582049}
   - {fileID: 2098669995}
   - {fileID: 430247827}
+  - {fileID: 2142404258}

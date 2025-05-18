@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edff4a6356234b14ab89488a5efbf3d8, type: 3}
+  m_Name: Hit1
+  m_EditorClassIdentifier: 
+  attackName: Hit1
+  frames:
+  - frameSprite: {fileID: 21300000, guid: 400097c2fc2cf6d4cac499128c2efc3b, type: 3}
+    hitboxSize: {x: 2.3, y: 0.36}
+    hitboxOffset: {x: -2.14, y: 2.98}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.1

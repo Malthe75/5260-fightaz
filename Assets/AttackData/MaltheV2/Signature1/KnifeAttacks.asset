@@ -22,64 +22,64 @@ MonoBehaviour:
     attackSound: {fileID: 0}
     frameDuration: 0.4
   - frameSprite: {fileID: 21300000, guid: 9b66b3e2f86dd4b44a6c0168093f628a, type: 3}
-    hitboxSize: {x: 2, y: 2}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 2.56, y: 0.46}
+    hitboxOffset: {x: -1.51, y: 0.55}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 2f5686eabf751b2478a3687d6d9f151c, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 2.87, y: 0.48}
+    hitboxOffset: {x: -2.13, y: 2.22}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: ef708f75e60d53640a5a84f36e32721e, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 3, y: 0.33}
+    hitboxOffset: {x: -2.32, y: 1.88}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 2.69, y: 0.33}
+    hitboxOffset: {x: -2.1, y: 1.8}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: ef708f75e60d53640a5a84f36e32721e, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 3, y: 0.33}
+    hitboxOffset: {x: -2.32, y: 1.88}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 2.69, y: 0.33}
+    hitboxOffset: {x: -2.1, y: 1.8}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: ef708f75e60d53640a5a84f36e32721e, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 3, y: 0.33}
+    hitboxOffset: {x: -2.32, y: 1.88}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 2.69, y: 0.33}
+    hitboxOffset: {x: -2.1, y: 1.8}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}
     frameDuration: 0.2
   - frameSprite: {fileID: 21300000, guid: 5f6c102d16329224a8b6626c28c4564d, type: 3}
-    hitboxSize: {x: 6.1, y: 0.75}
-    hitboxOffset: {x: -2.6, y: 1.1}
+    hitboxSize: {x: 2.21, y: 1.08}
+    hitboxOffset: {x: -1.92, y: 3.01}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 8300000, guid: 028c6a1f773c6624eac459afe0238fbe, type: 3}

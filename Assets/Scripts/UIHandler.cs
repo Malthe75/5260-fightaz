@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Image healthBarImage1;
+
+    private float currentHealth;
+    private float maxHealth = 100f;
+
+    private void Start()
     {
-        
+        currentHealth = maxHealth;
+        UpdateHealthBar();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(float amount)
     {
-        
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log(amount + " damage taken!");
+        UpdateHealthBar();
     }
+    void UpdateHealthBar()
+    {
+        healthBarImage1.fillAmount = currentHealth / maxHealth;
+    }
+
 }
