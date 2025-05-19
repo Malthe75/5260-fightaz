@@ -11,6 +11,7 @@ public class NamedAttack
     public AttackData attackData;
 }
 
+
 public enum ComboInput
 {
     Hit,
@@ -431,15 +432,6 @@ public class AnimatedController : MonoBehaviour
 
 
 
-
-
-
-
-    // JUST DIctionary stuff
-
-    private Dictionary<string, AttackData> attackDict;
-    private Dictionary<string, ComboData> comboDict;
-
     //private void prepareComboDictionary()
     //{
     //    comboDict = new Dictionary<string, ComboData>();
@@ -448,6 +440,15 @@ public class AnimatedController : MonoBehaviour
     //        comboDict[combo.comboName] = combo;
     //    }
     //}
+
+
+
+    // JUST DIctionary stuff
+
+    private Dictionary<string, AttackData> attackDict;
+    private Dictionary<string, ComboData> comboDict;
+
+    
 
     private void BuildAttackDict()
     {
