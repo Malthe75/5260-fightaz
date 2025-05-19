@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40969a193a8a45248a254e4b7c5c3ecb, type: 3}
+  m_Name: MaltheV2ComboLibrary
+  m_EditorClassIdentifier: 
+  combos:
+  - {fileID: 11400000, guid: 071df60a20fa8864cb6df8337a0438a0, type: 2}
+  - {fileID: 11400000, guid: 8ddd8bb81f3de91498b2c711a24f762b, type: 2}

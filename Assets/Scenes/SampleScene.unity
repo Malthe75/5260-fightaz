@@ -275,7 +275,7 @@ Transform:
   m_GameObject: {fileID: 100088170}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.12, y: -1.45, z: 0}
+  m_LocalPosition: {x: -18.44, y: -1.45, z: 0}
   m_LocalScale: {x: 3.8369296, y: 12.260437, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -430,7 +430,7 @@ Transform:
   m_GameObject: {fileID: 430247824}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.09, y: -1, z: 0}
+  m_LocalPosition: {x: -28.57, y: -1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,7 +565,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.8689995
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -590,7 +590,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.51, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -845,8 +845,8 @@ Transform:
   m_GameObject: {fileID: 919079804}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.87, z: 10}
-  m_LocalScale: {x: 1.15, y: 1.1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1.5, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1003,7 +1003,7 @@ Transform:
   m_GameObject: {fileID: 981582045}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.1, y: -1.45, z: 0}
+  m_LocalPosition: {x: 18.42, y: -1.45, z: 0}
   m_LocalScale: {x: 3.8369296, y: 12.260437, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1275,8 +1275,8 @@ Transform:
   m_GameObject: {fileID: 1315370517}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2915, y: -7.21, z: 0}
-  m_LocalScale: {x: 25.914082, y: 0.7407, z: 1}
+  m_LocalPosition: {x: 0.128, y: -7.21, z: 0}
+  m_LocalScale: {x: 34.23382, y: 0.7407, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1638,6 +1638,7 @@ MonoBehaviour:
     attackData: {fileID: 11400000, guid: 4292bd5501008cc42bb8553a941163ad, type: 2}
   hitboxObject: {fileID: 2059239554}
   uiObject: {fileID: 2142404256}
+  comboLibrary: {fileID: 11400000, guid: f9a98344b86996440bc02413121cc2f3, type: 2}
   moveSpeed: 5
   duckSpeed: 1
   animationSpeed: 0.2
