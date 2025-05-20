@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private List<ComboData> currentCombos;
     private bool isAttacking = false;
     private bool queuedNextAttack = false;
+    private ComboInput currentComboInput = ComboInput.Hit;
 
 
     // ALL OTHER PRIVATE VARIABLES
@@ -74,9 +75,10 @@ public class PlayerController : MonoBehaviour
     // ATTACK SECTION //
     private void Attack(ComboInput input)
     {
-        // Maybe delete this?
+        // Check if the player is already attacking, if so, put the next attack in queue.
         if (isAttacking)
         {
+            currentComboInput = input;
             queuedNextAttack = true;
             return;
         }
@@ -108,11 +110,12 @@ public class PlayerController : MonoBehaviour
 
         while(timer < comboBufferTime)
         {
-            // another attack was queued, bail out and let it play immediately
+            // another attack was queued, during the buffer time, so go to that.
             if (queuedNextAttack)
             {
                 queuedNextAttack = false;
                 isAttacking = false;
+                Attack(currentComboInput);
                 yield break;
             }
             timer += Time.deltaTime;
