@@ -5,7 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum ComboInputs
+public enum AttackInput
 {
     Hit,
     Kick,
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     private List<ComboData> currentCombos;
     private bool isAttacking = false;
     private bool queuedNextAttack = false;
-    private ComboInput currentComboInput = ComboInput.Hit;
+    private AttackInput currentComboInput = AttackInput.Hit;
 
 
     // ALL OTHER PRIVATE VARIABLES
@@ -85,8 +85,8 @@ public class PlayerController : MonoBehaviour
 
 
         // Attack inputs
-        input.OnHit += () => Attack(ComboInput.Hit);
-        input.OnKick += () => Attack(ComboInput.Kick);
+        input.OnHit += () => Attack(isCrouching ? AttackInput.CrouchHit : AttackInput.Hit);
+        input.OnKick += () => Attack(isCrouching ? AttackInput.CrouchKick : AttackInput.Kick);
 
         // Combo setup
         currentCombos = comboLibrary.combos.ToList();
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
     // ################################################################################################################//
     // ################################################################################################################//
     // ATTACK SECTION //
-    private void Attack(ComboInput input)
+    private void Attack(AttackInput input)
     {
         // Check if the player is already attacking, if so, put the next attack in queue.
         if (isAttacking)
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
     // ################################################################################################################//
     // ################################################################################################################//
     // COMBO SECTION //
-    private void CheckForCombos(ComboInput input)
+    private void CheckForCombos(AttackInput input)
     {
        
 
