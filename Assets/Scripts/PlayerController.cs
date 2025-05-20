@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public List<NamedAttack> attackLibrary = new List<NamedAttack>();
     public ComboLibrary comboLibrary;
     [SerializeField] private GameObject hitboxObject;
+    //Private attack related
     private BoxCollider2D hitboxCollider;
 
 
@@ -27,9 +28,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float crouchSpeed = 2.5f;
     [SerializeField] private float jumpForce = 5f;
+    // Private movement related
+    private Rigidbody2D rb;
+    private Vector2 moveInput;
+    private bool isGrounded = true;
 
     [Header("Animation Settings")]
     [SerializeField] private float animationSpeed = 0.2f;
+    // Private animation related
+    private float animationTimer;
+    private bool usingFrame1 = true;
 
     [Header("Non attack sprites")]
     [SerializeField] private Sprite[] walkSprites;
@@ -47,8 +55,16 @@ public class PlayerController : MonoBehaviour
     // ALL OTHER PRIVATE VARIABLES
     SpriteRenderer sr;
 
+
+
+    // ################################################################################################################//
+    // ################################################################################################################//
+    // ################################################################################################################//
+    // AWAKE, START, UPDATE, FIXEDUPDATE SECTION //
+
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
@@ -58,6 +74,12 @@ public class PlayerController : MonoBehaviour
         comboCounter = 0;
         var input = PlayerInputHandler.Instance;
 
+        //Move inputs
+        input.OnMove += val => moveInput = val;
+        input.OnJump += TryJump;
+
+
+        // Attack inputs
         input.OnHit += () => Attack(ComboInput.Hit);
         input.OnKick += () => Attack(ComboInput.Kick);
 
@@ -67,6 +89,55 @@ public class PlayerController : MonoBehaviour
         // Set up hitbox collider
         hitboxCollider = hitboxObject.GetComponent<BoxCollider2D>();
     }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+    }
+
+    private void Update()
+    {
+        walkAnimation();
+    }
+
+    // ################################################################################################################//
+    // ################################################################################################################//
+    // ################################################################################################################//
+    // MOVEMENT SECTION //
+    // ########## MIGHT NEED REDOING?
+    private void walkAnimation()
+    {
+        // Only walk animation when moving and being grounded
+        if (Mathf.Abs(moveInput.x) > 0.01f && isGrounded)
+        {
+            animationTimer += Time.deltaTime;
+            if (animationTimer >= animationSpeed)
+            {
+                usingFrame1 = !usingFrame1;
+                sr.sprite = usingFrame1 ? walkSprites[0] : walkSprites[1];
+                animationTimer = 0f;
+            }
+        }
+    }
+
+    private void TryJump()
+    {
+        if (isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
+        }
+    }
+
+    // Might be moved to some sort of collision title. This is just for making isGrounded true when touching the ground.
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground")) isGrounded = true;
+    }
+
+
+
+
 
 
     // ################################################################################################################//
