@@ -12,6 +12,8 @@ public enum AttackInput
     CrouchHit,
     CrouchKick,
     Shoot,
+    Signature1,
+    Signature2,
 
 }
 public class PlayerController : MonoBehaviour
@@ -45,6 +47,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private Sprite[] crouchSprites;
 
+    [Header("UI Settings")]
+    [SerializeField] private GameObject uiObject;
+    private UIHandler uiHandler;
+
 
     // COMBO SETTINGS
     private int comboCounter = 0;
@@ -68,6 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        uiHandler = uiObject.GetComponent<UIHandler>();
     }
 
 
@@ -83,10 +90,18 @@ public class PlayerController : MonoBehaviour
         input.OnJump += TryJump;
         input.OnCrouchChanged += OnCrouchChanged;
 
+        // Not sure how to handle taunt yet, with this setup
+        
 
-        // Attack inputs
+
+        // ----- Attack inputs ----- //
+        // Combos
         input.OnHit += () => Attack(isCrouching ? AttackInput.CrouchHit : AttackInput.Hit);
         input.OnKick += () => Attack(isCrouching ? AttackInput.CrouchKick : AttackInput.Kick);
+        // Singular combos
+        input.OnSignature1 += () => Attack(AttackInput.Signature1);
+        input.OnSignature2 += () => Attack(AttackInput.Signature2);
+
 
         // Combo setup
         currentCombos = comboLibrary.combos.ToList();
@@ -204,7 +219,8 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        sr.sprite = walkSprites[0];
+        // Reset to "idle" sprite:
+        sr.sprite = isCrouching ? crouchSprites[0] : walkSprites[0];
         isAttacking = false;
     }
 
@@ -282,7 +298,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
-                //uiHandler.TakeDamage(attackDamage);
+                uiHandler.TakeDamage(attackDamage);
 
                 var trigger = hitboxObject.GetComponent<HitboxTrigger>();
                 if (trigger != null)
