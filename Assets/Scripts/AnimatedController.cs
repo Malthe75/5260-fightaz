@@ -84,7 +84,7 @@ public class AnimatedController : MonoBehaviour
         var input = PlayerInputHandler.Instance;
 
         input.OnMove += val => moveInput = val;
-        input.OnDuckChanged += OnDuckChanged;
+        input.OnCrouchChanged += OnDuckChanged;
         input.OnJump += TryJump;
         //input.OnHit += () => TryAttack(isDucking ? duckHitSprites : hitSprites);
         //input.OnKick += () => TryAttack(isDucking ? duckKickSprites : kickSprites);

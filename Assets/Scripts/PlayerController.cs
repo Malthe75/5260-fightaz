@@ -25,13 +25,15 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float crouchSpeed = 2.5f;
     [SerializeField] private float jumpForce = 5f;
     // Private movement related
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private bool isGrounded = true;
+    private bool isCrouching = false;
+    private float moveSpeed;
 
     [Header("Animation Settings")]
     [SerializeField] private float animationSpeed = 0.2f;
@@ -71,12 +73,15 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        moveSpeed = walkSpeed;
+
         comboCounter = 0;
         var input = PlayerInputHandler.Instance;
 
         //Move inputs
         input.OnMove += val => moveInput = val;
         input.OnJump += TryJump;
+        input.OnCrouchChanged += OnCrouchChanged;
 
 
         // Attack inputs
@@ -108,7 +113,7 @@ public class PlayerController : MonoBehaviour
     private void walkAnimation()
     {
         // Only walk animation when moving and being grounded
-        if (Mathf.Abs(moveInput.x) > 0.01f && isGrounded)
+        if (Mathf.Abs(moveInput.x) > 0.01f && isGrounded && !isCrouching)
         {
             animationTimer += Time.deltaTime;
             if (animationTimer >= animationSpeed)
@@ -135,7 +140,13 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.CompareTag("Ground")) isGrounded = true;
     }
 
-
+    // Either changes isCrouching to true/false and the sprite/speed
+    private void OnCrouchChanged(bool crouching)
+    {
+        isCrouching = crouching;
+        sr.sprite = crouching ? crouchSprites[0] : walkSprites[0];
+        moveSpeed = crouching ? crouchSpeed : walkSpeed;
+    }
 
 
 

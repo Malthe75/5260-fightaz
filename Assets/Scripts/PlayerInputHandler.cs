@@ -15,7 +15,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string hit = "Hit";
     [SerializeField] private string kick = "Kick";
-    [SerializeField] private string duck = "Duck";
+    [SerializeField] private string crouch = "Crouch";
     [SerializeField] private string shoot = "Shoot";
     [SerializeField] private string taunt = "Taunt";
     [SerializeField] private string signature = "Signature1";
@@ -30,10 +30,10 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action OnTaunt;
     public event Action OnSignature1;
     public event Action OnSignature2;
-    public event Action<bool> OnDuckChanged;
+    public event Action<bool> OnCrouchChanged;
     public event Action<Vector2> OnMove;
 
-    private InputAction moveAction, jumpAction, hitAction, kickAction, duckAction, shootAction, tauntAction, signature1Action, signature2Action;
+    private InputAction moveAction, jumpAction, hitAction, kickAction, crouchAction, shootAction, tauntAction, signature1Action, signature2Action;
 
     private void Awake()
     {
@@ -46,7 +46,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = map.FindAction(jump);
         hitAction = map.FindAction(hit);
         kickAction = map.FindAction(kick);
-        duckAction = map.FindAction(duck);
+        crouchAction = map.FindAction(crouch);
         shootAction = map.FindAction(shoot);
         tauntAction = map.FindAction(taunt);
         signature1Action = map.FindAction(signature);
@@ -60,8 +60,8 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.performed += ctx => OnMove?.Invoke(ctx.ReadValue<Vector2>());
         moveAction.canceled += ctx => OnMove?.Invoke(Vector2.zero);
 
-        duckAction.performed += ctx => OnDuckChanged?.Invoke(true);
-        duckAction.canceled += ctx => OnDuckChanged?.Invoke(false);
+        crouchAction.performed += ctx => OnCrouchChanged?.Invoke(true);
+        crouchAction.canceled += ctx => OnCrouchChanged?.Invoke(false);
 
         jumpAction.performed += ctx => OnJump?.Invoke();
         hitAction.performed += ctx => OnHit?.Invoke();
@@ -78,7 +78,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Enable();
         hitAction.Enable();
         kickAction.Enable();
-        duckAction.Enable();
+        crouchAction.Enable();
         shootAction.Enable();
         tauntAction.Enable();
         signature1Action.Enable();
@@ -91,7 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Disable();
         hitAction.Disable();
         kickAction.Disable();
-        duckAction.Disable();
+        crouchAction.Disable();
         shootAction.Disable();
         tauntAction.Disable();
         signature1Action.Disable();
