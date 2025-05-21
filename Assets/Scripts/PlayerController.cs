@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     private bool isCrouching = false;
     private float moveSpeed;
+    private bool overrideMovement = false;
+
 
     [Header("Animation Settings")]
     [SerializeField] private float animationSpeed = 0.2f;
@@ -112,7 +114,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+        if (!overrideMovement)
+        {
+            rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+        }
     }
 
     private void Update()
@@ -185,6 +190,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PlayAttackCoroutine(AttackData attack)
     {
         isAttacking = true;
+        overrideMovement = true;
+
         foreach (var frame in attack.frames)
         {
             sr.sprite = frame.frameSprite;
@@ -199,6 +206,11 @@ public class PlayerController : MonoBehaviour
                 AudioSource.PlayClipAtPoint(frame.attackSound, transform.position);
             }
 
+            // Simple test — feel free to make frame-specific movement later
+            rb.MovePosition(rb.position + new Vector2(-0.3f, 0));
+            Debug.Log("Attack force applied");
+
+
 
             yield return new WaitForSeconds(frame.frameDuration);
         }
@@ -212,6 +224,7 @@ public class PlayerController : MonoBehaviour
             {
                 queuedNextAttack = false;
                 isAttacking = false;
+                overrideMovement = false;
                 Attack(currentComboInput);
                 yield break;
             }
@@ -222,6 +235,7 @@ public class PlayerController : MonoBehaviour
         // Reset to "idle" sprite:
         sr.sprite = isCrouching ? crouchSprites[0] : walkSprites[0];
         isAttacking = false;
+        overrideMovement = false;
     }
 
 
