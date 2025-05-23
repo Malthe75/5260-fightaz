@@ -356,7 +356,7 @@
                 },
                 {
                     "name": "2D Vector",
-                    "id": "b7e0402d-c1fa-4192-b9c0-2c59a480b7d4",
+                    "id": "8b246c5d-21da-4ec2-99e3-e1f1e5e21214",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -367,7 +367,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "1f6f3d9f-3caf-438a-91dd-80825991c2b0",
+                    "id": "8239cce2-b464-45e6-85e7-9d522f45982c",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -378,7 +378,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "112d8345-5487-4f0b-9428-39ff63dc6dc3",
+                    "id": "c700ad0d-efbe-4498-9936-2e3b683f64b4",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -389,7 +389,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "8d0de091-6f3d-49fd-a384-0a1cacae5a94",
+                    "id": "6d05d104-2e8a-4bb0-a4cc-a6ece3f168c3",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -400,8 +400,63 @@
                 },
                 {
                     "name": "right",
-                    "id": "17eebf19-28f3-4e38-9e09-63142ed7f696",
+                    "id": "58bae413-acb2-428b-b820-616c887e12b7",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "42960417-a075-479b-a950-30e1e833cc8c",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "34c3814d-782a-42b6-9e79-b766cdebb135",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "6c2f402e-a60a-49c4-95a0-d80a8430fd5f",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "f744e82f-f641-48b8-926d-9675fb7cec34",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "206a8d68-86e0-43fc-9fff-dd33675086dc",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -422,7 +477,7 @@
                 },
                 {
                     "name": "",
-                    "id": "6d3284bf-db67-4128-9358-a2b4e8e6aba9",
+                    "id": "bc78b5e0-263c-40c0-af34-1d86518ac9a4",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
