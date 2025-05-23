@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic; // Required for List<>
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class CharacterSelectManager : MonoBehaviour
     public List<Transform> characterIcons;
     public RectTransform p1Selector;
     public RectTransform p2Selector;
+
+    [Header("Top fighter image")]
+    public Image p1Image;
+    public Image p2Image;
+    public Sprite[] images;
 
     private int p1Index = 0, p2Index = 0;
     private bool p1Locked = false, p2Locked = false;
@@ -29,7 +35,12 @@ public class CharacterSelectManager : MonoBehaviour
     private void HandleP1Move(Vector2 input)
     {
         if (!p1Locked && Mathf.Abs(input.x) > 0.5f)
+        {
+
             ChangeIndex(ref p1Index, input.x > 0 ? 1 : -1);
+            p1Image.sprite = images[p1Index];
+        }
+        
     }
 
     private void HandleP1Confirm()
@@ -38,13 +49,17 @@ public class CharacterSelectManager : MonoBehaviour
         {
             p1Locked = true;
             Debug.Log("P1 locked in: " + characterIcons[p1Index].name);
+                    
         }
     }
 
     private void HandleP2Move(Vector2 input)
     {
         if (!p2Locked && Mathf.Abs(input.x) > 0.5f)
+        {
             ChangeIndex(ref p2Index, input.x > 0 ? 1 : -1);
+            p2Image.sprite = images[p2Index];
+        }
     }
 
     private void HandleP2Confirm()
