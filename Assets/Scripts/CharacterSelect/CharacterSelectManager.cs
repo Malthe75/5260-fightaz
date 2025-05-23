@@ -69,6 +69,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (!p1Locked)
         {
+            CharacterData.p1CharacterIndex = p1Index;
             p1Locked = true;
             Debug.Log("P1 locked in: " + characterIcons[p1Index].name);
         }
@@ -98,6 +99,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (!p2Locked)
         {
+            CharacterData.p2CharacterIndex = p2Index;
             p2Locked = true;
             Debug.Log("P2 locked in: " + characterIcons[p2Index].name);
         }

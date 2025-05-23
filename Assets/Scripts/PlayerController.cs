@@ -5,6 +5,12 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public class NamedAttack
+{
+    public string attackName;
+    public AttackData attackData;
+}
+
 public enum AttackInput
 {
     Hit,

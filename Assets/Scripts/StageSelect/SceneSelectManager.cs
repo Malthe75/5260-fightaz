@@ -96,8 +96,8 @@ public class SceneSelectManager : MonoBehaviour
 
         if (p1Locked && p2Locked)
         {
-            // Save selected stage index
-            //StageData.selectedStageIndex = p1Index; // or a shared decision rule
+            // TODO: RANDOM 50/50 between p1 and p2.
+            StageData.selectedStageIndex = p1Index;
             //SceneManager.LoadScene("FightScene");
             Debug.Log("Next Scene");
         }
