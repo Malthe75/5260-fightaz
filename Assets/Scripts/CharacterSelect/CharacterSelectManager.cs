@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class CharacterSelectManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput input)
     {
+        DontDestroyOnLoad(input.gameObject);
+
         var handler = input.GetComponent<CharacterSelectInputHandler>();
         Debug.Log("Player joined!");
 
@@ -107,8 +110,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (p1Locked && p2Locked)
         {
-            Debug.Log("Both players locked. Load next scene here.");
-            // SceneManager.LoadScene("FightScene");
+            SceneManager.LoadScene("StageSelectScene");
         }
     }
 

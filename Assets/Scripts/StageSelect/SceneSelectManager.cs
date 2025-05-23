@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SceneSelectManager : MonoBehaviour
 {
-    [Header("Input Handlers")]
-    public CharacterSelectInputHandler p1Input;
-    public CharacterSelectInputHandler p2Input;
-
     [Header("Selection UI")]
     public List<Transform> stageIcons;
     public RectTransform p1Selector;
@@ -16,23 +14,46 @@ public class SceneSelectManager : MonoBehaviour
     private int p1Index = 0, p2Index = 0;
     private bool p1Locked = false, p2Locked = false;
 
-    private void Start()
+    private bool p1MoveReleased = true;
+    private bool p2MoveReleased = true;
+
+    private CharacterSelectInputHandler p1Input;
+    private CharacterSelectInputHandler p2Input;
+
+
+    void Start()
     {
-        p1Input.OnMove += HandleP1Move;
-        p1Input.OnConfirm += HandleP1Confirm;
-
-        p2Input.OnMove += HandleP2Move;
-        p2Input.OnConfirm += HandleP2Confirm;
+        // Find player input handlers from PlayerInput.all
+        foreach (var player in PlayerInput.all)
+        {
+            var inputHandler = player.GetComponent<CharacterSelectInputHandler>();
+            if (player.playerIndex == 0)
+            {
+                p1Input = inputHandler;
+                p1Input.OnMove += HandleP1Move;
+                p1Input.OnConfirm += HandleP1Confirm;
+            }
+            else if (player.playerIndex == 1)
+            {
+                p2Input = inputHandler;
+                p2Input.OnMove += HandleP2Move;
+                p2Input.OnConfirm += HandleP2Confirm;
+            }
+        }
     }
-
     private void HandleP1Move(Vector2 input)
     {
-        if (!p1Locked && Mathf.Abs(input.x) > 0.5f)
+        if (!p1Locked)
         {
+            if (Mathf.Abs(input.x) < 0.2f)
+                p1MoveReleased = true;
 
-            ChangeIndex(ref p1Index, input.x > 0 ? 1 : -1);
+            if (Mathf.Abs(input.x) > 0.5f && p1MoveReleased)
+            {
+                ChangeIndex(ref p1Index, input.x > 0 ? 1 : -1);
+                p1MoveReleased = false;
+            }
         }
-
     }
 
     private void HandleP1Confirm()
@@ -41,15 +62,21 @@ public class SceneSelectManager : MonoBehaviour
         {
             p1Locked = true;
             Debug.Log("P1 locked in: " + stageIcons[p1Index].name);
-
         }
     }
 
     private void HandleP2Move(Vector2 input)
     {
-        if (!p2Locked && Mathf.Abs(input.x) > 0.5f)
+        if (!p2Locked)
         {
-            ChangeIndex(ref p2Index, input.x > 0 ? 1 : -1);
+            if (Mathf.Abs(input.x) < 0.2f)
+                p2MoveReleased = true;
+
+            if (Mathf.Abs(input.x) > 0.5f && p2MoveReleased)
+            {
+                ChangeIndex(ref p2Index, input.x > 0 ? 1 : -1);
+                p2MoveReleased = false;
+            }
         }
     }
 
@@ -69,9 +96,10 @@ public class SceneSelectManager : MonoBehaviour
 
         if (p1Locked && p2Locked)
         {
-            Debug.Log("Both players locked. Load next scene here.");
-            // SceneManager.LoadScene("FightScene");
-            // 50 percent chance for one of the maps picked.
+            // Save selected stage index
+            //StageData.selectedStageIndex = p1Index; // or a shared decision rule
+            //SceneManager.LoadScene("FightScene");
+            Debug.Log("Next Scene");
         }
     }
 

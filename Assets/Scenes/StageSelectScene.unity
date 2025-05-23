@@ -1279,54 +1279,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161999933}
   m_CullTransparentMesh: 1
---- !u!1 &1243273408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1243273410}
-  - component: {fileID: 1243273409}
-  m_Layer: 0
-  m_Name: P1Input
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1243273409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243273408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbb93f2e8fd84f247b643ed06fb9f742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControls: {fileID: -944628639613478452, guid: 185f0dc1ea063a243b271e1edb4ba3cd, type: 3}
-  actionMapName: CharacterSelection
-  move: Move
-  confirm: Confirm
---- !u!4 &1243273410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243273408}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1066.4265, y: 329.63086, z: -11.645858}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1294684682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,8 +1773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4437f251ee086884ca1cf3edf08a99d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1Input: {fileID: 1243273409}
-  p2Input: {fileID: 1869991790}
   stageIcons:
   - {fileID: 971161157}
   - {fileID: 1161999934}
@@ -1842,54 +1792,6 @@ MonoBehaviour:
   - {fileID: 1813130963}
   p1Selector: {fileID: 992733090}
   p2Selector: {fileID: 1971059243}
---- !u!1 &1869991789
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1869991791}
-  - component: {fileID: 1869991790}
-  m_Layer: 0
-  m_Name: P2Input
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1869991790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869991789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbb93f2e8fd84f247b643ed06fb9f742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControls: {fileID: -944628639613478452, guid: 185f0dc1ea063a243b271e1edb4ba3cd, type: 3}
-  actionMapName: CharacterSelection
-  move: Move
-  confirm: Confirm
---- !u!4 &1869991791
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869991789}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1066.4265, y: 329.63086, z: -11.645858}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1971059242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,6 +1874,4 @@ SceneRoots:
   - {fileID: 1015812314}
   - {fileID: 914747759}
   - {fileID: 448359649}
-  - {fileID: 1243273410}
-  - {fileID: 1869991791}
   - {fileID: 1858514297}
