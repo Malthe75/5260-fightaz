@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NamedAttack
 {
@@ -72,7 +71,6 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer sr;
 
 
-
     // ################################################################################################################//
     // ################################################################################################################//
     // ################################################################################################################//
@@ -85,30 +83,11 @@ public class PlayerController : MonoBehaviour
         uiHandler = uiObject.GetComponent<UIHandler>();
     }
 
-
     private void Start()
     {
         moveSpeed = walkSpeed;
 
         comboCounter = 0;
-        var input = PlayerInputHandler.Instance;
-
-        //Move inputs
-        input.OnMove += val => moveInput = val;
-        input.OnJump += TryJump;
-        input.OnCrouchChanged += OnCrouchChanged;
-
-        // Not sure how to handle taunt yet, with this setup
-        
-
-
-        // ----- Attack inputs ----- //
-        // Combos
-        input.OnHit += () => Attack(isCrouching ? AttackInput.CrouchHit : AttackInput.Hit);
-        input.OnKick += () => Attack(isCrouching ? AttackInput.CrouchKick : AttackInput.Kick);
-        // Singular combos
-        input.OnSignature1 += () => Attack(AttackInput.Signature1);
-        input.OnSignature2 += () => Attack(AttackInput.Signature2);
 
 
         // Combo setup
@@ -116,6 +95,11 @@ public class PlayerController : MonoBehaviour
 
         // Set up hitbox collider
         hitboxCollider = hitboxObject.GetComponent<BoxCollider2D>();
+    }
+
+    private void Update()
+    {
+        walkAnimation();
     }
 
     private void FixedUpdate()
@@ -126,10 +110,65 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
+    // ################################################################################################################//
+    // ################################################################################################################//
+    // ################################################################################################################//
+    // INPUT SYSTEM, UNITY EVOKED FUNCTIONS //
+    public void OnMove(InputAction.CallbackContext context)
     {
-        walkAnimation();
+        moveInput = context.ReadValue<Vector2>();
     }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            TryJump();
+        }
+    }
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnCrouchChanged(true);
+        }
+        else if (context.canceled)
+        {
+            OnCrouchChanged(false);
+        }
+    }
+
+    // This might be able to be put in only one function
+    public void onHit(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Attack(isCrouching ? AttackInput.CrouchHit : AttackInput.Hit);
+        }
+    }
+    public void onKick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Attack(isCrouching ? AttackInput.CrouchKick : AttackInput.Kick);
+        }
+    }
+    public void onSignature1(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Attack(AttackInput.Signature1);
+        }
+    }
+    public void onSignature2(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Attack(AttackInput.Signature2);
+        }
+    }
+
+
 
     // ################################################################################################################//
     // ################################################################################################################//

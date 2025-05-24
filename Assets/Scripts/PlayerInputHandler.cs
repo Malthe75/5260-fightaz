@@ -35,12 +35,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     private InputAction moveAction, jumpAction, hitAction, kickAction, crouchAction, shootAction, tauntAction, signature1Action, signature2Action;
 
+    [SerializeField] private PlayerInputHandler inputHandler;
+
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else { Destroy(gameObject); return; }
-
-        var map = playerControls.FindActionMap(actionMapName);
+        var input = GetComponent<PlayerInput>();
+        var map = input.actions.FindActionMap("Player");
 
         moveAction = map.FindAction(move);
         jumpAction = map.FindAction(jump);
