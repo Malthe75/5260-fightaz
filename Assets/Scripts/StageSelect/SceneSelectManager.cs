@@ -98,7 +98,7 @@ public class SceneSelectManager : MonoBehaviour
         {
             // TODO: RANDOM 50/50 between p1 and p2.
             StageData.selectedStageIndex = p1Index;
-            //SceneManager.LoadScene("FightScene");
+            SceneManager.LoadScene("SampleScene");
             Debug.Log("Next Scene");
         }
     }

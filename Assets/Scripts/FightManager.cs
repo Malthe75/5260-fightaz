@@ -18,11 +18,19 @@ public class FightManager : MonoBehaviour
         }
 
         // Spawn both players
-        var p1 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+        //var p1 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+        //p1.transform.position = player1Spawn.position;
+
+        //var p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
+        //p2.transform.position = player2Spawn.position;
+
+        var players = PlayerManager.Instance.players;
+        var p1 = PlayerInput.Instantiate(players[0].characterPrefab, controlScheme: players[0].controlScheme, pairWithDevice: players[0].inputDevice);
         p1.transform.position = player1Spawn.position;
 
-        var p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
+        var p2 = PlayerInput.Instantiate(players[1].characterPrefab, controlScheme: players[1].controlScheme, pairWithDevice: players[1].inputDevice);
         p2.transform.position = player2Spawn.position;
+
 
     }
 }

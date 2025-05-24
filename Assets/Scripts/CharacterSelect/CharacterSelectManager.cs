@@ -16,6 +16,10 @@ public class CharacterSelectManager : MonoBehaviour
     public Image p2Image;
     public Sprite[] images;
 
+    [Header("Character Prefabs")]
+    public List<GameObject> characterPrefabs;
+
+
 
     private int p1Index = 0, p2Index = 0;
     private bool p1Locked = false, p2Locked = false;
@@ -69,7 +73,16 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (!p1Locked)
         {
-            CharacterData.p1CharacterIndex = p1Index;
+            GameObject selectedCharacterPrefab = characterPrefabs[p1Index];
+            //CharacterData.p1CharacterIndex = p1Index;
+            var config = new PlayerConfig
+            {
+                playerName = "Player 1",
+                characterPrefab = selectedCharacterPrefab,
+                inputDevice = Keyboard.current,
+                controlScheme = "Keyboard"
+            };
+            PlayerManager.Instance.AddPlayer(config);
             p1Locked = true;
             Debug.Log("P1 locked in: " + characterIcons[p1Index].name);
         }
@@ -99,7 +112,16 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (!p2Locked)
         {
-            CharacterData.p2CharacterIndex = p2Index;
+            //CharacterData.p2CharacterIndex = p2Index;
+            GameObject selectedCharacterPrefab = characterPrefabs[p2Index];
+            var config = new PlayerConfig
+            {
+                playerName = "Player 2",
+                characterPrefab = selectedCharacterPrefab,
+                inputDevice = Gamepad.current,
+                controlScheme = "Gamepad"
+            };
+            PlayerManager.Instance.AddPlayer(config);
             p2Locked = true;
             Debug.Log("P2 locked in: " + characterIcons[p2Index].name);
         }

@@ -20,6 +20,7 @@ public class CharacterSelectInputHandler : MonoBehaviour
     {
         if (context.performed)
         {
+            Debug.Log("What?");
             OnConfirm?.Invoke();
         }
     }
