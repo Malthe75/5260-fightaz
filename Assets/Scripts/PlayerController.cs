@@ -252,7 +252,8 @@ public class PlayerController : MonoBehaviour
             }
 
             // Simple test — feel free to make frame-specific movement later
-            rb.MovePosition(rb.position + new Vector2(-0.3f, 0));
+            float speed = 10f;
+            rb.MovePosition(rb.position + new Vector2(-speed * transform.localScale.x, 0) * Time.fixedDeltaTime);
             Debug.Log("Attack force applied");
 
 

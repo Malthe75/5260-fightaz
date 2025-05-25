@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 3856578251420467495}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.92, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -236,7 +236,6 @@ MonoBehaviour:
   crouchSprites:
   - {fileID: 21300000, guid: a20cdfd1703eb5f4c8fed4ab333848a5, type: 3}
   uiObject: {fileID: 6638866439741976378, guid: 3a0314da8d6985d438d1abcb9068d951, type: 3}
-  inputHandler: {fileID: 0}
 --- !u!50 &2966674222527440294
 Rigidbody2D:
   serializedVersion: 4
