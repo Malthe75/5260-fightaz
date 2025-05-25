@@ -20,9 +20,15 @@ public class SceneSelectManager : MonoBehaviour
     private CharacterSelectInputHandler p1Input;
     private CharacterSelectInputHandler p2Input;
 
+    [Header("Coin")]
+    public GameObject coin;
+    private Coin coinScript;
+    private bool onlyOnce = true;
+
 
     void Start()
     {
+        coinScript = coin.GetComponent<Coin>();
         // Find player input handlers from PlayerInput.all
         foreach (var player in PlayerInput.all)
         {
@@ -94,12 +100,14 @@ public class SceneSelectManager : MonoBehaviour
         p1Selector.position = stageIcons[p1Index].position;
         p2Selector.position = stageIcons[p2Index].position;
 
-        if (p1Locked && p2Locked)
+        if (p1Locked && p2Locked && onlyOnce)
         {
             // 50/50 chance between each map.
-            StageData.selectedStageIndex = Random.value < 0.5f ? p1Index : p2Index;
-            SceneManager.LoadScene("SampleScene");
-            Debug.Log("Next Scene");
+            onlyOnce = false;
+            coinScript.FlipCoin(p1Index, p2Index);
+
+            //StageData.selectedStageIndex = Random.value < 0.5f ? p1Index : p2Index;
+            //SceneManager.LoadScene("SampleScene");
         }
     }
 
