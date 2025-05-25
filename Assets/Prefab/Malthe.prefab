@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 7336264429164664212}
   m_Layer: 0
   m_Name: Malthe
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +235,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
   crouchSprites:
   - {fileID: 21300000, guid: a20cdfd1703eb5f4c8fed4ab333848a5, type: 3}
-  uiObject: {fileID: 6638866439741976378, guid: 3a0314da8d6985d438d1abcb9068d951, type: 3}
 --- !u!50 &2966674222527440294
 Rigidbody2D:
   serializedVersion: 4
@@ -295,7 +294,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4746753, y: -1.0673627}
+  m_Offset: {x: 1.037745, y: -0.3287778}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -306,7 +305,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9493506, y: 9.843458}
+  m_Size: {x: 2.8359652, y: 9.372298}
   m_EdgeRadius: 0
 --- !u!114 &7336264429164664212
 MonoBehaviour:

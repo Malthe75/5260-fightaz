@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite[] crouchSprites;
 
     [Header("UI Settings")]
-    [SerializeField] private GameObject uiObject;
+    private GameObject uiObject;
     private UIHandler uiHandler;
 
 
@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        uiObject = GameObject.Find("UIHandler");
         uiHandler = uiObject.GetComponent<UIHandler>();
     }
 

@@ -9,6 +9,7 @@ public class FightManager : MonoBehaviour
     public Transform player1Spawn;
     public Transform player2Spawn;
 
+    public List<GameObject> stages;
     private void Start()
     {
         // Clear any previous players that may have been carried from another scene
@@ -37,6 +38,8 @@ public class FightManager : MonoBehaviour
         newScale2.x = -1f;
         p2.transform.localScale = newScale2;
 
+        GameObject stage;
+        stage = Instantiate(stages[StageData.selectedStageIndex]);
 
     }
 }

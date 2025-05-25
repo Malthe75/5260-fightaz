@@ -8,10 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Size.x
+      value: 2.955728
+      objectReference: {fileID: 0}
+    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Size.y
+      value: 9.547962
+      objectReference: {fileID: 0}
+    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.2163055
+      objectReference: {fileID: 0}
+    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.3255825
+      objectReference: {fileID: 0}
     - target: {fileID: 1526576385052128665, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a14074af02bbaa242884699033104fb2, type: 3}
+      objectReference: {fileID: 21300000, guid: df869d66c8d29a946a138bd14f1a14b2, type: 3}
     - target: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Name
       value: Malthe Variant
@@ -24,6 +40,14 @@ PrefabInstance:
       propertyPath: walkSprites.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 12b4fab2af38a1344ae4c76acd9a592a, type: 3}
+    - target: {fileID: 5906971300936467384, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5906971300936467384, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7875189213607683075, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10

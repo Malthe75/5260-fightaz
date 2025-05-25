@@ -96,8 +96,8 @@ public class SceneSelectManager : MonoBehaviour
 
         if (p1Locked && p2Locked)
         {
-            // TODO: RANDOM 50/50 between p1 and p2.
-            StageData.selectedStageIndex = p1Index;
+            // 50/50 chance between each map.
+            StageData.selectedStageIndex = Random.value < 0.5f ? p1Index : p2Index;
             SceneManager.LoadScene("SampleScene");
             Debug.Log("Next Scene");
         }
