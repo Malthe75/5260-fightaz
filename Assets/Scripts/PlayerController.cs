@@ -300,11 +300,25 @@ public class PlayerController : MonoBehaviour
     private void CheckForCombos(AttackInput input)
     {
        
-
-
+        Debug.Log("Checking for combos with input: " + input);
+        Debug.Log("Current combo counter: " + comboCounter);
+        Debug.Log("Current combos count: " + currentCombos.Count);
+        Debug.Log("Current combos: " + string.Join(", ", currentCombos.Select(c => c.name)));
         // Removes all combos that don't match the current input
         currentCombos.RemoveAll(combo =>
         {
+            Debug.Log("Checking combo: " + combo.name);
+            Debug.Log("Combo input sequence: " + string.Join(", ", combo.inputSequence.Select(i => i.ToString())));
+            Debug.Log("Combo counter: " + comboCounter);
+
+            // Return true (i.e., remove) if we've gone past the length of this combo
+            if (combo.inputSequence.Count <= comboCounter)
+            {
+                Debug.Log("Removing combo due to length mismatch");
+                return true;
+            }
+
+            // Return true (i.e., remove) if the current input doesn't match
             return combo.inputSequence[comboCounter] != input;
         });
 

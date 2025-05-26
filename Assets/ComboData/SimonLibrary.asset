@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40969a193a8a45248a254e4b7c5c3ecb, type: 3}
+  m_Name: SimonLibrary
+  m_EditorClassIdentifier: 
+  combos:
+  - {fileID: 11400000, guid: 1465c7ab557fcc940b2e1f1a8ed9cbb1, type: 2}
+  - {fileID: 11400000, guid: 8302883b81017874e827f74999147454, type: 2}
+  - {fileID: 11400000, guid: 7b24aa566e96d3445ba16bc83145be54, type: 2}
+  - {fileID: 11400000, guid: 4c30b044c01383b459c48d67dc9af3cb, type: 2}
+  - {fileID: 11400000, guid: 3a1345c2af7136542b0797818f7b28c0, type: 2}
+  - {fileID: 11400000, guid: 0852a5a42753a3f408a3423ad33723ff, type: 2}
+  - {fileID: 11400000, guid: 3e35c8d770fb5f643929878a85accd7d, type: 2}
+  - {fileID: 11400000, guid: 43006bc28a04a8e40a833c4f2ad5aaa4, type: 2}
+  - {fileID: 11400000, guid: 90e1443c4b23dfa4f83c7ae436297cbc, type: 2}
+  - {fileID: 11400000, guid: 6ad00140e8288a54fa3fc15e8e24f9b6, type: 2}
+  - {fileID: 11400000, guid: a459c0470aee1694ebc8241e6db90306, type: 2}
+  - {fileID: 11400000, guid: 5104e4f3c2bf374429487fd0a00417a9, type: 2}

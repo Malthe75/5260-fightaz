@@ -10,43 +10,59 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Size.x
-      value: 2.955728
+      value: 1.8206806
       objectReference: {fileID: 0}
     - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Size.y
-      value: 9.547962
+      value: 8.526419
       objectReference: {fileID: 0}
     - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Offset.x
-      value: 1.2163055
+      value: 1.3014345
       objectReference: {fileID: 0}
     - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Offset.y
-      value: 0.3255825
+      value: -1.0648527
       objectReference: {fileID: 0}
     - target: {fileID: 1526576385052128665, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: df869d66c8d29a946a138bd14f1a14b2, type: 3}
+      objectReference: {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
     - target: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Name
-      value: Malthe Variant
+      value: Simon Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: comboLibrary
+      value: 
+      objectReference: {fileID: 11400000, guid: 845c67c86e867ea40a324017dc46fd09, type: 2}
+    - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: crouchSprites.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: walkSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: df869d66c8d29a946a138bd14f1a14b2, type: 3}
+      objectReference: {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
     - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: walkSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 12b4fab2af38a1344ae4c76acd9a592a, type: 3}
+      objectReference: {fileID: 21300000, guid: 75c28e4c143eb424cb9ef987eea72b39, type: 3}
+    - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: crouchSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6e6d9de7e7a7c5d4d92741e4be591a81, type: 3}
+    - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: crouchSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 760ab3322b5dcab4391768f85586ffbb, type: 3}
     - target: {fileID: 5906971300936467384, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5906971300936467384, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7875189213607683075, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_LocalPosition.x
