@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class FightManager : MonoBehaviour
 {
-    public GameObject playerPrefab;
     public Transform player1Spawn;
     public Transform player2Spawn;
 
@@ -29,14 +28,18 @@ public class FightManager : MonoBehaviour
         var p1 = PlayerInput.Instantiate(players[0].characterPrefab, controlScheme: players[0].controlScheme, pairWithDevice: players[0].inputDevice);
         p1.transform.position = player1Spawn.position;
         Vector3 newScale = p1.transform.localScale;
-        newScale.x = 1f;
+        newScale.x = -1f;
         p1.transform.localScale = newScale;
+
+        p1.tag = "Player1";
 
         var p2 = PlayerInput.Instantiate(players[1].characterPrefab, controlScheme: players[1].controlScheme, pairWithDevice: players[1].inputDevice);
         p2.transform.position = player2Spawn.position;
         Vector3 newScale2 = p2.transform.localScale;
-        newScale2.x = -1f;
+        newScale2.x = 1f;
         p2.transform.localScale = newScale2;
+
+        p2.tag = "Player2";
 
         GameObject stage;
         stage = Instantiate(stages[StageData.selectedStageIndex]);

@@ -357,9 +357,20 @@ public class PlayerController : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Enemy"))
+            if (hit.CompareTag("Player1"))
             {
-                uiHandler.TakeDamage(attackDamage);
+                uiHandler.TakeDamage1(attackDamage);
+
+                var trigger = hitboxObject.GetComponent<HitboxTrigger>();
+                if (trigger != null)
+                {
+                    trigger.damage = attackDamage;
+                }
+
+            }
+            if (hit.CompareTag("Player2"))
+            {
+                uiHandler.TakeDamage2(attackDamage);
 
                 var trigger = hitboxObject.GetComponent<HitboxTrigger>();
                 if (trigger != null)
