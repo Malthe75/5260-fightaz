@@ -280,6 +280,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Reset to "idle" sprite:
+        FinishCombo();
         sr.sprite = isCrouching ? crouchSprites[0] : walkSprites[0];
         isAttacking = false;
         overrideMovement = false;
@@ -299,22 +300,12 @@ public class PlayerController : MonoBehaviour
     // COMBO SECTION //
     private void CheckForCombos(AttackInput input)
     {
-       
-        Debug.Log("Checking for combos with input: " + input);
-        Debug.Log("Current combo counter: " + comboCounter);
-        Debug.Log("Current combos count: " + currentCombos.Count);
-        Debug.Log("Current combos: " + string.Join(", ", currentCombos.Select(c => c.name)));
         // Removes all combos that don't match the current input
         currentCombos.RemoveAll(combo =>
         {
-            Debug.Log("Checking combo: " + combo.name);
-            Debug.Log("Combo input sequence: " + string.Join(", ", combo.inputSequence.Select(i => i.ToString())));
-            Debug.Log("Combo counter: " + comboCounter);
-
             // Return true (i.e., remove) if we've gone past the length of this combo
             if (combo.inputSequence.Count <= comboCounter)
             {
-                Debug.Log("Removing combo due to length mismatch");
                 return true;
             }
 
@@ -358,46 +349,82 @@ public class PlayerController : MonoBehaviour
     // Hitbox related methods //
     void ActivateHitbox(Vector2 size, Vector2 offset)
     {
-        int attackDamage = 1; // Set your attack damage here
+        int attackDamage = 1; // your damage value
 
         // Set hitbox size and position
         hitboxObject.transform.localPosition = offset;
         hitboxCollider.size = size;
         hitboxObject.SetActive(true);
 
-        // Manual collision detection
+        string attackerTag = hitboxObject.tag; // e.g. "Player1Attack" or "Player2Attack"
+
         Vector2 hitboxWorldPos = hitboxObject.transform.position;
-        Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxWorldPos, size, 0f);
+
+        LayerMask hitboxLayerMask = LayerMask.GetMask("HitboxTarget");
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxWorldPos, size, 0f, hitboxLayerMask);
+
+        Collider2D bestHit = null;
+        float minDistance = float.MaxValue;
 
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Player1"))
+            // Skip own attack hitbox collider
+            if (hit.tag == attackerTag)
+                continue;
+
+            // Calculate distance to find best hitbox to apply damage
+            float distance = Vector2.Distance(hitboxWorldPos, hit.bounds.center);
+            if (distance < minDistance)
             {
-                uiHandler.TakeDamage1(attackDamage);
-
-                var trigger = hitboxObject.GetComponent<HitboxTrigger>();
-                if (trigger != null)
-                {
-                    trigger.damage = attackDamage;
-                }
-
+                minDistance = distance;
+                bestHit = hit;
             }
-            if (hit.CompareTag("Player2"))
+        }
+        Debug.Log("What? is it?");
+        Debug.Log(bestHit.tag);
+        if (bestHit != null)
+        {
+            switch (bestHit.tag)
             {
-                uiHandler.TakeDamage2(attackDamage);
+                case "P1Head":
+                    Debug.Log("Player 1 Head hit");
+                    uiHandler.TakeDamage1(attackDamage);
+                    break;
+                case "P1Torso":
+                    Debug.Log("Player 1 Torso hit");
+                    uiHandler.TakeDamage1(attackDamage);
+                    break;
+                case "P1Legs":
+                    Debug.Log("Player 1 Legs hit");
+                    uiHandler.TakeDamage1(attackDamage);
+                    break;
+                case "P2Head":
+                    Debug.Log("Player 2 Head hit");
+                    uiHandler.TakeDamage2(attackDamage);
+                    break;
+                case "P2Torso":
+                    Debug.Log("Player 2 Torso hit");
+                    uiHandler.TakeDamage2(attackDamage);
+                    break;
+                case "P2Legs":
+                    Debug.Log("Player 2 Legs hit");
+                    uiHandler.TakeDamage2(attackDamage);
+                    break;
+                default:
+                    Debug.Log("Hit something untagged or unexpected");
+                    break;
+            }
 
-                var trigger = hitboxObject.GetComponent<HitboxTrigger>();
-                if (trigger != null)
-                {
-                    trigger.damage = attackDamage;
-                }
-
+            var trigger = hitboxObject.GetComponent<HitboxTrigger>();
+            if (trigger != null)
+            {
+                trigger.damage = attackDamage;
             }
         }
 
         StartCoroutine(DisableHitboxAfter(0.1f));
     }
-
 
     IEnumerator DisableHitboxAfter(float delay)
     {

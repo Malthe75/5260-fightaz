@@ -32,6 +32,8 @@ public class FightManager : MonoBehaviour
         p1.transform.localScale = newScale;
 
         p1.tag = "Player1";
+        SetupPlayerHitboxes(p1, "P1");
+
 
         var p2 = PlayerInput.Instantiate(players[1].characterPrefab, controlScheme: players[1].controlScheme, pairWithDevice: players[1].inputDevice);
         p2.transform.position = player2Spawn.position;
@@ -40,10 +42,35 @@ public class FightManager : MonoBehaviour
         p2.transform.localScale = newScale2;
 
         p2.tag = "Player2";
+        SetupPlayerHitboxes(p2, "P2");
 
         GameObject stage;
         stage = Instantiate(stages[StageData.selectedStageIndex]);
 
+    }
+    void SetupPlayerHitboxes(PlayerInput playerRoot, string playerPrefix)
+    {
+        // Assign attack hitbox tag
+        Transform attackHitbox = playerRoot.transform.Find("Hitbox");
+        if (attackHitbox != null)
+        {
+            attackHitbox.gameObject.tag = playerPrefix;
+        }
+
+        // Assign body hitboxes tags (head, torso, legs)
+        Transform hitboxes = playerRoot.transform.Find("Hitboxes");
+        if (hitboxes != null)
+        {
+            foreach (string part in new[] { "Head", "Torso", "Legs" })
+            {
+                Transform partTransform = hitboxes.Find(part);
+                if (partTransform != null)
+                {
+                    partTransform.gameObject.tag = playerPrefix + part.Substring(0, 1).ToUpper() + part.Substring(1);
+                    // e.g. "Player1Head"
+                }
+            }
+        }
     }
 }
 

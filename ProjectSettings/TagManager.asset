@@ -8,6 +8,14 @@ TagManager:
   - Enemy
   - Player1
   - Player2
+  - P1Head
+  - P1Torso
+  - P1Legs
+  - P2Head
+  - P2Torso
+  - P2Legs
+  - P1
+  - P2
   layers:
   - Default
   - TransparentFX
@@ -21,8 +29,8 @@ TagManager:
   - CoinFlip
   - 
   - 
-  - 
-  - 
+  - PlayerCollision
+  - HitboxTarget
   - 
   - 
   - 
