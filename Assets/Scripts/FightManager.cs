@@ -25,6 +25,14 @@ public class FightManager : MonoBehaviour
         //p2.transform.position = player2Spawn.position;
 
         var players = PlayerManager.Instance.players;
+        Debug.Log("Lets print out the players!");
+        Debug.Log(players[0].characterPrefab.name);
+        Debug.Log(players[0].playerName);
+        Debug.Log(players[0].inputDevice);
+
+        Debug.Log(players[1].characterPrefab.name);
+        Debug.Log(players[1].playerName);
+        Debug.Log(players[0].inputDevice);
         var p1 = PlayerInput.Instantiate(players[0].characterPrefab, controlScheme: players[0].controlScheme, pairWithDevice: players[0].inputDevice);
         p1.transform.position = player1Spawn.position;
         Vector3 newScale = p1.transform.localScale;

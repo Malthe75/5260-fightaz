@@ -381,8 +381,6 @@ public class PlayerController : MonoBehaviour
                 bestHit = hit;
             }
         }
-        Debug.Log("What? is it?");
-        Debug.Log(bestHit.tag);
         if (bestHit != null)
         {
             switch (bestHit.tag)

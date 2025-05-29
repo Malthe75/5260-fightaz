@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -27,5 +29,10 @@ public class PlayerManager : MonoBehaviour
     public void ClearPlayers()
     {
         players.Clear();
+    }
+
+    public bool IsDeviceUsed(InputDevice device)
+    {
+        return players.Any(p => p.inputDevice == device);
     }
 }

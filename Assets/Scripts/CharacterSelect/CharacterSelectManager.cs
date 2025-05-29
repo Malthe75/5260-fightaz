@@ -74,19 +74,48 @@ public class CharacterSelectManager : MonoBehaviour
         if (!p1Locked)
         {
             GameObject selectedCharacterPrefab = characterPrefabs[p1Index];
-            //CharacterData.p1CharacterIndex = p1Index;
+
+            InputDevice inputDevice = null;
+            string controlScheme = "";
+
+            // Prefer unused gamepad if available
+            foreach (var gamepad in Gamepad.all)
+            {
+                if (!PlayerManager.Instance.IsDeviceUsed(gamepad))
+                {
+                    inputDevice = gamepad;
+                    controlScheme = "Gamepad";
+                    break;
+                }
+            }
+
+            // Fallback to keyboard if no unused gamepad
+            if (inputDevice == null && Keyboard.current != null && !PlayerManager.Instance.IsDeviceUsed(Keyboard.current))
+            {
+                inputDevice = Keyboard.current;
+                controlScheme = "Keyboard";
+            }
+
+            if (inputDevice == null)
+            {
+                Debug.LogError("No available input device for Player 1.");
+                return;
+            }
+
             var config = new PlayerConfig
             {
                 playerName = "Player 1",
                 characterPrefab = selectedCharacterPrefab,
-                inputDevice = Keyboard.current,
-                controlScheme = "Keyboard"
+                inputDevice = inputDevice,
+                controlScheme = controlScheme
             };
+
             PlayerManager.Instance.AddPlayer(config);
             p1Locked = true;
-            Debug.Log("P1 locked in: " + characterIcons[p1Index].name);
+            Debug.Log("P1 locked in: " + characterIcons[p1Index].name + " using " + controlScheme);
         }
     }
+
 
     private bool p2MoveReleased = true;
 
@@ -112,20 +141,49 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (!p2Locked)
         {
-            //CharacterData.p2CharacterIndex = p2Index;
             GameObject selectedCharacterPrefab = characterPrefabs[p2Index];
+
+            InputDevice inputDevice = null;
+            string controlScheme = "";
+
+            // Prefer unused gamepad if available
+            foreach (var gamepad in Gamepad.all)
+            {
+                if (!PlayerManager.Instance.IsDeviceUsed(gamepad))
+                {
+                    inputDevice = gamepad;
+                    controlScheme = "Gamepad";
+                    break;
+                }
+            }
+
+            // Fallback to keyboard if no unused gamepad
+            if (inputDevice == null && Keyboard.current != null && !PlayerManager.Instance.IsDeviceUsed(Keyboard.current))
+            {
+                inputDevice = Keyboard.current;
+                controlScheme = "Keyboard";
+            }
+
+            if (inputDevice == null)
+            {
+                Debug.LogError("No available input device for Player 2.");
+                return;
+            }
+
             var config = new PlayerConfig
             {
                 playerName = "Player 2",
                 characterPrefab = selectedCharacterPrefab,
-                inputDevice = Gamepad.current,
-                controlScheme = "Gamepad"
+                inputDevice = inputDevice,
+                controlScheme = controlScheme
             };
+
             PlayerManager.Instance.AddPlayer(config);
             p2Locked = true;
-            Debug.Log("P2 locked in: " + characterIcons[p2Index].name);
+            Debug.Log("P2 locked in: " + characterIcons[p2Index].name + " using " + controlScheme);
         }
     }
+
 
     private void Update()
     {
