@@ -1074,12 +1074,12 @@ MonoBehaviour:
   p1Image: {fileID: 1708889734}
   p2Image: {fileID: 700201161}
   images:
-  - {fileID: 21300000, guid: 2f69f70daa15b7841bc393601a2d47b8, type: 3}
-  - {fileID: 21300000, guid: 871089fdfcebadf4795b6fa3408039e6, type: 3}
-  - {fileID: 21300000, guid: 61501a44c4922a640b69a2f4a31446bf, type: 3}
-  - {fileID: 21300000, guid: 400097c2fc2cf6d4cac499128c2efc3b, type: 3}
-  - {fileID: 21300000, guid: 12b4fab2af38a1344ae4c76acd9a592a, type: 3}
   - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
+  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
+  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
   characterPrefabs:
   - {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
   - {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}

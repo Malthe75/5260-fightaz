@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
     private bool queuedNextAttack = false;
     private AttackInput currentComboInput = AttackInput.Hit;
 
+    private HitFeedback hitFeedback; // Reference to the HitFeedback script for visual effects
+
 
     // ALL OTHER PRIVATE VARIABLES
     SpriteRenderer sr;
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         uiObject = GameObject.Find("UIHandler");
         uiHandler = uiObject.GetComponent<UIHandler>();
+        GameObject fightManagerObject = GameObject.Find("Fightmanager");
+        hitFeedback = fightManagerObject.GetComponent<HitFeedback>();
     }
 
     private void Start()
@@ -388,26 +392,36 @@ public class PlayerController : MonoBehaviour
                 case "P1Head":
                     Debug.Log("Player 1 Head hit");
                     uiHandler.TakeDamage1(attackDamage);
+                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
                     break;
                 case "P1Torso":
                     Debug.Log("Player 1 Torso hit");
                     uiHandler.TakeDamage1(attackDamage);
+                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+
                     break;
                 case "P1Legs":
                     Debug.Log("Player 1 Legs hit");
                     uiHandler.TakeDamage1(attackDamage);
+                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
                     break;
                 case "P2Head":
                     Debug.Log("Player 2 Head hit");
                     uiHandler.TakeDamage2(attackDamage);
+                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+
                     break;
                 case "P2Torso":
                     Debug.Log("Player 2 Torso hit");
                     uiHandler.TakeDamage2(attackDamage);
+                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+
                     break;
                 case "P2Legs":
                     Debug.Log("Player 2 Legs hit");
                     uiHandler.TakeDamage2(attackDamage);
+                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+
                     break;
                 default:
                     Debug.Log("Hit something untagged or unexpected");
@@ -423,6 +437,7 @@ public class PlayerController : MonoBehaviour
 
         StartCoroutine(DisableHitboxAfter(0.1f));
     }
+
 
     IEnumerator DisableHitboxAfter(float delay)
     {
