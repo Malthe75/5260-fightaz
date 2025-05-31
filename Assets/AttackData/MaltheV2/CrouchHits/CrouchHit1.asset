@@ -15,8 +15,8 @@ MonoBehaviour:
   attackName: CrouchHit1
   frames:
   - frameSprite: {fileID: 21300000, guid: 61501a44c4922a640b69a2f4a31446bf, type: 3}
-    hitboxSize: {x: 2, y: 0.44}
-    hitboxOffset: {x: -2.11, y: -0.98}
+    hitboxSize: {x: 2.4, y: 0.44}
+    hitboxOffset: {x: -1.3, y: -3.66}
     hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}

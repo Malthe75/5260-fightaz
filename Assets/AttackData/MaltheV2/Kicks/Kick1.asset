@@ -16,7 +16,7 @@ MonoBehaviour:
   frames:
   - frameSprite: {fileID: 21300000, guid: 77e9c495dec66974582a484821017262, type: 3}
     hitboxSize: {x: 3.9, y: 1.05}
-    hitboxOffset: {x: -2.19, y: 1.19}
+    hitboxOffset: {x: -1.79, y: -1.69}
     hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
