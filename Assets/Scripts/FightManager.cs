@@ -39,6 +39,7 @@ public class FightManager : MonoBehaviour
         newScale.x = -1f;
         p1.transform.localScale = newScale;
 
+        p1.gameObject.name = "Player1";
         p1.tag = "Player1";
         SetupPlayerHitboxes(p1, "P1");
 
@@ -49,6 +50,7 @@ public class FightManager : MonoBehaviour
         newScale2.x = 1f;
         p2.transform.localScale = newScale2;
 
+        p2.gameObject.name = "Player2";
         p2.tag = "Player2";
         SetupPlayerHitboxes(p2, "P2");
 
