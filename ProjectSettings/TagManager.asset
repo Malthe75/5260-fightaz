@@ -8,14 +8,12 @@ TagManager:
   - Enemy
   - Player1
   - Player2
-  - P1Head
-  - P1Torso
-  - P1Legs
-  - P2Head
-  - P2Torso
-  - P2Legs
   - P1
   - P2
+  - P1Upper
+  - P1Lower
+  - P2Upper
+  - P2Lower
   layers:
   - Default
   - TransparentFX

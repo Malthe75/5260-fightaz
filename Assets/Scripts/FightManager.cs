@@ -32,7 +32,7 @@ public class FightManager : MonoBehaviour
 
         Debug.Log(players[1].characterPrefab.name);
         Debug.Log(players[1].playerName);
-        Debug.Log(players[0].inputDevice);
+        Debug.Log(players[1].inputDevice);
         var p1 = PlayerInput.Instantiate(players[0].characterPrefab, controlScheme: players[0].controlScheme, pairWithDevice: players[0].inputDevice);
         p1.transform.position = player1Spawn.position;
         Vector3 newScale = p1.transform.localScale;
@@ -69,7 +69,7 @@ public class FightManager : MonoBehaviour
         Transform hitboxes = playerRoot.transform.Find("Hitboxes");
         if (hitboxes != null)
         {
-            foreach (string part in new[] { "Head", "Torso", "Legs" })
+            foreach (string part in new[] { "Upper", "Lower" })
             {
                 Transform partTransform = hitboxes.Find(part);
                 if (partTransform != null)

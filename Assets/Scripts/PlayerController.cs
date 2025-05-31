@@ -58,6 +58,9 @@ public class PlayerController : MonoBehaviour
     private GameObject uiObject;
     private UIHandler uiHandler;
 
+    [Header("Blocking Settings")]
+    [SerializeField] private Sprite[] blockSprites;
+
 
     // COMBO SETTINGS
     private int comboCounter = 0;
@@ -170,6 +173,18 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             Attack(AttackInput.Signature2);
+        }
+    }
+
+    public void onBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            sr.sprite = blockSprites[0]; // Change to block sprite
+        }
+        else if (context.canceled)
+        {
+            sr.sprite = isCrouching ? crouchSprites[0] : walkSprites[0]; // Change back to normal sprite
         }
     }
 
@@ -374,7 +389,7 @@ public class PlayerController : MonoBehaviour
         foreach (var hit in hits)
         {
             // Skip own attack hitbox collider
-            if (hit.tag == attackerTag)
+            if (hit.tag == attackerTag + "Upper" || hit.tag == attackerTag + "Lower")
                 continue;
 
             // Calculate distance to find best hitbox to apply damage
@@ -389,36 +404,25 @@ public class PlayerController : MonoBehaviour
         {
             switch (bestHit.tag)
             {
-                case "P1Head":
-                    Debug.Log("Player 1 Head hit");
+                case "P1Upper":
+                    Debug.Log("Player 1 Upper hit");
                     uiHandler.TakeDamage1(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
                     break;
-                case "P1Torso":
-                    Debug.Log("Player 1 Torso hit");
+                case "P1Lower":
+                    Debug.Log("Player 1 Lower hit");
                     uiHandler.TakeDamage1(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
 
                     break;
-                case "P1Legs":
-                    Debug.Log("Player 1 Legs hit");
-                    uiHandler.TakeDamage1(attackDamage);
-                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-                    break;
-                case "P2Head":
-                    Debug.Log("Player 2 Head hit");
+                case "P2Upper":
+                    Debug.Log("Player 2 Upper hit");
                     uiHandler.TakeDamage2(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
 
                     break;
-                case "P2Torso":
-                    Debug.Log("Player 2 Torso hit");
-                    uiHandler.TakeDamage2(attackDamage);
-                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-
-                    break;
-                case "P2Legs":
-                    Debug.Log("Player 2 Legs hit");
+                case "P2Lower":
+                    Debug.Log("Player 2 Lower hit");
                     uiHandler.TakeDamage2(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
 

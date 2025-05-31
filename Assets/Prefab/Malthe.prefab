@@ -91,91 +91,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
---- !u!1 &3793423964583657091
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4230809966461226145}
-  - component: {fileID: 6289871243123928141}
-  m_Layer: 13
-  m_Name: Legs
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4230809966461226145
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3793423964583657091}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 435952979971675786}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &6289871243123928141
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3793423964583657091}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.2593975, y: -2.8229449}
-      - {x: -0.4887486, y: -2.9896774}
-      - {x: -0.993433, y: -4.3477316}
-      - {x: -1.0934405, y: -6.925652}
-      - {x: 0.95581245, y: -6.968414}
-      - {x: 1.726614, y: -6.9150357}
-      - {x: 1.1879345, y: -4.6288643}
-      - {x: 1.1214333, y: -2.5281606}
-  m_UseDelaunayMesh: 0
 --- !u!1 &3856578251420467495
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +236,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
   crouchSprites:
   - {fileID: 21300000, guid: a20cdfd1703eb5f4c8fed4ab333848a5, type: 3}
+  blockSprites:
+  - {fileID: 21300000, guid: d1dc6323468d88842a3ff36df4a9d440, type: 3}
 --- !u!50 &2966674222527440294
 Rigidbody2D:
   serializedVersion: 4
@@ -550,6 +467,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: bec3639d-ae82-485d-9158-d30ba85b50e4
     m_ActionName: CharacterSelection/Cancel
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4508458026034266834}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onBlock
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8d2e54c8-150b-4ab4-92df-93b33c8b0b47
+    m_ActionName: Player/Block[/DualSenseGamepadHID/rightTrigger,/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -586,7 +519,6 @@ Transform:
   m_Children:
   - {fileID: 5523429004459601194}
   - {fileID: 3201403485786574509}
-  - {fileID: 4230809966461226145}
   m_Father: {fileID: 7875189213607683075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5541098351558506658
@@ -600,7 +532,7 @@ GameObject:
   - component: {fileID: 3201403485786574509}
   - component: {fileID: 58632882127783978}
   m_Layer: 13
-  m_Name: Torso
+  m_Name: Lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,12 +597,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.556262, y: 0.53042316}
-      - {x: -1.608079, y: -1.9430656}
-      - {x: -3.024467, y: -2.0796938}
-      - {x: -3.1969604, y: -0.015719175}
-      - {x: -3.0476885, y: 0.41632807}
-      - {x: -2.1437912, y: 0.87419605}
+    - - {x: -1.6016846, y: -1.5100063}
+      - {x: -1.5029764, y: -3.6664793}
+      - {x: -1.1756973, y: -4.718767}
+      - {x: -0.9707918, y: -6.5068617}
+      - {x: -3.7439847, y: -6.335125}
+      - {x: -3.7314587, y: -3.6749785}
+      - {x: -3.0682468, y: -1.968358}
+      - {x: -3.1276865, y: -1.6022508}
   m_UseDelaunayMesh: 0
 --- !u!1 &8272091557610089328
 GameObject:
@@ -683,7 +617,7 @@ GameObject:
   - component: {fileID: 5523429004459601194}
   - component: {fileID: 7169781433456424141}
   m_Layer: 13
-  m_Name: Head
+  m_Name: Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,8 +685,11 @@ PolygonCollider2D:
     - - {x: -0.719862, y: 0.62190133}
       - {x: -0.57088566, y: 0.17733982}
       - {x: -0.18278503, y: 0.1980582}
-      - {x: -0.021692276, y: -0.06373051}
-      - {x: 0.41742992, y: 0.16549325}
+      - {x: -0.64110565, y: -0.9556854}
+      - {x: -0.45062923, y: -2.1686206}
+      - {x: 1.1327114, y: -2.08999}
+      - {x: 1.1022682, y: -0.105461895}
+      - {x: 0.4205265, y: 0.16587147}
       - {x: 0.27321815, y: 0.45555136}
       - {x: 0.44349575, y: 1.1357436}
       - {x: 0.15721464, y: 1.5749203}
