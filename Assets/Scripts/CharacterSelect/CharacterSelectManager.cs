@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro; // Assuming you are using TextMeshPro for text display
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -11,10 +12,14 @@ public class CharacterSelectManager : MonoBehaviour
     public RectTransform p1Selector;
     public RectTransform p2Selector;
 
-    [Header("Top fighter image")]
+    [Header("Top fighter image & Name")]
     public Image p1Image;
     public Image p2Image;
     public Sprite[] images;
+    public TextMeshProUGUI p1NameText;
+    public TextMeshProUGUI p2NameText;
+    private string[] characterNames = { "GANNI", "BIG MAC", "GREENLANDER", "MOTOR", "NI**ER", "RANDOM" };
+
 
     [Header("Character Prefabs")]
     public List<GameObject> characterPrefabs;
@@ -63,6 +68,7 @@ public class CharacterSelectManager : MonoBehaviour
             {
                 ChangeIndex(ref p1Index, input.x > 0 ? 1 : -1);
                 p1Image.sprite = images[p1Index];
+                p1NameText.text = characterNames[p1Index];
 
                 p1MoveReleased = false;
             }
@@ -132,6 +138,7 @@ public class CharacterSelectManager : MonoBehaviour
             {
                 ChangeIndex(ref p2Index, input.x > 0 ? 1 : -1);
                 p2Image.sprite = images[p2Index];
+                p2NameText.text = characterNames[p2Index];
 
                 p2MoveReleased = false;
             }

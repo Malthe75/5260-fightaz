@@ -1273,7 +1273,7 @@ GameObject:
   - component: {fileID: 1439760722}
   - component: {fileID: 1439760721}
   m_Layer: 5
-  m_Name: VS (1)
+  m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SIMON
+  m_text: MALTHE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2e5b5a5b3fc4f943a5c5aaf202689a4, type: 2}
   m_sharedMaterial: {fileID: 2532618925667162798, guid: d2e5b5a5b3fc4f943a5c5aaf202689a4, type: 2}
@@ -1657,16 +1657,18 @@ MonoBehaviour:
   images:
   - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
   - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
-  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
-  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
-  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
-  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
+  - {fileID: 21300000, guid: 0e3bd1dd4e80e164693167763fe594be, type: 3}
+  - {fileID: 21300000, guid: f230d5897ca949546afdc5d61b5f6131, type: 3}
+  - {fileID: 21300000, guid: 5f29c06fe84a3324f9925337006f0fd4, type: 3}
+  - {fileID: 21300000, guid: c67af625aeaf05f4ea81ca99b84c940c, type: 3}
+  p1NameText: {fileID: 1439760721}
+  p2NameText: {fileID: 2034454260}
   characterPrefabs:
   - {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
   - {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
-  - {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-  - {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
-  - {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+  - {fileID: 763256659724641451, guid: c4f71f46eeecc61479b7f70d2c9d3f37, type: 3}
+  - {fileID: 3017427191962140449, guid: 5048602fae2e8a741961896fac27cab5, type: 3}
+  - {fileID: 6026716851585187631, guid: 6a6808b7f1846874ca84383fbfbb560f, type: 3}
   - {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
 --- !u!1 &1708889732
 GameObject:
@@ -1952,7 +1954,7 @@ GameObject:
   - component: {fileID: 2034454261}
   - component: {fileID: 2034454260}
   m_Layer: 5
-  m_Name: VS (2)
+  m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
