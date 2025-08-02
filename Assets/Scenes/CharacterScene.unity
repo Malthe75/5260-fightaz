@@ -658,7 +658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -758, y: -225}
+  m_AnchoredPosition: {x: -1214, y: -225}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752790341
@@ -1224,6 +1224,147 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1372419421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1372419423}
+  - component: {fileID: 1372419422}
+  - component: {fileID: 1372419424}
+  m_Layer: 0
+  m_Name: MusicPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1372419422
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372419421}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1eb3761d1a8dc59418c8ae6a0b36f4cb, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.246
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1372419423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372419421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5963802, y: 0.2863056, z: 3.2405975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1372419424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372419421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c2315ca33e9af4781ee9706ecc6ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1434566306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,7 +1459,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MALTHE
+  m_text: GANNI
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2e5b5a5b3fc4f943a5c5aaf202689a4, type: 2}
   m_sharedMaterial: {fileID: 2532618925667162798, guid: d2e5b5a5b3fc4f943a5c5aaf202689a4, type: 2}
@@ -1429,7 +1570,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1027, y: -225}
+  m_AnchoredPosition: {x: -1483, y: -225}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440169290
@@ -1660,9 +1801,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0e3bd1dd4e80e164693167763fe594be, type: 3}
   - {fileID: 21300000, guid: f230d5897ca949546afdc5d61b5f6131, type: 3}
   - {fileID: 21300000, guid: 5f29c06fe84a3324f9925337006f0fd4, type: 3}
-  - {fileID: 21300000, guid: c67af625aeaf05f4ea81ca99b84c940c, type: 3}
+  - {fileID: 21300000, guid: b577f3815cb926742b966b6b9c3f9191, type: 3}
   p1NameText: {fileID: 1439760721}
   p2NameText: {fileID: 2034454260}
+  characterSelectSounds:
+  - {fileID: 8300000, guid: 0e2955302b713b1429a2b34c5b7d254c, type: 3}
+  - {fileID: 8300000, guid: 9ac8bf7b3d1c06b4fa5b73d4216fa92d, type: 3}
+  - {fileID: 8300000, guid: 9f2964b0f2c8c974d994b21359b414cf, type: 3}
+  - {fileID: 8300000, guid: 16dc48f61fa2900489bcaeaa81d3bf17, type: 3}
+  - {fileID: 8300000, guid: 9b2a582ac72296b4e937a7e7c832ae3c, type: 3}
+  - {fileID: 8300000, guid: 20672d6d9eea05c4296605934e6a7fe2, type: 3}
   characterPrefabs:
   - {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
   - {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
@@ -1999,7 +2147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MALTHE
+  m_text: GANNI
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2e5b5a5b3fc4f943a5c5aaf202689a4, type: 2}
   m_sharedMaterial: {fileID: 2532618925667162798, guid: d2e5b5a5b3fc4f943a5c5aaf202689a4, type: 2}
@@ -2237,3 +2385,4 @@ SceneRoots:
   - {fileID: 1511541615}
   - {fileID: 174910885}
   - {fileID: 160538774}
+  - {fileID: 1372419423}

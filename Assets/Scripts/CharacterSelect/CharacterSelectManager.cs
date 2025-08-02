@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using TMPro; // Assuming you are using TextMeshPro for text display
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using TMPro; // Assuming you are using TextMeshPro for text display
+using UnityEngine.UI;
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -12,13 +12,16 @@ public class CharacterSelectManager : MonoBehaviour
     public RectTransform p1Selector;
     public RectTransform p2Selector;
 
-    [Header("Top fighter image & Name")]
+    [Header("Top fighter details")]
     public Image p1Image;
     public Image p2Image;
     public Sprite[] images;
     public TextMeshProUGUI p1NameText;
     public TextMeshProUGUI p2NameText;
-    private string[] characterNames = { "GANNI", "BIG MAC", "GREENLANDER", "MOTOR", "NI**ER", "RANDOM" };
+    public List<AudioClip> characterSelectSounds;
+    private AudioSource audioSource;
+    private AudioSource audioSource2;
+    private string[] characterNames = { "GANNI", "BIG MAC", "GREENLANDER", "MOTOR", "ABDALLAH", "RANDOM" };
 
 
     [Header("Character Prefabs")]
@@ -30,6 +33,14 @@ public class CharacterSelectManager : MonoBehaviour
     private bool p1Locked = false, p2Locked = false;
 
     private CharacterSelectInputHandler p1Input, p2Input;
+
+
+    void Start()
+    {
+        // Add an AudioSource component if not already attached
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource2 = gameObject.AddComponent<AudioSource>();
+    }
 
     public void OnPlayerJoined(PlayerInput input)
     {
@@ -69,6 +80,9 @@ public class CharacterSelectManager : MonoBehaviour
                 ChangeIndex(ref p1Index, input.x > 0 ? 1 : -1);
                 p1Image.sprite = images[p1Index];
                 p1NameText.text = characterNames[p1Index];
+                audioSource.clip = characterSelectSounds[p1Index];
+                audioSource.Play();
+
 
                 p1MoveReleased = false;
             }
@@ -139,7 +153,8 @@ public class CharacterSelectManager : MonoBehaviour
                 ChangeIndex(ref p2Index, input.x > 0 ? 1 : -1);
                 p2Image.sprite = images[p2Index];
                 p2NameText.text = characterNames[p2Index];
-
+                audioSource2.clip = characterSelectSounds[p2Index];
+                audioSource2.Play();
                 p2MoveReleased = false;
             }
         }
