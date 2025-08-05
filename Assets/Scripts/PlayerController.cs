@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -178,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
     public void onBlock(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && isGrounded)
         {
             sr.sprite = blockSprites[0]; // Change to block sprite
         }

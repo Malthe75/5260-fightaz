@@ -123,6 +123,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &121981556 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1691870783500405822, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
+  m_PrefabInstance: {fileID: 1755893290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &166593841 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7875189213607683075, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+  m_PrefabInstance: {fileID: 1154757776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &289245464
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,8 +142,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 289245467}
-  - component: {fileID: 289245466}
   - component: {fileID: 289245465}
+  - component: {fileID: 289245468}
   m_Layer: 0
   m_Name: Fightmanager
   m_TagString: Untagged
@@ -153,41 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c1cea06eda4084fb4f54925950163c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
+  mainCam: {fileID: 1325806379}
   shakeDuration: 0.1
   shakeMagnitude: 0.2
   hitStopTime: 0.1
---- !u!114 &289245466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289245464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a71d9c1e03f2aae4d99eefb259961933, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1Spawn: {fileID: 7875189213607683075, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-  player2Spawn: {fileID: 1691870783500405822, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
-  stages:
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
-  - {fileID: 2989356844144353137, guid: 0276a36883f7f6b47ac2d2fc91f69a21, type: 3}
-  - {fileID: 9193192742586155973, guid: c40604f72ae91e2469e2527e9e23237f, type: 3}
 --- !u!4 &289245467
 Transform:
   m_ObjectHideFlags: 0
@@ -203,6 +182,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &289245468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289245464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a6cac68ca61564da56ab42ea2edf80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1Spawn: {fileID: 121981556}
+  player2Spawn: {fileID: 166593841}
+  playerPrefab: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+  stages: []
 --- !u!1001 &1154757776
 PrefabInstance:
   m_ObjectHideFlags: 0
