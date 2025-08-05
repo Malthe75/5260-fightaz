@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
     private AttackInput currentComboInput = AttackInput.Hit;
 
     private HitFeedback hitFeedback; // Reference to the HitFeedback script for visual effects
+    private FightManager fightManager; // Reference to the FightManager script for managing fight state
+    private FightManagerTest fightManagerTest; // Reference to the FightManager test script for managing fight state
 
 
     // ALL OTHER PRIVATE VARIABLES
@@ -90,6 +92,7 @@ public class PlayerController : MonoBehaviour
         uiHandler = uiObject.GetComponent<UIHandler>();
         GameObject fightManagerObject = GameObject.Find("Fightmanager");
         hitFeedback = fightManagerObject.GetComponent<HitFeedback>();
+        fightManagerTest = fightManagerObject.GetComponent<FightManagerTest>();
     }
 
     private void Start()
@@ -409,23 +412,30 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Player 1 Upper hit");
                     uiHandler.TakeDamage1(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+                    fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
+                    Debug.Log("What?");
                     break;
                 case "P1Lower":
                     Debug.Log("Player 1 Lower hit");
                     uiHandler.TakeDamage1(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+                    fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
 
                     break;
                 case "P2Upper":
                     Debug.Log("Player 2 Upper hit");
                     uiHandler.TakeDamage2(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+                    fightManagerTest.p2sr.color = Color.red;
 
                     break;
                 case "P2Lower":
                     Debug.Log("Player 2 Lower hit");
                     uiHandler.TakeDamage2(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+                    fightManagerTest.p2sr.color = Color.red; // Temporary visual feedback for hit
+
+
 
                     break;
                 default:
@@ -448,6 +458,10 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         hitboxObject.SetActive(false);
+
+        // Reset the colors after hit - just here for now
+        fightManagerTest.p1sr.color = Color.white;
+        fightManagerTest.p2sr.color = Color.white;
     }
 
 }

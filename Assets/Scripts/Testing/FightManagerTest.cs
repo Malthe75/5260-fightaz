@@ -9,6 +9,12 @@ public class FightManagerTest : MonoBehaviour
     public Transform player2Spawn;
     public GameObject playerPrefab; // Reference to the player prefab
     public List<GameObject> stages;
+
+
+    public PlayerInput p1;
+    public PlayerInput p2;
+    public SpriteRenderer p1sr;
+    public SpriteRenderer p2sr;
     private void Start()
     {
         // Clear any previous players that may have been carried from another scene
@@ -18,7 +24,7 @@ public class FightManagerTest : MonoBehaviour
         }
 
         // Spawn both players
-        var p1 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+        p1 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
         p1.transform.position = player1Spawn.position;
         Vector3 newScale = p1.transform.localScale;
         newScale.x = -0.5f;
@@ -27,8 +33,9 @@ public class FightManagerTest : MonoBehaviour
         p1.gameObject.name = "Player1";
         p1.tag = "Player1";
         SetupPlayerHitboxes(p1, "P1");
+        p1sr = p1.GetComponentInChildren<SpriteRenderer>();
 
-        var p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
+        p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
         p2.transform.position = player2Spawn.position;
         Vector3 newScale2 = p2.transform.localScale;
         newScale2.x = 0.5f;
@@ -37,7 +44,7 @@ public class FightManagerTest : MonoBehaviour
         p2.gameObject.name = "Player2";
         p2.tag = "Player2";
         SetupPlayerHitboxes(p2, "P2");
-
+        p2sr = p2.GetComponentInChildren<SpriteRenderer>();
 
     }
     void SetupPlayerHitboxes(PlayerInput playerRoot, string playerPrefix)
