@@ -9,14 +9,44 @@ public class FightManagerTest : MonoBehaviour
     public Transform player2Spawn;
     public GameObject playerPrefab; // Reference to the player prefab
     public List<GameObject> stages;
-
-
     public PlayerInput p1;
     public PlayerInput p2;
     public SpriteRenderer p1sr;
     public SpriteRenderer p2sr;
     private void Start()
     {
+        SpawnPlayers();
+       
+
+    }
+    void SetupPlayerHitboxes(PlayerInput playerRoot, string playerPrefix)
+    {
+        // Assign attack hitbox tag
+        Transform attackHitbox = playerRoot.transform.Find("Hitbox");
+        if (attackHitbox != null)
+        {
+            attackHitbox.gameObject.tag = playerPrefix;
+        }
+
+        // Assign body hitboxes tags (head, torso, legs)
+        Transform hitboxes = playerRoot.transform.Find("Hitboxes");
+        if (hitboxes != null)
+        {
+            foreach (string part in new[] { "Upper", "Lower" })
+            {
+                Transform partTransform = hitboxes.Find(part);
+                if (partTransform != null)
+                {
+                    partTransform.gameObject.tag = playerPrefix + part.Substring(0, 1).ToUpper() + part.Substring(1);
+                    // e.g. "Player1Head"
+                }
+            }
+        }
+    }
+
+    private void SpawnPlayers()
+    {
+
         // Clear any previous players that may have been carried from another scene
         foreach (var input in FindObjectsOfType<PlayerInput>())
         {
@@ -45,31 +75,6 @@ public class FightManagerTest : MonoBehaviour
         p2.tag = "Player2";
         SetupPlayerHitboxes(p2, "P2");
         p2sr = p2.GetComponentInChildren<SpriteRenderer>();
-
-    }
-    void SetupPlayerHitboxes(PlayerInput playerRoot, string playerPrefix)
-    {
-        // Assign attack hitbox tag
-        Transform attackHitbox = playerRoot.transform.Find("Hitbox");
-        if (attackHitbox != null)
-        {
-            attackHitbox.gameObject.tag = playerPrefix;
-        }
-
-        // Assign body hitboxes tags (head, torso, legs)
-        Transform hitboxes = playerRoot.transform.Find("Hitboxes");
-        if (hitboxes != null)
-        {
-            foreach (string part in new[] { "Upper", "Lower" })
-            {
-                Transform partTransform = hitboxes.Find(part);
-                if (partTransform != null)
-                {
-                    partTransform.gameObject.tag = playerPrefix + part.Substring(0, 1).ToUpper() + part.Substring(1);
-                    // e.g. "Player1Head"
-                }
-            }
-        }
     }
 }
 

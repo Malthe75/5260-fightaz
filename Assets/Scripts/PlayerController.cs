@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     [Header("UI Settings")]
     private GameObject uiObject;
     private UIHandler uiHandler;
+    private CombatManager combatManager; // Reference to the CombatManager script for managing combat state
 
     [Header("Blocking Settings")]
     [SerializeField] private Sprite[] blockSprites;
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
         GameObject fightManagerObject = GameObject.Find("Fightmanager");
         hitFeedback = fightManagerObject.GetComponent<HitFeedback>();
         fightManagerTest = fightManagerObject.GetComponent<FightManagerTest>();
+        combatManager = fightManagerObject.GetComponent<CombatManager>();
     }
 
     private void Start()
@@ -247,7 +249,7 @@ public class PlayerController : MonoBehaviour
     private void Attack(AttackInput input)
     {
         // Check if the player is already attacking, if so, put the next attack in queue.
-        if (isAttacking)
+        if (isAttacking || !isGrounded)
         {
             currentComboInput = input;
             queuedNextAttack = true;
@@ -413,7 +415,6 @@ public class PlayerController : MonoBehaviour
                     uiHandler.TakeDamage1(attackDamage);
                     hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
                     fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
-                    Debug.Log("What?");
                     break;
                 case "P1Lower":
                     Debug.Log("Player 1 Lower hit");
