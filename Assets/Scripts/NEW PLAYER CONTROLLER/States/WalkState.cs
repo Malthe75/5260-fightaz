@@ -46,4 +46,10 @@ public class WalkState : PlayerState
         // Stop horizontal velocity (optional)
         player.rb.velocity = new Vector2(0, player.rb.velocity.y);
     }
+
+    public override void OnMove(Vector2 input)
+    {
+        Debug.Log(input);
+        Debug.Log("Walk State OnMove called with input: " + input);
+    }
 }
