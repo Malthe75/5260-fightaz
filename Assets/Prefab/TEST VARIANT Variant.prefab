@@ -145,9 +145,8 @@ MonoBehaviour:
   idleSprites:
   - {fileID: 21300000, guid: bf3765af743900e4eb9f1a8a2f5da0d2, type: 3}
   walkSprites:
-  - {fileID: 21300000, guid: 0d918c9d59f854141bbcc57b45a8fff0, type: 3}
-  - {fileID: 21300000, guid: 91c035bd5aeb572419636a9191f7c8a5, type: 3}
-  - {fileID: 21300000, guid: 2e910001911c2c84a869d2e78b0db566, type: 3}
+  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
+  - {fileID: 21300000, guid: 75c28e4c143eb424cb9ef987eea72b39, type: 3}
   walkSpeed: 5
   animationSpeed: 0.2
   attackSprites:

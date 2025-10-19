@@ -58,10 +58,9 @@ public class NewPlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("DEBUGGING");
-        moveInput = context.ReadValue<Vector2>();
-
-        stateMachine.CurrentState?.OnMove(moveInput);
+        Vector2 input = context.ReadValue<Vector2>();
+        stateMachine.CurrentState?.OnMove(input);
+        //stateMachine.ChangeState(new WalkState(this));
     }
 
     public void OnAttack(InputAction.CallbackContext context)

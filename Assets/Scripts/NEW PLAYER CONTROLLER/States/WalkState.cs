@@ -11,7 +11,7 @@ public class WalkState : PlayerState
     public override void Enter()
     {
         // Set first walk sprite?
-        Debug.Log("Walk state Start");
+        //Debug.Log("Walk state Start");
         player.sr.sprite = player.walkSprites[0];
     }
 
@@ -22,10 +22,10 @@ public class WalkState : PlayerState
         player.rb.velocity = new Vector2(player.moveInput.x * player.walkSpeed, player.rb.velocity.y);
 
         // Transition back to IdleState if no movement
-        if (Mathf.Abs(player.moveInput.x) < 0.01f)
-        {
-            player.stateMachine.ChangeState(new IdleState(player));
-        }
+        //if (Mathf.Abs(player.moveInput.x) < 0.01f)
+        //{
+        //    player.stateMachine.ChangeState(new IdleState(player));
+        //}
 
         // Handle walk animation
         animationTimer += Time.deltaTime;
@@ -42,14 +42,19 @@ public class WalkState : PlayerState
 
     public override void Exit()
     {
-        Debug.Log("Exited Walk State");
+        //Debug.Log("Exited Walk State");
         // Stop horizontal velocity (optional)
-        player.rb.velocity = new Vector2(0, player.rb.velocity.y);
+        //player.rb.velocity = new Vector2(0, player.rb.velocity.y);
     }
 
     public override void OnMove(Vector2 input)
     {
-        Debug.Log(input);
-        Debug.Log("Walk State OnMove called with input: " + input);
+        player.moveInput = input;
+
+        Debug.Log("ON MOVE IN WALK");
+        if(Mathf.Abs(input.x) < 0.01)
+        {
+            player.stateMachine.ChangeState(new IdleState(player));
+        }
     }
 }
