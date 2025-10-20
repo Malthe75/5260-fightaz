@@ -94,11 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnHit
+      value: OnAttack
       objectReference: {fileID: 0}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnKick
+      value: OnAttack
       objectReference: {fileID: 0}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -143,15 +143,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleSprites:
-  - {fileID: 21300000, guid: bf3765af743900e4eb9f1a8a2f5da0d2, type: 3}
+  - {fileID: 21300000, guid: 0d918c9d59f854141bbcc57b45a8fff0, type: 3}
   walkSprites:
   - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
   - {fileID: 21300000, guid: 75c28e4c143eb424cb9ef987eea72b39, type: 3}
   walkSpeed: 5
   animationSpeed: 0.2
   attackSprites:
-  - {fileID: 21300000, guid: f0c18a1388f388c4ea44b69a673552f4, type: 3}
-  comboLibrary: {fileID: 11400000, guid: f9a98344b86996440bc02413121cc2f3, type: 2}
+  - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
+  comboLibrary: {fileID: 11400000, guid: 845c67c86e867ea40a324017dc46fd09, type: 2}
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}

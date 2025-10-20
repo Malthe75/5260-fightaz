@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class WalkState : PlayerState
 {
@@ -10,9 +11,7 @@ public class WalkState : PlayerState
     // Start is called before the first frame update
     public override void Enter()
     {
-        // Set first walk sprite?
-        //Debug.Log("Walk state Start");
-        player.sr.sprite = player.walkSprites[0];
+        player.sr.sprite = player.walkSprites[1];
     }
 
     // Update is called once per frame
@@ -20,12 +19,6 @@ public class WalkState : PlayerState
     {
         // Move the player
         player.rb.velocity = new Vector2(player.moveInput.x * player.walkSpeed, player.rb.velocity.y);
-
-        // Transition back to IdleState if no movement
-        //if (Mathf.Abs(player.moveInput.x) < 0.01f)
-        //{
-        //    player.stateMachine.ChangeState(new IdleState(player));
-        //}
 
         // Handle walk animation
         animationTimer += Time.deltaTime;
@@ -38,23 +31,15 @@ public class WalkState : PlayerState
             // Reset timer
             animationTimer = 0f;
         }
-    }
-
-    public override void Exit()
-    {
-        //Debug.Log("Exited Walk State");
-        // Stop horizontal velocity (optional)
-        //player.rb.velocity = new Vector2(0, player.rb.velocity.y);
-    }
-
-    public override void OnMove(Vector2 input)
-    {
-        player.moveInput = input;
-
-        Debug.Log("ON MOVE IN WALK");
-        if(Mathf.Abs(input.x) < 0.01)
+        if (Mathf.Abs(player.moveInput.x) < 0.01)
         {
             player.stateMachine.ChangeState(new IdleState(player));
         }
     }
+
+    public override void Exit()
+    {
+        // Cleanup if necessary
+    }
+
 }

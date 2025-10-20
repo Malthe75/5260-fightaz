@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,6 @@ public class NewPlayerController : MonoBehaviour
     public float animationSpeed = 0.2f;
 
     [Header("Attack state")]
-    public Sprite[] attackSprites; // SHOULD BE DELETED
     public ComboLibrary comboLibrary;
 
     #endregion
@@ -31,6 +31,8 @@ public class NewPlayerController : MonoBehaviour
     // State Machine
     public StateMachine stateMachine;
 
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -41,6 +43,7 @@ public class NewPlayerController : MonoBehaviour
 
         // Start with IdleState
         stateMachine.ChangeState(new IdleState(this));
+
     }
 
     private void Update()
@@ -68,7 +71,7 @@ public class NewPlayerController : MonoBehaviour
         if (!context.performed) return;
 
         string actionName = context.action.name;
-
+        Debug.Log(actionName);
         switch (actionName)
         {
             case "Hit":
@@ -84,12 +87,23 @@ public class NewPlayerController : MonoBehaviour
     }
 
 
-
-    // Handle the attack inputs
     private void HandleAttackInput(AttackInput input)
     {
-        stateMachine.ChangeState(new AttackState(this, input));
+        Debug.Log("Handfle attack?");
+        Debug.Log((stateMachine.CurrentState.GetType().Name));
+        if (stateMachine.CurrentState is AttackState attackState)
+        {
+            // Already attacking queue input
+            attackState.QueueNextAttack(input);
+        }
+        else
+        {
+            Debug.Log("what?");
+            // Not attacking enter AttackState
+            stateMachine.ChangeState(new AttackState(this, input));
+        }
     }
+
     #endregion
 
 }
