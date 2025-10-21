@@ -151,6 +151,8 @@ MonoBehaviour:
   animationSpeed: 0.2
   attackData:
   - {fileID: 11400000, guid: 7bd005bdb583bd0419c0d2bdaf09e7cf, type: 2}
+  - {fileID: 11400000, guid: df84742b48bcc764fb9531a4c3ae6fed, type: 2}
+  - {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}

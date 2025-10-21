@@ -87,6 +87,9 @@ public class NewPlayerController : MonoBehaviour
             case "Kick":
                 HandleAttackInput(AttackInput.Kick);
                 break;
+            case "Shoot":
+                HandleAttackInput(AttackInput.Shoot);
+                break;
             default:
                 Debug.LogWarning("Unknown attack action: " + actionName);
                 break;

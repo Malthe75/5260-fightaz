@@ -27,8 +27,14 @@ public class AttackState : PlayerState
     private void attack(AttackInput attackInput)
     {
 
-        // Change the sprite 
-        player.sr.sprite = player.attackData[0].frames[0].frameSprite;
+
+        foreach(var attack in player.attackData)
+        {
+            if(attackInput == attack.attackInput)
+            {
+                player.sr.sprite = attack.frames[0].frameSprite;
+            }
+        }
         player.StartCoroutine(showFrames());
     }
 

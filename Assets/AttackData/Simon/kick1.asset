@@ -28,3 +28,4 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
     attackSound: {fileID: 0}
     frameDuration: 0.25
+  attackInput: 1
