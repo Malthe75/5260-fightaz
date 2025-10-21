@@ -16,9 +16,26 @@ public class AttackState : PlayerState
     public override void Enter()
     {
         // Fix: Access the `frameSprite` property of the `AttackFrameData` object
-        player.sr.sprite = player.attackMappings
-            .FirstOrDefault(am => am.input == attackInput)
-            ?.attack.frames[0].frameSprite;
+
+
+        //player.sr.sprite = player.attackMappings
+        //    .FirstOrDefault(am => am.input == attackInput)
+        //    ?.attack.frames[0].frameSprite;
+        attack(attackInput);
+    }
+
+    private void attack(AttackInput attackInput)
+    {
+
+        // Change the sprite 
+        player.sr.sprite = player.attackData[0].frames[0].frameSprite;
+        player.StartCoroutine(showFrames());
+    }
+
+    private IEnumerator showFrames()
+    {
+        yield return new WaitForSeconds(player.attackData[0].frames[0].frameDuration);
+        player.stateMachine.ChangeState(new IdleState(player));
     }
 }
 

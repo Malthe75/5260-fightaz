@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Spawn: {fileID: 121981556}
   player2Spawn: {fileID: 166593841}
-  playerPrefab: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+  playerPrefab: {fileID: 6166256156956086419, guid: d0545ec6b1a72cb43a311ed139c4d412, type: 3}
   stages: []
   p1: {fileID: 0}
   p2: {fileID: 0}
@@ -301,6 +301,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
   walkSprites:
   - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
+  walkSpeed: 5
+  animationSpeed: 0.2
+  attackMappings: []
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}

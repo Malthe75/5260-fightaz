@@ -6,12 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-[Serializable]
-public class AttackMapping
-{
-    public AttackInput input;
-    public AttackData attack;
-}
 public class NewPlayerController : MonoBehaviour
 {
 
@@ -25,10 +19,9 @@ public class NewPlayerController : MonoBehaviour
     public float animationSpeed = 0.2f;
 
     [Header("Attack state")]
-    public List<AttackMapping> attackMappings;
+    public List<AttackData> attackData;
 
 
-    #endregion
     // References
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer sr;
@@ -41,6 +34,7 @@ public class NewPlayerController : MonoBehaviour
     public StateMachine stateMachine;
 
 
+    #endregion
 
     private void Awake()
     {
