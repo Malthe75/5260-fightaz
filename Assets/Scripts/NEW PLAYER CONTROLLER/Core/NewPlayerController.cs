@@ -1,9 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+[Serializable]
+public class AttackMapping
+{
+    public AttackInput input;
+    public AttackData attack;
+}
 public class NewPlayerController : MonoBehaviour
 {
 
@@ -17,7 +25,8 @@ public class NewPlayerController : MonoBehaviour
     public float animationSpeed = 0.2f;
 
     [Header("Attack state")]
-    public ComboLibrary comboLibrary;
+    public List<AttackMapping> attackMappings;
+
 
     #endregion
     // References
@@ -50,6 +59,10 @@ public class NewPlayerController : MonoBehaviour
     {
         // Update input
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+
+
+        // Decrement combo cooldown timer
+       
 
         // Update the current state
         stateMachine.Update();
@@ -89,19 +102,7 @@ public class NewPlayerController : MonoBehaviour
 
     private void HandleAttackInput(AttackInput input)
     {
-        Debug.Log("Handfle attack?");
-        Debug.Log((stateMachine.CurrentState.GetType().Name));
-        if (stateMachine.CurrentState is AttackState attackState)
-        {
-            // Already attacking queue input
-            attackState.QueueNextAttack(input);
-        }
-        else
-        {
-            Debug.Log("what?");
-            // Not attacking enter AttackState
-            stateMachine.ChangeState(new AttackState(this, input));
-        }
+        stateMachine.ChangeState(new AttackState(this, input));
     }
 
     #endregion
