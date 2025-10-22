@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -15,33 +16,42 @@ public class AttackState : PlayerState
 
     public override void Enter()
     {
-        // Fix: Access the `frameSprite` property of the `AttackFrameData` object
-
-
-        //player.sr.sprite = player.attackMappings
-        //    .FirstOrDefault(am => am.input == attackInput)
-        //    ?.attack.frames[0].frameSprite;
         attack(attackInput);
     }
 
     private void attack(AttackInput attackInput)
     {
 
-
         foreach(var attack in player.attackData)
         {
             if(attackInput == attack.attackInput)
             {
-                player.sr.sprite = attack.frames[0].frameSprite;
+
+                player.StartCoroutine(showFrames(attack));
             }
         }
-        player.StartCoroutine(showFrames());
     }
 
-    private IEnumerator showFrames()
+    private IEnumerator showFrames(AttackData attack)
     {
-        yield return new WaitForSeconds(player.attackData[0].frames[0].frameDuration);
-        player.stateMachine.ChangeState(new IdleState(player));
+        foreach(var frame in attack.frames)
+        {
+            player.sr.sprite = frame.frameSprite;
+            yield return new WaitForSeconds(frame.frameDuration);
+        }
+        HandleNextState();
+    }
+
+    private void HandleNextState()
+    {
+        if(player.moveInput != Vector2.zero)
+        {
+            player.stateMachine.ChangeState(new WalkState(player));
+        }
+        else
+        {
+            player.stateMachine.ChangeState(new IdleState(player));
+        }
     }
 }
 

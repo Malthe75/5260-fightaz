@@ -7,6 +7,9 @@ public class WalkState : PlayerState
 {
     private float animationTimer;
 
+    private float idleBuffer = 0.15f;
+    private float idleTimer = 0f;
+
     public WalkState(NewPlayerController player) : base(player) { }
     // Start is called before the first frame update
     public override void Enter()
@@ -33,13 +36,18 @@ public class WalkState : PlayerState
         }
         if (Mathf.Abs(player.moveInput.x) < 0.01)
         {
-            player.stateMachine.ChangeState(new IdleState(player));
+            idleTimer += Time.deltaTime;
+            if(idleTimer >= idleBuffer)
+            {
+
+                player.stateMachine.ChangeState(new IdleState(player));
+            }
+        }
+        else 
+        {         
+            idleTimer = 0f;
         }
     }
 
-    public override void Exit()
-    {
-        // Cleanup if necessary
-    }
 
 }

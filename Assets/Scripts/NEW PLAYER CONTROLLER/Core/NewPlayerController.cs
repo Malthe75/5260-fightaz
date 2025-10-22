@@ -21,6 +21,9 @@ public class NewPlayerController : MonoBehaviour
     [Header("Attack state")]
     public List<AttackData> attackData;
 
+    [Header("Block state")]
+    public Sprite[] blockSprites;
+
 
     // References
     [HideInInspector] public Rigidbody2D rb;
@@ -71,6 +74,21 @@ public class NewPlayerController : MonoBehaviour
         Vector2 input = context.ReadValue<Vector2>();
         stateMachine.CurrentState?.OnMove(input);
         //stateMachine.ChangeState(new WalkState(this));
+    }
+
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            // Button pressed down  enter block state
+            stateMachine.ChangeState(new BlockState(this));
+        }
+        else if (context.canceled)
+        {
+            // Button released  exit block state (e.g. back to idle)
+            if (stateMachine.CurrentState is BlockState)
+                stateMachine.ChangeState(new IdleState(this));
+        }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
