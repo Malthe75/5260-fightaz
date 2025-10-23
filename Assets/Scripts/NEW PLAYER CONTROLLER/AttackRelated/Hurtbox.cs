@@ -14,9 +14,9 @@ public class Hurtbox : MonoBehaviour
         uiObject = GameObject.Find("UIHandler");
         uiHandler = uiObject.GetComponent<UIHandler>();
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, AttackFrameData attack)
     {
-        player.TakeHit(damage);
+        player.TakeHit(damage, attack);
         Debug.Log(transform.tag);
         uiHandler.TakeDamage(damage, transform.tag);
     }

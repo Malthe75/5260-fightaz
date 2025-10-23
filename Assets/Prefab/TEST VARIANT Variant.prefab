@@ -260,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleSprites:
   - {fileID: 21300000, guid: 6416514f4a6992e4e84d50b106322c69, type: 3}
+  - {fileID: 21300000, guid: 013c7d477d3e8ab44b6d3d6325c42c17, type: 3}
   walkSprites:
   - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
   - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
@@ -272,6 +273,7 @@ MonoBehaviour:
   input: 0
   blockSprites:
   - {fileID: 21300000, guid: 792ba91daae7d68479670feb0796a480, type: 3}
+  isBlocking: 0
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}

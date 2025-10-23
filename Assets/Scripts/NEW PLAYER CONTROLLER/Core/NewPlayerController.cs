@@ -134,9 +134,9 @@ public class NewPlayerController : MonoBehaviour
     #endregion
 
 
-    public void TakeHit(int damage)
+    public void TakeHit(int damage, AttackFrameData attack)
     {
         Debug.Log("IT did this damage");
-        stateMachine.ChangeState(new HurtState(this));
+        stateMachine.ChangeState(new HurtState(this, attack));
     }
 }

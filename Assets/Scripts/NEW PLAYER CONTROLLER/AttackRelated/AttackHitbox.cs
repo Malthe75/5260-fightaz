@@ -8,6 +8,7 @@ public class AttackHitbox : MonoBehaviour
     public BoxCollider2D hitboxCollider;
     private bool isActive = false;
     private int damage;
+    AttackFrameData attack;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class AttackHitbox : MonoBehaviour
 
     public void Activate(AttackFrameData attack)
     {
+        this.attack = attack;
         hitboxCollider.enabled = true;
         // AttackData should have damage?
         damage = 1;
@@ -42,7 +44,7 @@ public class AttackHitbox : MonoBehaviour
         Hurtbox hurtbox = otherPlayer.GetComponent<Hurtbox>();
         if(hurtbox != null)
         {
-            hurtbox.TakeDamage(damage);
+            hurtbox.TakeDamage(damage, attack);
             // Optional: prevent multiple hits per attack
             Deactivate();
         }

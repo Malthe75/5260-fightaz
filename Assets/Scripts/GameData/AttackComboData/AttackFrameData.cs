@@ -12,6 +12,7 @@ public class AttackFrameData
     public GameObject hitboxPrefab;
     public AudioClip attackSound;
     public float frameDuration = 0.2f; // Time before moving to next frame
+    public float knockback = 3;
 }
 
 
