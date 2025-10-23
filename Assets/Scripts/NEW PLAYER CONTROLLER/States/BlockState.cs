@@ -11,4 +11,12 @@ public class BlockState : PlayerState
     {
         player.sr.sprite = player.blockSprites[0];
     }
+
+    public override void Update()
+    {
+        if (!player.isBlocking)
+        {
+            player.stateMachine.ChangeState(new IdleState(player));
+        }
+    }
 }

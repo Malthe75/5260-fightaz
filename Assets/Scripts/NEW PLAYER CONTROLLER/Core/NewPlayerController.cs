@@ -20,9 +20,11 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Attack state")]
     public List<AttackData> attackData;
+    public AttackInput input = AttackInput.Nothing;
 
     [Header("Block state")]
     public Sprite[] blockSprites;
+    [HideInInspector] public bool isBlocking = false;
 
 
     // References
@@ -50,23 +52,27 @@ public class NewPlayerController : MonoBehaviour
         // Initialize state machine
         stateMachine = new StateMachine();
 
+        if(stateMachine.CurrentState == null)
+        {
+
+            stateMachine.ChangeState(new IdleState(this));
+        }
         // Start with IdleState
-        stateMachine.ChangeState(new IdleState(this));
 
     }
 
     private void Update()
     {
         // Update input
-        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+        //moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
 
 
         // Decrement combo cooldown timer
-       
 
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
         if(stateMachine != null)
             stateMachine.Update();
+        input = AttackInput.Nothing;
     }
 
 
@@ -76,52 +82,53 @@ public class NewPlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
-        stateMachine.CurrentState?.OnMove(input);
-        //stateMachine.ChangeState(new WalkState(this));
+        moveInput = input;
     }
 
     public void OnBlock(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            // Button pressed down  enter block state
-            stateMachine.ChangeState(new BlockState(this));
+            isBlocking = true;
         }
         else if (context.canceled)
         {
-            // Button released  exit block state (e.g. back to idle)
-            if (stateMachine.CurrentState is BlockState)
-                stateMachine.ChangeState(new IdleState(this));
+            isBlocking = false;
         }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        Debug.Log("I ATTACK");
         if (!context.performed) return;
 
-        string actionName = context.action.name;
-        Debug.Log(actionName);
-        switch (actionName)
+        if (context.performed)
         {
-            case "Hit":
-                HandleAttackInput(AttackInput.Hit);
-                break;
-            case "Kick":
-                HandleAttackInput(AttackInput.Kick);
-                break;
-            case "Shoot":
-                HandleAttackInput(AttackInput.Shoot);
-                break;
-            default:
-                Debug.LogWarning("Unknown attack action: " + actionName);
-                break;
+            string actionName = context.action.name;
+            Debug.Log(actionName);
+            switch (actionName)
+            {
+                case "Hit":
+                    HandleAttackInput(AttackInput.Hit);
+                    break;
+                case "Kick":
+                    HandleAttackInput(AttackInput.Kick);
+                    break;
+                case "Shoot":
+                    HandleAttackInput(AttackInput.Shoot);
+                    break;
+                default:
+                    Debug.LogWarning("Unknown attack action: " + actionName);
+                    break;
+            }
         }
     }
 
 
     private void HandleAttackInput(AttackInput input)
     {
-        stateMachine.ChangeState(new AttackState(this, input));
+        this.input = input;
+        //stateMachine.ChangeState(new AttackState(this, input));
     }
 
     #endregion

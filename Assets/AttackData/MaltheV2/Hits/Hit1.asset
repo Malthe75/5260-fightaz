@@ -21,3 +21,4 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 0.2
+  attackInput: 1

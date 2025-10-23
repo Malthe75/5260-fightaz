@@ -7,7 +7,7 @@ public class HurtState : PlayerState
     public HurtState(NewPlayerController player) : base(player) { }
     // Start is called before the first frame update
 
-    float hurtTimer = 0.3f;
+    float hurtTimer = 2f;
     public override void Enter()
     {
         // Set color to red, when hurt.

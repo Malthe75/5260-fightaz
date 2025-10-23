@@ -259,16 +259,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleSprites:
-  - {fileID: 21300000, guid: 0d918c9d59f854141bbcc57b45a8fff0, type: 3}
+  - {fileID: 21300000, guid: 6416514f4a6992e4e84d50b106322c69, type: 3}
   walkSprites:
-  - {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
-  - {fileID: 21300000, guid: 75c28e4c143eb424cb9ef987eea72b39, type: 3}
+  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
   walkSpeed: 5
   animationSpeed: 0.2
   attackData:
-  - {fileID: 11400000, guid: 7bd005bdb583bd0419c0d2bdaf09e7cf, type: 2}
-  - {fileID: 11400000, guid: df84742b48bcc764fb9531a4c3ae6fed, type: 2}
+  - {fileID: 11400000, guid: 25a5b02a2516f8e46ba4e8d45b6bc1fa, type: 2}
+  - {fileID: 11400000, guid: dd0a35f5c2e516b4c92eb34d78428a93, type: 2}
   - {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
+  input: 0
   blockSprites:
   - {fileID: 21300000, guid: 792ba91daae7d68479670feb0796a480, type: 3}
   rb: {fileID: 0}

@@ -13,6 +13,7 @@ public class NamedAttack
 
 public enum AttackInput
 {
+    Nothing,
     Hit,
     Kick,
     CrouchHit,

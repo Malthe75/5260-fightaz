@@ -9,14 +9,36 @@ public class IdleState : PlayerState
     public override void Enter()
     {
         player.sr.sprite = player.idleSprites[0];
+        Debug.Log("Entering it");
+        Debug.Log(player.name);
     }
 
-    public override void OnMove(Vector2 input)
+    public override void Update()
     {
-        if (Mathf.Abs(input.x) > 0.01f)
+        if (player.input != AttackInput.Nothing)
+        {
+            player.stateMachine.ChangeState(new AttackState(player, player.input));
+            return;
+        }
+
+        if (Mathf.Abs(player.moveInput.x) > 0.01f)
         {
             player.stateMachine.ChangeState(new WalkState(player));
-            player.moveInput = input;
         }
+
+        if (player.isBlocking)
+        {
+            player.stateMachine.ChangeState(new BlockState(player));
+        }
+
     }
+
+    //public override void OnMove(Vector2 input)
+    //{
+    //    if (Mathf.Abs(input.x) > 0.01f)
+    //    {
+    //        player.stateMachine.ChangeState(new WalkState(player));
+    //        player.moveInput = input;
+    //    }
+    //}
 }

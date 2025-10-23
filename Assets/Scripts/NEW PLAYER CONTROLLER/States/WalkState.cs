@@ -10,7 +10,10 @@ public class WalkState : PlayerState
     private float idleBuffer = 0.15f;
     private float idleTimer = 0f;
 
-    public WalkState(NewPlayerController player) : base(player) { }
+    public WalkState(NewPlayerController player) : base(player) {
+        Debug.Log("Why is thing happening?");
+        Debug.Log(player.name);
+        }
     // Start is called before the first frame update
     public override void Enter()
     {
