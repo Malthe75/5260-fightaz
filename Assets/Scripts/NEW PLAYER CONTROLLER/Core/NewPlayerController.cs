@@ -28,6 +28,7 @@ public class NewPlayerController : MonoBehaviour
     // References
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer sr;
+    //[HideInInspector] public AttackHitbox attackHitbox;
 
     // Input
     [HideInInspector] public Vector2 moveInput;
@@ -35,6 +36,8 @@ public class NewPlayerController : MonoBehaviour
 
     // State Machine
     public StateMachine stateMachine;
+
+    public AttackHitbox attackHitbox;
 
 
     #endregion
@@ -61,8 +64,9 @@ public class NewPlayerController : MonoBehaviour
         // Decrement combo cooldown timer
        
 
-        // Update the current state
-        stateMachine.Update();
+        // Update the current state. THe if statement is only there to avoid errors when recompiling.
+        if(stateMachine != null)
+            stateMachine.Update();
     }
 
 
@@ -122,4 +126,10 @@ public class NewPlayerController : MonoBehaviour
 
     #endregion
 
+
+    public void TakeHit(int damage)
+    {
+        Debug.Log("IT did this damage");
+        stateMachine.ChangeState(new HurtState(this));
+    }
 }

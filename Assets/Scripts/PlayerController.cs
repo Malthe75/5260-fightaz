@@ -408,41 +408,41 @@ public class PlayerController : MonoBehaviour
         }
         if (bestHit != null)
         {
-            switch (bestHit.tag)
-            {
-                case "P1Upper":
-                    Debug.Log("Player 1 Upper hit");
-                    uiHandler.TakeDamage1(attackDamage);
-                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-                    fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
-                    break;
-                case "P1Lower":
-                    Debug.Log("Player 1 Lower hit");
-                    uiHandler.TakeDamage1(attackDamage);
-                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-                    fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
+            //switch (bestHit.tag)
+            //{
+            //    case "P1Upper":
+            //        Debug.Log("Player 1 Upper hit");
+            //        uiHandler.TakeDamage1(attackDamage);
+            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+            //        fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
+            //        break;
+            //    case "P1Lower":
+            //        Debug.Log("Player 1 Lower hit");
+            //        uiHandler.TakeDamage1(attackDamage);
+            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+            //        fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
 
-                    break;
-                case "P2Upper":
-                    Debug.Log("Player 2 Upper hit");
-                    uiHandler.TakeDamage2(attackDamage);
-                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-                    fightManagerTest.p2sr.color = Color.red;
+            //        break;
+            //    case "P2Upper":
+            //        Debug.Log("Player 2 Upper hit");
+            //        uiHandler.TakeDamage2(attackDamage);
+            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+            //        fightManagerTest.p2sr.color = Color.red;
 
-                    break;
-                case "P2Lower":
-                    Debug.Log("Player 2 Lower hit");
-                    uiHandler.TakeDamage2(attackDamage);
-                    hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-                    fightManagerTest.p2sr.color = Color.red; // Temporary visual feedback for hit
+            //        break;
+            //    case "P2Lower":
+            //        Debug.Log("Player 2 Lower hit");
+            //        uiHandler.TakeDamage2(attackDamage);
+            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
+            //        fightManagerTest.p2sr.color = Color.red; // Temporary visual feedback for hit
 
 
 
-                    break;
-                default:
-                    Debug.Log("Hit something untagged or unexpected");
-                    break;
-            }
+            //        break;
+            //    default:
+            //        Debug.Log("Hit something untagged or unexpected");
+            //        break;
+            //}
 
             var trigger = hitboxObject.GetComponent<HitboxTrigger>();
             if (trigger != null)

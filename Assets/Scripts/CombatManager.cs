@@ -28,27 +28,27 @@ public class CombatManager : MonoBehaviour
     }
 
     // Updae Takedamage so i dont have two different methods for each player
-    void applyHit(bool player1WasHit, int attackDamage)
-    {
+    //void applyHit(bool player1WasHit, int attackDamage)
+    //{
 
 
-        if (player1WasHit)
-        {
-            Debug.Log("Player 1 Got Hit");
-            uiHandler.TakeDamage1(attackDamage); // Update UI for player health
-            hitFeedback.TriggerHitEffect(); // Trigger hit feedback effects - Like camera shake, sound, etc. / Maybe even a hit flash on the player sprite
+    //    if (player1WasHit)
+    //    {
+    //        Debug.Log("Player 1 Got Hit");
+    //        uiHandler.TakeDamage1(attackDamage); // Update UI for player health
+    //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effects - Like camera shake, sound, etc. / Maybe even a hit flash on the player sprite
 
-            fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
-        }
-        else if(!player1WasHit){
-            Debug.Log("Player 2 Got Hit");
-            uiHandler.TakeDamage2(attackDamage); // Update UI for player health
-            hitFeedback.TriggerHitEffect(); // Trigger hit feedback effects - Like camera shake, sound, etc. / Maybe even a hit flash on the player sprite
+    //        fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
+    //    }
+    //    else if(!player1WasHit){
+    //        Debug.Log("Player 2 Got Hit");
+    //        uiHandler.TakeDamage2(attackDamage); // Update UI for player health
+    //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effects - Like camera shake, sound, etc. / Maybe even a hit flash on the player sprite
 
-            fightManagerTest.p2sr.color = Color.red; // Temporary visual feedback for hit
-        }
+    //        fightManagerTest.p2sr.color = Color.red; // Temporary visual feedback for hit
+    //    }
 
-    }
+    //}
 
 
     

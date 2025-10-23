@@ -62,8 +62,9 @@ public class FightManagerTest : MonoBehaviour
         p1.transform.localScale = newScale;
         p1.gameObject.name = "Player1";
         p1.tag = "Player1";
-        SetupPlayerHitboxes(p1, "P1");
         p1sr = p1.GetComponentInChildren<SpriteRenderer>();
+        p1.transform.Find("Hurtbox").gameObject.tag = "Player1";
+
 
         p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
         p2.transform.position = player2Spawn.position;
@@ -73,8 +74,10 @@ public class FightManagerTest : MonoBehaviour
         p2.transform.localScale = newScale2;
         p2.gameObject.name = "Player2";
         p2.tag = "Player2";
-        SetupPlayerHitboxes(p2, "P2");
         p2sr = p2.GetComponentInChildren<SpriteRenderer>();
+
+        // Set player tag on hurtbox
+        p2.transform.Find("Hurtbox").gameObject.tag = "Player2";
     }
 }
 

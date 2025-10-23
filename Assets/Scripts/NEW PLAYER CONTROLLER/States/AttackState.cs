@@ -30,14 +30,29 @@ public class AttackState : PlayerState
                 player.StartCoroutine(showFrames(attack));
             }
         }
+
     }
 
     private IEnumerator showFrames(AttackData attack)
     {
-        foreach(var frame in attack.frames)
+        foreach(var attackFrame in attack.frames)
         {
-            player.sr.sprite = frame.frameSprite;
-            yield return new WaitForSeconds(frame.frameDuration);
+            // Sprite
+            player.sr.sprite = attackFrame.frameSprite;
+
+            // Activate hitbox if it exists
+            if (attackFrame.hasHitbox)
+            {
+                player.attackHitbox.Activate(attackFrame);
+            }
+            // Timer
+            yield return new WaitForSeconds(attackFrame.frameDuration);
+
+            // Deactivate hitbox if it exists
+            if (attackFrame.hasHitbox)
+            {
+                player.attackHitbox.Deactivate();
+            }
         }
         HandleNextState();
     }
@@ -53,6 +68,8 @@ public class AttackState : PlayerState
             player.stateMachine.ChangeState(new IdleState(player));
         }
     }
+
+
 }
 
     
