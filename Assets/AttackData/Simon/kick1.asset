@@ -28,7 +28,7 @@ MonoBehaviour:
     hitboxOffset: {x: -1.05, y: -2.44}
     hasHitbox: 1
     hitboxPrefab: {fileID: 1995560695794074344, guid: 714da188b1d3e5f45b49dd4345b44ddb, type: 3}
-    attackSound: {fileID: 0}
+    attackSound: {fileID: 8300000, guid: ecbee3cc021e2e14693ba6f72788c6ff, type: 3}
     frameDuration: 0.25
     knockback: 3
     dashForce: 0

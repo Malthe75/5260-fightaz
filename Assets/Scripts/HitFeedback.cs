@@ -8,6 +8,15 @@ public class HitFeedback : MonoBehaviour
     public float shakeDuration = 0.1f;
     public float shakeMagnitude = 0.2f;
     public float hitStopTime = 0.1f;
+    public static HitFeedback Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+    }
 
     public void TriggerHitEffect()
     {
@@ -19,10 +28,19 @@ public class HitFeedback : MonoBehaviour
         float originalTimeScale = Time.timeScale;
         Time.timeScale = 0.05f;
 
-        // Start shaking in unscaled time
         StartCoroutine(ScreenShake(shakeDur, magnitude));
 
         yield return new WaitForSecondsRealtime(stopTime);
+
+        // Smoothly return timescale to normal
+        float restoreDuration = 0.05f;
+        float t = 0;
+        while (t < restoreDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(0.05f, originalTimeScale, t / restoreDuration);
+            yield return null;
+        }
 
         Time.timeScale = originalTimeScale;
     }

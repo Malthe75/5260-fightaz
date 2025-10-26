@@ -52,7 +52,9 @@ public class AttackHitbox : MonoBehaviour
                 Debug.Log("PLAYER WAS BLOCKING!");
             }
             else {
+                Debug.Log("HIT PLAYER");
                 hurtbox.TakeDamage(damage, attack);
+                HitFeedback.Instance.TriggerHitEffect();
                 // Optional: prevent multiple hits per attack
             }
                 Deactivate();

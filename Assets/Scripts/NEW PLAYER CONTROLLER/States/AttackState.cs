@@ -63,9 +63,9 @@ public class AttackState : PlayerState
 
             }
 
-            if(attackFrame.attackSound != null)
+            if (attackFrame.attackSound != null)
             {
-                AudioSource.PlayClipAtPoint(attackFrame.attackSound, player.transform.position);
+                AudioManagerTwo.Instance.PlaySFX(attackFrame.attackSound);
             }
             // Timer
             yield return new WaitForSeconds(attackFrame.frameDuration);
