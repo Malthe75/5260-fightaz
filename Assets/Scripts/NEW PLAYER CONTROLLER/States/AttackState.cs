@@ -50,16 +50,22 @@ public class AttackState : PlayerState
             // Sprite
             player.sr.sprite = attackFrame.frameSprite;
 
+            if (attackFrame.dashForce != 0)
+                {
+                    dash(attackFrame.dashForce);
+                }
             // Activate hitbox if it exists
             if (attackFrame.hasHitbox)
             {
                 player.attackHitbox.Activate(attackFrame);
 
-                if (attackFrame.dashForce != 0)
-                {
-                    dash(attackFrame.dashForce);
-                }
+                
 
+            }
+
+            if(attackFrame.attackSound != null)
+            {
+                AudioSource.PlayClipAtPoint(attackFrame.attackSound, player.transform.position);
             }
             // Timer
             yield return new WaitForSeconds(attackFrame.frameDuration);

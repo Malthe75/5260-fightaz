@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: idleSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: ff3d3c9a0597ab845966e8e3182ae204, type: 3}
+      objectReference: {fileID: 21300000, guid: dac2e9f5f11747c44ae2cd6b166d7ac2, type: 3}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: jumpSprites.Array.data[0]
       value: 
