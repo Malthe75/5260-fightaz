@@ -9,8 +9,6 @@ public class IdleState : PlayerState
     public override void Enter()
     {
         player.sr.sprite = player.idleSprites[0];
-        Debug.Log("Entering it");
-        Debug.Log(player.name);
     }
 
     public override void Update()
@@ -31,10 +29,10 @@ public class IdleState : PlayerState
             player.stateMachine.ChangeState(new BlockState(player));
         }
 
-        if(player.jumpInput == JumpInput.Right)
+        if(player.shouldJump)
         {
-            Debug.Log("before sttae");
-            player.stateMachine.ChangeState(new JumpState(player));
+            player.stateMachine.ChangeState(new JumpState(player, JumpInput.Up));
+            return;
         }
 
     }

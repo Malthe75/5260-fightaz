@@ -5,7 +5,7 @@ using UnityEngine;
 public class HurtState : PlayerState
 {
     float knockbackForce; // How strong the knockback is
-    float hurtTimer = 0.5f; // How long the player stays in hurt state (total time in hurt state)
+    float hurtTimer = 0.1f; // How long the player stays in hurt state (total time in hurt state)
     float knockbackTimer; // Timer for the knockback duration
     Vector2 knockbackDirection; // Direction of knockback (to the right or left)
 

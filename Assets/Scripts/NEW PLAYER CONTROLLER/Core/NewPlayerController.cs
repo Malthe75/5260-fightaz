@@ -6,12 +6,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public enum JumpInput
+public enum AttackInput
 {
     Nothing,
-    Up,
-    Right,
-    Left
+    Hit,
+    Kick,
+    CrouchHit,
+    CrouchKick,
+    Shoot,
+    Signature1,
+    Signature2,
+    JumpHit,
+
 }
 public class NewPlayerController : MonoBehaviour
 {
@@ -35,7 +41,11 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Jump state")]
     public Sprite[] jumpSprites;
-    [HideInInspector] public JumpInput jumpInput;
+    [HideInInspector] public bool shouldJump = false;
+    [HideInInspector] public bool isGrounded = true;
+
+    [Header("JumpAttack state")]
+    public Sprite[] jumpAttackSprites;
 
 
     // References
@@ -111,7 +121,7 @@ public class NewPlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            jumpInput = JumpInput.Right;
+            shouldJump = true;
         }
     }
     public void OnAttack(InputAction.CallbackContext context)
@@ -156,4 +166,21 @@ public class NewPlayerController : MonoBehaviour
         Debug.Log("IT did this damage");
         stateMachine.ChangeState(new HurtState(this, attack));
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Why?");
+            isGrounded = true;
+        }
+    }
+
+    //void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 }

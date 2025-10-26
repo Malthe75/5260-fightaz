@@ -278,15 +278,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25a5b02a2516f8e46ba4e8d45b6bc1fa, type: 2}
   - {fileID: 11400000, guid: dd0a35f5c2e516b4c92eb34d78428a93, type: 2}
   - {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
+  - {fileID: 11400000, guid: 488e673ca3f9bdc4ba1abc393fd43dec, type: 2}
   input: 0
   blockSprites:
   - {fileID: 21300000, guid: 792ba91daae7d68479670feb0796a480, type: 3}
   isBlocking: 0
   jumpSprites:
-  - {fileID: 21300000, guid: 871089fdfcebadf4795b6fa3408039e6, type: 3}
-  - {fileID: 21300000, guid: 2f69f70daa15b7841bc393601a2d47b8, type: 3}
-  - {fileID: 21300000, guid: 35e7d62ccce80c242a3c1d77f206a061, type: 3}
-  jumpInput: 0
+  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
+  - {fileID: 21300000, guid: 6416514f4a6992e4e84d50b106322c69, type: 3}
+  shouldJump: 0
+  isGrounded: 1
+  jumpAttackSprites:
+  - {fileID: 21300000, guid: e67d4804eb8b0f94d81ffa67a23f3e59, type: 3}
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}

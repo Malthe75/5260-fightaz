@@ -20,11 +20,8 @@ public class WalkState : PlayerState
     // Update is called once per frame
     public override void Update()
     {
-        if (player.input != AttackInput.Nothing)
-        {
-            player.stateMachine.ChangeState(new AttackState(player, player.input));
-            return;
-        }
+        
+        HandleNextState();
         // Move the player
         player.rb.velocity = new Vector2(player.moveInput.x * player.walkSpeed, player.rb.velocity.y);
 
@@ -51,6 +48,22 @@ public class WalkState : PlayerState
         else 
         {         
             idleTimer = 0f;
+        }
+    }
+
+    public override void HandleNextState()
+    {
+        // Attack transition
+        if (player.input != AttackInput.Nothing)
+        {
+            player.stateMachine.ChangeState(new AttackState(player, player.input));
+            return;
+        }
+        // Jump transition
+        if (player.shouldJump)
+        {
+            if (player.moveInput.x > 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Right));
+            else if (player.moveInput.x < 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Left));
         }
     }
 

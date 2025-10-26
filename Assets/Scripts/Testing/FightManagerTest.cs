@@ -19,31 +19,6 @@ public class FightManagerTest : MonoBehaviour
        
 
     }
-    void SetupPlayerHitboxes(PlayerInput playerRoot, string playerPrefix)
-    {
-        // Assign attack hitbox tag
-        Transform attackHitbox = playerRoot.transform.Find("Hitbox");
-        if (attackHitbox != null)
-        {
-            attackHitbox.gameObject.tag = playerPrefix;
-        }
-
-        // Assign body hitboxes tags (head, torso, legs)
-        Transform hitboxes = playerRoot.transform.Find("Hitboxes");
-        if (hitboxes != null)
-        {
-            foreach (string part in new[] { "Upper", "Lower" })
-            {
-                Transform partTransform = hitboxes.Find(part);
-                if (partTransform != null)
-                {
-                    partTransform.gameObject.tag = playerPrefix + part.Substring(0, 1).ToUpper() + part.Substring(1);
-                    // e.g. "Player1Head"
-                }
-            }
-        }
-    }
-
     private void SpawnPlayers()
     {
 

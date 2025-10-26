@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum JumpInput
+{
+    Nothing,
+    Up,
+    Right,
+    Left
+}
 public class JumpState : PlayerState
 {
 
     private Vector2 jumpDirection;
-    private bool hasJumped = false;
     private Sprite sprite;
+    private float jumpForce = 20f;
+    private JumpInput jumpInput = JumpInput.Nothing;
 
-    public JumpState(NewPlayerController player) : base(player) { }
+    public JumpState(NewPlayerController player, JumpInput jumpInput) : base(player)
+    {
+        this.jumpInput = jumpInput;
+    }
 
     public override void Enter()
     {
-        switch (player.jumpInput)
+        switch (jumpInput)
         {
             case JumpInput.Right:
                 jumpDirection = new Vector2(1f, 1f).normalized;
@@ -24,6 +35,7 @@ public class JumpState : PlayerState
                 sprite = player.jumpSprites[1];
                 break;
             case JumpInput.Up:
+                jumpDirection = Vector2.up;
                 sprite = player.jumpSprites[2];
                 break;
             default:
@@ -31,31 +43,51 @@ public class JumpState : PlayerState
                 break;
         }
 
-        // Apply jump force
-        player.rb.velocity = Vector2.zero; // reset velocity for consistent jump
-        player.rb.AddForce(jumpDirection * 3, ForceMode2D.Impulse);
-
-        hasJumped = true;
-
-        // Set jump sprite or animation if you have one
-        if (sprite != null)
-            player.sr.sprite = sprite;
+        Jump();
     }
     public override void Update()
+
     {
-
-        float moveX = player.moveInput.x;
-        player.rb.velocity = new Vector2(moveX * 3, player.rb.velocity.y);
-
-        // Check landing
-        if (hasJumped == true)
-        {
-            hasJumped = false;
-            if (Mathf.Abs(player.moveInput.x) > 0.1f)
-                player.stateMachine.ChangeState(new WalkState(player));
-            else
-                player.stateMachine.ChangeState(new IdleState(player));
-        }
-        
+        HandleNextState();
     }
+
+    public override void Exit()
+    {
+        player.shouldJump = false;
+    }
+
+    public override void HandleNextState()
+    {
+        if (player.isGrounded)
+        {
+            if (Mathf.Abs(player.moveInput.x) > 0.1f)
+            {
+                player.stateMachine.ChangeState(new WalkState(player));
+            }
+            else
+            {
+                player.stateMachine.ChangeState(new IdleState(player));
+
+            }
+        }
+
+        // Jump Attack transition
+        if (player.input == AttackInput.Hit)
+        {
+            player.stateMachine.ChangeState(new JumpAttackState(player, AttackInput.JumpHit));
+            return;
+        }
+
+    }
+
+    private void Jump()
+    {
+        player.rb.velocity = new Vector2(player.rb.velocity.x, 0f);
+
+        player.rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
+        
+        player.sr.sprite = sprite;
+        player.isGrounded = false;
+    }
+
 }

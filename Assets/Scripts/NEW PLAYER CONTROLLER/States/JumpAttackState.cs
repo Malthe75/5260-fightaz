@@ -1,27 +1,50 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : PlayerState
+public class JumpAttackState : PlayerState
 {
     private AttackInput attackInput;
     private int dashDirection;
 
-    public AttackState(NewPlayerController player, AttackInput input) : base(player)
+    public JumpAttackState(NewPlayerController player, AttackInput attackInput) : base(player)
     {
-        attackInput = input;
+        this.attackInput = attackInput;
     }
 
     public override void Enter()
     {
         attack(attackInput);
     }
+    public override void Exit() { base.Exit(); }
+
+    public override void Update() 
+    { 
+        HandleNextState();
+    }
+
+    public override void HandleNextState()
+    {
+        if (player.isGrounded)
+        {
+            if (Mathf.Abs(player.moveInput.x) > 0.1f)
+            {
+                player.stateMachine.ChangeState(new WalkState(player));
+            }
+            else
+            {
+                player.stateMachine.ChangeState(new IdleState(player));
+
+            }
+        }
+    }
 
     private void attack(AttackInput attackInput)
     {
 
-        foreach(var attack in player.attackData)
+        foreach (var attack in player.attackData)
         {
-            if(attackInput == attack.attackInput)
+            if (attackInput == attack.attackInput)
             {
 
                 player.StartCoroutine(showFrames(attack));
@@ -32,7 +55,7 @@ public class AttackState : PlayerState
 
     private IEnumerator showFrames(AttackData attack)
     {
-        foreach(var attackFrame in attack.frames)
+        foreach (var attackFrame in attack.frames)
         {
             // Sprite
             player.sr.sprite = attackFrame.frameSprite;
@@ -60,18 +83,6 @@ public class AttackState : PlayerState
         HandleNextState();
     }
 
-    public override void HandleNextState()
-    {
-        if(player.moveInput != Vector2.zero)
-        {
-            player.stateMachine.ChangeState(new WalkState(player));
-        }
-        else
-        {
-            player.stateMachine.ChangeState(new IdleState(player));
-        }
-    }
-
     private void dash(float dashForce)
     {
         if (player.tag == "Player1") dashDirection = 1;
@@ -79,7 +90,5 @@ public class AttackState : PlayerState
         player.rb.AddForce(new Vector2(dashDirection * dashForce, 0f), ForceMode2D.Impulse);
     }
 
-}
 
-    
-    
+}
