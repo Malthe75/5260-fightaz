@@ -84,8 +84,15 @@ public class JumpState : PlayerState
     {
         player.rb.velocity = new Vector2(player.rb.velocity.x, 0f);
 
-        player.rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
-        
+        // Apply vertical jump force
+        player.rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+        if (jumpDirection.x != 0)
+        {
+            player.rb.AddForce(new Vector2(jumpDirection.x * jumpForce, 0f), ForceMode2D.Impulse);
+        }
+
+
         player.sr.sprite = sprite;
         player.isGrounded = false;
     }

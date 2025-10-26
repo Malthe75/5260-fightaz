@@ -218,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Spawn: {fileID: 211918952}
   player2Spawn: {fileID: 1727048919}
-  playerPrefab: {fileID: 6166256156956086419, guid: d0545ec6b1a72cb43a311ed139c4d412, type: 3}
+  playerPrefab: {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
   stages: []
   p1: {fileID: 0}
   p2: {fileID: 0}

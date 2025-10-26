@@ -5,6 +5,7 @@ public class AttackState : PlayerState
 {
     private AttackInput attackInput;
     private int dashDirection;
+    private Coroutine attackRoutine;
 
     public AttackState(NewPlayerController player, AttackInput input) : base(player)
     {
@@ -15,6 +16,16 @@ public class AttackState : PlayerState
     {
         attack(attackInput);
     }
+    public override void Exit()
+    {
+        if(attackRoutine != null)
+        {
+            player.StopCoroutine(attackRoutine);
+            attackRoutine = null;
+
+            player.attackHitbox.Deactivate();
+        }
+    }
 
     private void attack(AttackInput attackInput)
     {
@@ -24,16 +35,18 @@ public class AttackState : PlayerState
             if(attackInput == attack.attackInput)
             {
 
-                player.StartCoroutine(showFrames(attack));
+                attackRoutine = player.StartCoroutine(showFrames(attack));
             }
         }
 
     }
 
+    // Remember to delete coroutine if we exit the state early.
     private IEnumerator showFrames(AttackData attack)
     {
         foreach(var attackFrame in attack.frames)
         {
+            Debug.Log("What?");
             // Sprite
             player.sr.sprite = attackFrame.frameSprite;
 

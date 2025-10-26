@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2220654402862206344}
   - component: {fileID: 1044950091121397859}
+  - component: {fileID: 7909968727596106551}
   m_Layer: 12
   m_Name: Hitbox
   m_TagString: Untagged
@@ -77,6 +78,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
+--- !u!114 &7909968727596106551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2907835172692215638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f69264388abc604798e0a8aec14c15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitboxCollider: {fileID: 1044950091121397859}
 --- !u!1 &3856578251420467495
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7875189213607683075}
+  - component: {fileID: 2005024291927490157}
   - component: {fileID: 2966674222527440294}
   - component: {fileID: 774113454451992834}
   - component: {fileID: 7336264429164664212}
@@ -198,6 +213,44 @@ Transform:
   - {fileID: 435952979971675786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2005024291927490157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4062488458785150550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea07964693a1c74dbf42d461d549c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleSprites:
+  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  walkSprites:
+  - {fileID: 21300000, guid: 294831029e8d1374ebf817c3436f1127, type: 3}
+  - {fileID: 21300000, guid: 39812d7ffaff3064faf797a9a9871f68, type: 3}
+  walkSpeed: 5
+  animationSpeed: 0.2
+  attackData:
+  - {fileID: 11400000, guid: 25a5b02a2516f8e46ba4e8d45b6bc1fa, type: 2}
+  - {fileID: 11400000, guid: dd0a35f5c2e516b4c92eb34d78428a93, type: 2}
+  - {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
+  - {fileID: 11400000, guid: 488e673ca3f9bdc4ba1abc393fd43dec, type: 2}
+  input: 0
+  blockSprites:
+  - {fileID: 21300000, guid: 792ba91daae7d68479670feb0796a480, type: 3}
+  isBlocking: 0
+  jumpSprites:
+  - {fileID: 21300000, guid: 6416514f4a6992e4e84d50b106322c69, type: 3}
+  - {fileID: 21300000, guid: 9623e40bd6b3f9749b6c92322c61c8ba, type: 3}
+  - {fileID: 21300000, guid: 69beedd1745593841a4d757ecd56ab22, type: 3}
+  shouldJump: 0
+  isGrounded: 1
+  rb: {fileID: 0}
+  sr: {fileID: 0}
+  moveInput: {x: 0, y: 0}
+  attackHitbox: {fileID: 7909968727596106551}
 --- !u!50 &2966674222527440294
 Rigidbody2D:
   serializedVersion: 4
@@ -297,8 +350,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2005024291927490157}
+        m_TargetAssemblyTypeName: NewPlayerController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -313,8 +366,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 2005024291927490157}
+        m_TargetAssemblyTypeName: NewPlayerController, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -329,9 +382,9 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/w]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: onHit
+      - m_Target: {fileID: 2005024291927490157}
+        m_TargetAssemblyTypeName: NewPlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -345,9 +398,9 @@ MonoBehaviour:
     m_ActionName: Player/Hit[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: onKick
+      - m_Target: {fileID: 2005024291927490157}
+        m_TargetAssemblyTypeName: NewPlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -429,9 +482,9 @@ MonoBehaviour:
     m_ActionName: CharacterSelection/Cancel
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: onBlock
+      - m_Target: {fileID: 2005024291927490157}
+        m_TargetAssemblyTypeName: NewPlayerController, Assembly-CSharp
+        m_MethodName: OnBlock
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -457,8 +510,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 435952979971675786}
+  - component: {fileID: 4652715480512573613}
+  - component: {fileID: 2305055850553044705}
   m_Layer: 12
-  m_Name: Hitboxes
+  m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,3 +534,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7875189213607683075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4652715480512573613
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5418765017322279716}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.095351696, y: -2.8605483}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.1930876, y: 8.818832}
+  m_EdgeRadius: 0
+--- !u!114 &2305055850553044705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5418765017322279716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ba9b18d8f981d4b9adbb5f1195eaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

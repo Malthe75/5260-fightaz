@@ -1,6 +1,7 @@
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
@@ -42,11 +43,19 @@ public class AttackHitbox : MonoBehaviour
 
         // Check if we hit another player's hurtbox
         Hurtbox hurtbox = otherPlayer.GetComponent<Hurtbox>();
-        if(hurtbox != null)
+        if (hurtbox != null)
         {
-            hurtbox.TakeDamage(damage, attack);
-            // Optional: prevent multiple hits per attack
-            Deactivate();
+            NewPlayerController player = otherPlayer.GetComponentInParent<NewPlayerController>();
+            Debug.Log(player);
+            if (player.isBlocking)
+            {
+                Debug.Log("PLAYER WAS BLOCKING!");
+            }
+            else {
+                hurtbox.TakeDamage(damage, attack);
+                // Optional: prevent multiple hits per attack
+            }
+                Deactivate();
         }
     }
 

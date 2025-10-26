@@ -33,7 +33,7 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Attack state")]
     public List<AttackData> attackData;
-    public AttackInput input = AttackInput.Nothing;
+    [HideInInspector] public AttackInput input = AttackInput.Nothing;
 
     [Header("Block state")]
     public Sprite[] blockSprites;
@@ -45,7 +45,6 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public bool isGrounded = true;
 
     [Header("JumpAttack state")]
-    public Sprite[] jumpAttackSprites;
 
 
     // References
