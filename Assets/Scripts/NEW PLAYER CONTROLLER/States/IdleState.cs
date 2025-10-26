@@ -31,6 +31,12 @@ public class IdleState : PlayerState
             player.stateMachine.ChangeState(new BlockState(player));
         }
 
+        if(player.jumpInput == JumpInput.Right)
+        {
+            Debug.Log("before sttae");
+            player.stateMachine.ChangeState(new JumpState(player));
+        }
+
     }
 
     //public override void OnMove(Vector2 input)

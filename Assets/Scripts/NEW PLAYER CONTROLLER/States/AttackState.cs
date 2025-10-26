@@ -8,6 +8,7 @@ using UnityEngine.Windows;
 public class AttackState : PlayerState
 {
     private AttackInput attackInput;
+    private int dashDirection;
 
     public AttackState(NewPlayerController player, AttackInput input) : base(player)
     {
@@ -44,6 +45,12 @@ public class AttackState : PlayerState
             if (attackFrame.hasHitbox)
             {
                 player.attackHitbox.Activate(attackFrame);
+
+                if (attackFrame.dashForce != 0)
+                {
+                    dash(attackFrame.dashForce);
+                }
+
             }
             // Timer
             yield return new WaitForSeconds(attackFrame.frameDuration);
@@ -69,6 +76,12 @@ public class AttackState : PlayerState
         }
     }
 
+    private void dash(float dashForce)
+    {
+        if (player.tag == "Player1") dashDirection = 1;
+        else dashDirection = -1;
+        player.rb.AddForce(new Vector2(dashDirection * dashForce, 0f), ForceMode2D.Impulse);
+    }
 
 }
 

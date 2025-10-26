@@ -13,6 +13,7 @@ public class AttackFrameData
     public AudioClip attackSound;
     public float frameDuration = 0.2f; // Time before moving to next frame
     public float knockback = 3;
+    public float dashForce = 0;
 }
 
 

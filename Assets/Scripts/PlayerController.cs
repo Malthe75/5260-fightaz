@@ -270,7 +270,6 @@ public class PlayerController : MonoBehaviour
 
             if (frame.hasHitbox)
             {
-                ActivateHitbox(frame.hitboxSize, frame.hitboxOffset);
             }
 
             if (frame.attackSound != null)
@@ -364,106 +363,6 @@ public class PlayerController : MonoBehaviour
     {
         comboCounter = 0;
         currentCombos = comboLibrary.combos.ToList();
-    }
-
-
-
-
-    // ################################################################################################################//
-    // ################################################################################################################//
-    // ################################################################################################################//
-    // Hitbox related methods //
-    void ActivateHitbox(Vector2 size, Vector2 offset)
-    {
-        int attackDamage = 1; // your damage value
-
-        // Set hitbox size and position
-        hitboxObject.transform.localPosition = offset;
-        hitboxCollider.size = size;
-        hitboxObject.SetActive(true);
-
-        string attackerTag = hitboxObject.tag; // e.g. "Player1Attack" or "Player2Attack"
-
-        Vector2 hitboxWorldPos = hitboxObject.transform.position;
-
-        LayerMask hitboxLayerMask = LayerMask.GetMask("HitboxTarget");
-
-        Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxWorldPos, size, 0f, hitboxLayerMask);
-
-        Collider2D bestHit = null;
-        float minDistance = float.MaxValue;
-
-        foreach (var hit in hits)
-        {
-            // Skip own attack hitbox collider
-            if (hit.tag == attackerTag + "Upper" || hit.tag == attackerTag + "Lower")
-                continue;
-
-            // Calculate distance to find best hitbox to apply damage
-            float distance = Vector2.Distance(hitboxWorldPos, hit.bounds.center);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                bestHit = hit;
-            }
-        }
-        if (bestHit != null)
-        {
-            //switch (bestHit.tag)
-            //{
-            //    case "P1Upper":
-            //        Debug.Log("Player 1 Upper hit");
-            //        uiHandler.TakeDamage1(attackDamage);
-            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-            //        fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
-            //        break;
-            //    case "P1Lower":
-            //        Debug.Log("Player 1 Lower hit");
-            //        uiHandler.TakeDamage1(attackDamage);
-            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-            //        fightManagerTest.p1sr.color = Color.red; // Temporary visual feedback for hit
-
-            //        break;
-            //    case "P2Upper":
-            //        Debug.Log("Player 2 Upper hit");
-            //        uiHandler.TakeDamage2(attackDamage);
-            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-            //        fightManagerTest.p2sr.color = Color.red;
-
-            //        break;
-            //    case "P2Lower":
-            //        Debug.Log("Player 2 Lower hit");
-            //        uiHandler.TakeDamage2(attackDamage);
-            //        hitFeedback.TriggerHitEffect(); // Trigger hit feedback effect
-            //        fightManagerTest.p2sr.color = Color.red; // Temporary visual feedback for hit
-
-
-
-            //        break;
-            //    default:
-            //        Debug.Log("Hit something untagged or unexpected");
-            //        break;
-            //}
-
-            var trigger = hitboxObject.GetComponent<HitboxTrigger>();
-            if (trigger != null)
-            {
-                trigger.damage = attackDamage;
-            }
-        }
-
-        StartCoroutine(DisableHitboxAfter(0.1f));
-    }
-
-
-    IEnumerator DisableHitboxAfter(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        hitboxObject.SetActive(false);
-
-        // Reset the colors after hit - just here for now
-        fightManagerTest.p1sr.color = Color.white;
-        fightManagerTest.p2sr.color = Color.white;
     }
 
 }

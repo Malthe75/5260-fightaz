@@ -10,10 +10,7 @@ public class WalkState : PlayerState
     private float idleBuffer = 0.15f;
     private float idleTimer = 0f;
 
-    public WalkState(NewPlayerController player) : base(player) {
-        Debug.Log("Why is thing happening?");
-        Debug.Log(player.name);
-        }
+    public WalkState(NewPlayerController player) : base(player) {}
     // Start is called before the first frame update
     public override void Enter()
     {
@@ -23,6 +20,11 @@ public class WalkState : PlayerState
     // Update is called once per frame
     public override void Update()
     {
+        if (player.input != AttackInput.Nothing)
+        {
+            player.stateMachine.ChangeState(new AttackState(player, player.input));
+            return;
+        }
         // Move the player
         player.rb.velocity = new Vector2(player.moveInput.x * player.walkSpeed, player.rb.velocity.y);
 

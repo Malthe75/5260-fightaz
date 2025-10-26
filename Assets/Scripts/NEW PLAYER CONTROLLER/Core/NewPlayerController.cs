@@ -6,6 +6,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
+public enum JumpInput
+{
+    Nothing,
+    Up,
+    Right,
+    Left
+}
 public class NewPlayerController : MonoBehaviour
 {
 
@@ -26,6 +33,10 @@ public class NewPlayerController : MonoBehaviour
     public Sprite[] blockSprites;
     [HideInInspector] public bool isBlocking = false;
 
+    [Header("Jump state")]
+    public Sprite[] jumpSprites;
+    [HideInInspector] public JumpInput jumpInput;
+
 
     // References
     [HideInInspector] public Rigidbody2D rb;
@@ -34,7 +45,6 @@ public class NewPlayerController : MonoBehaviour
 
     // Input
     [HideInInspector] public Vector2 moveInput;
-    [HideInInspector] public bool jumpInput;
 
     // State Machine
     public StateMachine stateMachine;
@@ -97,6 +107,13 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            jumpInput = JumpInput.Right;
+        }
+    }
     public void OnAttack(InputAction.CallbackContext context)
     {
         Debug.Log("I ATTACK");

@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7763323648788610342}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -93,6 +93,10 @@ PrefabInstance:
       value: OnMove
       objectReference: {fileID: 0}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnAttack
       objectReference: {fileID: 0}
@@ -106,6 +110,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NewPlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: NewPlayerController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2305654988678118825, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
@@ -274,10 +282,14 @@ MonoBehaviour:
   blockSprites:
   - {fileID: 21300000, guid: 792ba91daae7d68479670feb0796a480, type: 3}
   isBlocking: 0
+  jumpSprites:
+  - {fileID: 21300000, guid: 871089fdfcebadf4795b6fa3408039e6, type: 3}
+  - {fileID: 21300000, guid: 2f69f70daa15b7841bc393601a2d47b8, type: 3}
+  - {fileID: 21300000, guid: 35e7d62ccce80c242a3c1d77f206a061, type: 3}
+  jumpInput: 0
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}
-  jumpInput: 0
   attackHitbox: {fileID: 2029243535974447476}
 --- !u!61 &7165862958828885670 stripped
 BoxCollider2D:
