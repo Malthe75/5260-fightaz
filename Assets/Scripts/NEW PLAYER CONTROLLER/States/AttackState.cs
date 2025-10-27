@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class AttackState : PlayerState
 {
-    private AttackInput attackInput;
+    private MoveInput attackInput;
     private int dashDirection;
     private Coroutine attackRoutine;
 
-    public AttackState(NewPlayerController player, AttackInput input) : base(player)
+    public AttackState(NewPlayerController player, MoveInput input) : base(player)
     {
         attackInput = input;
     }
@@ -27,17 +27,19 @@ public class AttackState : PlayerState
         }
     }
 
-    private void attack(AttackInput attackInput)
+    private void attack(MoveInput attackInput)
     {
+        
+        attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(attackInput)));
 
-        foreach(var attack in player.attackData)
-        {
-            if(attackInput == attack.attackInput)
-            {
+        //foreach (var attack in player.attackData)
+        //{
+        //    if(attackInput == attack.attackInput)
+        //    {
 
-                attackRoutine = player.StartCoroutine(showFrames(attack));
-            }
-        }
+        //        attackRoutine = player.StartCoroutine(showFrames(attack));
+        //    }
+        //}
 
     }
 

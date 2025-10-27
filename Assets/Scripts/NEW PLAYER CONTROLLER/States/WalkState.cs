@@ -54,7 +54,7 @@ public class WalkState : PlayerState
     public override void HandleNextState()
     {
         // Attack transition
-        if (player.input != AttackInput.Nothing)
+        if (player.input != MoveInput.Nothing)
         {
             player.stateMachine.ChangeState(new AttackState(player, player.input));
             return;

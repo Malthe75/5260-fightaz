@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class JumpAttackState : PlayerState
 {
-    private AttackInput attackInput;
+    private MoveInput attackInput;
     private int dashDirection;
 
-    public JumpAttackState(NewPlayerController player, AttackInput attackInput) : base(player)
+    public JumpAttackState(NewPlayerController player, MoveInput attackInput) : base(player)
     {
         this.attackInput = attackInput;
     }
@@ -39,17 +39,10 @@ public class JumpAttackState : PlayerState
         }
     }
 
-    private void attack(AttackInput attackInput)
+    private void attack(MoveInput attackInput)
     {
 
-        foreach (var attack in player.attackData)
-        {
-            if (attackInput == attack.attackInput)
-            {
-
-                player.StartCoroutine(showFrames(attack));
-            }
-        }
+        player.StartCoroutine(showFrames(player.moveMap.GetAttack(attackInput)));
 
     }
 

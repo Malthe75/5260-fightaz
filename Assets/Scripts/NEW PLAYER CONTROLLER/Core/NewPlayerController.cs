@@ -21,6 +21,8 @@ public enum AttackInput
 }
 public class NewPlayerController : MonoBehaviour
 {
+    [Header("Move Map")]
+    public MoveMap moveMap;
 
     #region State variables
     [Header("Idle state")]
@@ -33,7 +35,8 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Attack state")]
     public List<AttackData> attackData;
-    [HideInInspector] public AttackInput input = AttackInput.Nothing;
+    //[HideInInspector] public AttackInput input = AttackInput.Nothing;
+    [HideInInspector] public MoveInput input = MoveInput.Nothing;
 
     [Header("Block state")]
     public Sprite[] blockSprites;
@@ -63,6 +66,11 @@ public class NewPlayerController : MonoBehaviour
 
     #endregion
 
+    //public AttackData GetAttackFromInput(PlayerAttack input)
+    //{
+    //    return moveMap != null ? moveMap.GetAttack(input) : null;
+    //}
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -91,7 +99,7 @@ public class NewPlayerController : MonoBehaviour
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
         if(stateMachine != null)
             stateMachine.Update();
-        input = AttackInput.Nothing;
+        input = MoveInput.Nothing;
     }
 
 
@@ -131,17 +139,18 @@ public class NewPlayerController : MonoBehaviour
         if (context.performed)
         {
             string actionName = context.action.name;
+            Debug.Log(context.action.name);
             Debug.Log(actionName);
             switch (actionName)
             {
                 case "Hit":
-                    HandleAttackInput(AttackInput.Hit);
+                    HandleAttackInput(MoveInput.Square);
                     break;
                 case "Kick":
-                    HandleAttackInput(AttackInput.Kick);
+                    HandleAttackInput(MoveInput.Circle);
                     break;
                 case "Shoot":
-                    HandleAttackInput(AttackInput.Shoot);
+                    HandleAttackInput(MoveInput.Triangle);
                     break;
                 default:
                     Debug.LogWarning("Unknown attack action: " + actionName);
@@ -151,7 +160,7 @@ public class NewPlayerController : MonoBehaviour
     }
 
 
-    private void HandleAttackInput(AttackInput input)
+    private void HandleAttackInput(MoveInput input)
     {
         this.input = input;
         //stateMachine.ChangeState(new AttackState(this, input));

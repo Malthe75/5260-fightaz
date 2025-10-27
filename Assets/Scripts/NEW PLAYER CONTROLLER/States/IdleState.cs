@@ -13,7 +13,7 @@ public class IdleState : PlayerState
 
     public override void Update()
     {
-        if (player.input != AttackInput.Nothing)
+        if (player.input != MoveInput.Nothing)
         {
             player.stateMachine.ChangeState(new AttackState(player, player.input));
             return;
@@ -36,13 +36,4 @@ public class IdleState : PlayerState
         }
 
     }
-
-    //public override void OnMove(Vector2 input)
-    //{
-    //    if (Mathf.Abs(input.x) > 0.01f)
-    //    {
-    //        player.stateMachine.ChangeState(new WalkState(player));
-    //        player.moveInput = input;
-    //    }
-    //}
 }

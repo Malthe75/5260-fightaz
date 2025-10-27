@@ -71,10 +71,14 @@ public class JumpState : PlayerState
             }
         }
 
-        // Jump Attack transition
-        if (player.input == AttackInput.Hit)
+        //Jump Attack transition
+        if (player.input == MoveInput.Square)
         {
-            player.stateMachine.ChangeState(new JumpAttackState(player, AttackInput.JumpHit));
+            player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Square_Jump));
+            return;
+        }else if(player.input == MoveInput.Circle)
+        {
+            player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Circle_Jump));
             return;
         }
 

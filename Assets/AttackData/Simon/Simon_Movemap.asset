@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5386469fab652a46bef721b68257b2e, type: 3}
+  m_Name: Simon_Movemap
+  m_EditorClassIdentifier: 
+  moves:
+  - input: 0
+    attack: {fileID: 0}
+  - input: 1
+    attack: {fileID: 11400000, guid: 7bd005bdb583bd0419c0d2bdaf09e7cf, type: 2}
+  - input: 2
+    attack: {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
+  - input: 3
+    attack: {fileID: 11400000, guid: 862347b532b046040ac0689e1c005e57, type: 2}
+  - input: 4
+    attack: {fileID: 11400000, guid: 113b2afd0823f3445b113bf5377772aa, type: 2}
+  - input: 5
+    attack: {fileID: 11400000, guid: b3a7b3b637e3b7f4b9cb54ac6644a3d1, type: 2}
+  - input: 6
+    attack: {fileID: 11400000, guid: df84742b48bcc764fb9531a4c3ae6fed, type: 2}
+  - input: 7
+    attack: {fileID: 11400000, guid: d5aa52094789db041b870a2b0b6938d4, type: 2}
+  - input: 8
+    attack: {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
+  - input: 9
+    attack: {fileID: 11400000, guid: 53e90711d43466f44bb0b59f037dea0a, type: 2}
+  - input: 10
+    attack: {fileID: 11400000, guid: 265cc17f00c0aef4c8175b4084a188ba, type: 2}
+  - input: 11
+    attack: {fileID: 11400000, guid: 4a76fa7c38806604b8a4b141aae53242, type: 2}
+  - input: 12
+    attack: {fileID: 11400000, guid: df84742b48bcc764fb9531a4c3ae6fed, type: 2}
+  - input: 13
+    attack: {fileID: 11400000, guid: e4ab350607d238844a8a9c9d4dcb6f7d, type: 2}
+  - input: 14
+    attack: {fileID: 11400000, guid: b84980a030a378e4d9c1b0cc69f1ad46, type: 2}
+  - input: 15
+    attack: {fileID: 11400000, guid: 25a5b02a2516f8e46ba4e8d45b6bc1fa, type: 2}
