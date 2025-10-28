@@ -7,6 +7,5 @@ public class AttackData : ScriptableObject
 {
     public string attackName;
     public List<AttackFrameData> frames;
-    public AttackInput attackInput;
 }
 

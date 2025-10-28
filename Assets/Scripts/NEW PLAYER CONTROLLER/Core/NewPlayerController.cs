@@ -5,20 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-public enum AttackInput
-{
-    Nothing,
-    Hit,
-    Kick,
-    CrouchHit,
-    CrouchKick,
-    Shoot,
-    Signature1,
-    Signature2,
-    JumpHit,
-
-}
 public class NewPlayerController : MonoBehaviour
 {
     [Header("Move Map")]
@@ -65,12 +51,6 @@ public class NewPlayerController : MonoBehaviour
 
 
     #endregion
-
-    //public AttackData GetAttackFromInput(PlayerAttack input)
-    //{
-    //    return moveMap != null ? moveMap.GetAttack(input) : null;
-    //}
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -90,12 +70,6 @@ public class NewPlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Update input
-        //moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
-
-
-        // Decrement combo cooldown timer
-
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
         if(stateMachine != null)
             stateMachine.Update();
@@ -133,37 +107,23 @@ public class NewPlayerController : MonoBehaviour
     }
     public void OnAttack(InputAction.CallbackContext context)
     {
-        Debug.Log("I ATTACK");
         if (!context.performed) return;
 
         if (context.performed)
         {
+
             string actionName = context.action.name;
-            Debug.Log(context.action.name);
-            Debug.Log(actionName);
-            switch (actionName)
+            if(Enum.TryParse(actionName, ignoreCase: true, out MoveInput moveInput))
             {
-                case "Hit":
-                    HandleAttackInput(MoveInput.Square);
-                    break;
-                case "Kick":
-                    HandleAttackInput(MoveInput.Circle);
-                    break;
-                case "Shoot":
-                    HandleAttackInput(MoveInput.Triangle);
-                    break;
-                default:
-                    Debug.LogWarning("Unknown attack action: " + actionName);
-                    break;
+                this.input = moveInput;
+                //moveMap.GetAttack(moveInput);
             }
+            else
+            {
+                Debug.LogWarning($"Unknown action: {actionName}");
+            }
+            
         }
-    }
-
-
-    private void HandleAttackInput(MoveInput input)
-    {
-        this.input = input;
-        //stateMachine.ChangeState(new AttackState(this, input));
     }
 
     #endregion
