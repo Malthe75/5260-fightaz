@@ -18,6 +18,7 @@ public class NewPlayerController : MonoBehaviour
     public Sprite[] walkSprites;
     public float walkSpeed = 5f;
     public float animationSpeed = 0.2f;
+    public Vector2 blockedDirection;
 
     [Header("Attack state")]
     public List<AttackData> attackData;
@@ -49,6 +50,7 @@ public class NewPlayerController : MonoBehaviour
 
     public AttackHitbox attackHitbox;
 
+    public float gravity = -9.81f;
 
     #endregion
     private void Awake()
@@ -68,6 +70,11 @@ public class NewPlayerController : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        if (stateMachine != null)
+            stateMachine.CurrentState?.FixedUpdate();
+    }
     private void Update()
     {
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
@@ -137,18 +144,43 @@ public class NewPlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // Collions against ground.
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Why?");
             isGrounded = true;
+            gravity = 0f;
+        }
+
+        // Collisions against players.
+        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
+        {
+            Vector2 contactNormal = collision.contacts[0].normal;
+
+            // Horizontal collision
+            if (contactNormal.x > 0.1f) blockedDirection.x = -1;   // Something on right
+            else if (contactNormal.x < -0.1f) blockedDirection.x = 1; // Something on left
+
+            // Optional: vertical collision
+            //if (contactNormal.y > 0.1f) blockedDirection.y = -1;   // Something above
+            //else if (contactNormal.y < -0.1f) blockedDirection.y = 1; // Something below
         }
     }
 
-    //void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Collions against ground.
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+
+        // Collisions against players.
+        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
+        {
+            blockedDirection = Vector2.zero; // Reset blocked direction
+        }
+    }
+
+
+
 }

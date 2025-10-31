@@ -32,15 +32,6 @@ public class AttackState : PlayerState
         
         attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(attackInput)));
 
-        //foreach (var attack in player.attackData)
-        //{
-        //    if(attackInput == attack.attackInput)
-        //    {
-
-        //        attackRoutine = player.StartCoroutine(showFrames(attack));
-        //    }
-        //}
-
     }
 
     // Remember to delete coroutine if we exit the state early.

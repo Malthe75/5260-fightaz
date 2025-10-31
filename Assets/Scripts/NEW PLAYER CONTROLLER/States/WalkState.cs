@@ -22,9 +22,6 @@ public class WalkState : PlayerState
     {
         
         HandleNextState();
-        // Move the player
-        player.rb.velocity = new Vector2(player.moveInput.x * player.walkSpeed, player.rb.velocity.y);
-
         // Handle walk animation
         animationTimer += Time.deltaTime;
         if (animationTimer >= player.animationSpeed)
@@ -49,6 +46,17 @@ public class WalkState : PlayerState
         {         
             idleTimer = 0f;
         }
+    }
+
+    public override void FixedUpdate()
+    {
+        Vector2 move = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
+        if ((player.blockedDirection.x > 0 && move.x > 0) || (player.blockedDirection.x < 0 && move.x < 0))
+        {
+            move.x = 0f;
+        }
+        player.rb.MovePosition(player.rb.position + move);
+    
     }
 
     public override void HandleNextState()

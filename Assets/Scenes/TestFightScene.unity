@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 211918951}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.936199, y: 3.0737329, z: 0}
+  m_LocalPosition: {x: -4.92, y: 1.2, z: 0}
   m_LocalScale: {x: -0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 1649117552}
   - component: {fileID: 1649117555}
   - component: {fileID: 1649117554}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1127,7 +1127,7 @@ Transform:
   m_GameObject: {fileID: 1727048918}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.92, y: 3.17, z: 0}
+  m_LocalPosition: {x: 4.92, y: 1.2, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1377,6 +1377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4b5623887d5c2489601fea5c3f47ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultVolume: 0.5
 --- !u!4 &1900652162
 Transform:
   m_ObjectHideFlags: 0
