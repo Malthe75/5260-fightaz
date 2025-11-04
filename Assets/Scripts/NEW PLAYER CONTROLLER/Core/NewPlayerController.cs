@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -71,6 +72,13 @@ public class NewPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        isGrounded = CheckGrounded();
+        if (isGrounded)
+        {
+            gravity = 0f;
+        }
+
         if (stateMachine != null)
             stateMachine.CurrentState?.FixedUpdate();
     }
@@ -141,28 +149,50 @@ public class NewPlayerController : MonoBehaviour
         stateMachine.ChangeState(new HurtState(this, attack));
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Collions against ground.
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-            gravity = 0f;
-        }
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    // Collions against ground.
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = true;
+    //        gravity = 0f;
+    //    }
 
-    }
+    //}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Collions against ground.
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    // Collions against ground.
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 
     public LayerMask blockingLayers; // Assign in inspector (e.g. "Ground", "Walls", "Player")
+    public LayerMask groundBlockLayer;
+    public Vector2 feetOffset = new Vector2(0f, -0.5f); // Adjust based on player's feet position
+    public Vector2 feetBoxSize = new Vector2(0.5f, 0.1f); // Width and height of the box for ground check
 
+
+    public bool CheckGrounded()
+    {
+        // Position slightly below the player's feet
+        Vector2 feetPos = (Vector2)rb.position + feetOffset;
+        Vector2 boxSize = feetBoxSize;
+
+        // OverlapBox for ground detection
+        RaycastHit2D hit = Physics2D.BoxCast(rb.position + feetOffset, feetBoxSize, 0f, Vector2.down, 0.01f, groundBlockLayer);
+        return hit.collider != null;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (rb == null) return;
+        Gizmos.color = Color.green;
+        Vector2 feetPos = (Vector2)rb.position + feetOffset;
+        Gizmos.DrawWireCube(feetPos, feetBoxSize);
+    }
 
     public Vector2 StopMovementForCollsions(Vector2 desiredMove)
     {

@@ -20,6 +20,7 @@ public class JumpState : PlayerState
     float verticalVelocity;
     private JumpInput jumpInput = JumpInput.Nothing;
     private float startTimer = 0f;
+    private float xVelocity = 0f;
     public JumpState(NewPlayerController player, JumpInput jumpInput) : base(player)
     {
         this.jumpInput = jumpInput;
@@ -33,17 +34,21 @@ public class JumpState : PlayerState
             case JumpInput.Right:
                 jumpDirection = new Vector2(1f, 1f).normalized;
                 sprite = player.jumpSprites[0];
+                xVelocity = 5f;
                 break;
             case JumpInput.Left:
                 jumpDirection = new Vector2(-1f, 1f).normalized;
+                xVelocity = -5f;
                 sprite = player.jumpSprites[1];
                 break;
             case JumpInput.Up:
                 jumpDirection = Vector2.up;
+                xVelocity = 0f;
                 sprite = player.jumpSprites[2];
                 break;
             default:
                 jumpDirection = Vector2.up;
+                xVelocity = 0f;
                 sprite = player.jumpSprites[0];
                 break;
         }
@@ -58,8 +63,8 @@ public class JumpState : PlayerState
 
     public override void FixedUpdate()
     {
-        Vector2 move = new Vector2(0, verticalVelocity) * Time.fixedDeltaTime;
 
+        Vector2 move = new Vector2(xVelocity, verticalVelocity) * Time.fixedDeltaTime;
         // Move player
         player.rb.MovePosition(player.rb.position + move);
 
@@ -74,6 +79,8 @@ public class JumpState : PlayerState
             player.stateMachine.ChangeState(new IdleState(player));
         }
     }
+
+
 
     public override void Exit()
     {
