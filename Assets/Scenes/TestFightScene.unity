@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 717292424}
   - component: {fileID: 717292423}
   - component: {fileID: 717292422}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Square (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 1030383413}
   - component: {fileID: 1030383412}
   - component: {fileID: 1030383411}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Square (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}

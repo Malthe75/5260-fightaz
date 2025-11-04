@@ -22,42 +22,16 @@ public class WalkState : PlayerState
     {
         
         HandleNextState();
-        // Handle walk animation
-        animationTimer += Time.deltaTime;
-        if (animationTimer >= player.animationSpeed)
-        {
-            // Advance to the next sprite
-            int currentIndex = System.Array.IndexOf(player.walkSprites, player.sr.sprite);
-            int nextIndex = (currentIndex + 1) % player.walkSprites.Length;
-            player.sr.sprite = player.walkSprites[nextIndex];
-            // Reset timer
-            animationTimer = 0f;
-        }
-        if (Mathf.Abs(player.moveInput.x) < 0.01)
-        {
-            idleTimer += Time.deltaTime;
-            if(idleTimer >= idleBuffer)
-            {
+        PlayAnimation();
 
-                player.stateMachine.ChangeState(new IdleState(player));
-            }
-        }
-        else 
-        {         
-            idleTimer = 0f;
-        }
     }
 
     public override void FixedUpdate()
     {
-        Vector2 move = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
-        if ((player.blockedDirection.x > 0 && move.x > 0) || (player.blockedDirection.x < 0 && move.x < 0))
-        {
-            move.x = 0f;
-        }
-        player.rb.MovePosition(player.rb.position + move);
-    
+        Vector2 desiredMove = player.StopMovementForCollsions(new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime);
+        player.rb.MovePosition(player.rb.position + desiredMove);
     }
+
 
     public override void HandleNextState()
     {
@@ -72,6 +46,33 @@ public class WalkState : PlayerState
         {
             if (player.moveInput.x > 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Right));
             else if (player.moveInput.x < 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Left));
+        }
+    }
+
+    private void PlayAnimation()
+    {
+        animationTimer += Time.deltaTime;
+        if (animationTimer >= player.animationSpeed)
+        {
+            // Advance to the next sprite
+            int currentIndex = System.Array.IndexOf(player.walkSprites, player.sr.sprite);
+            int nextIndex = (currentIndex + 1) % player.walkSprites.Length;
+            player.sr.sprite = player.walkSprites[nextIndex];
+            // Reset timer
+            animationTimer = 0f;
+        }
+        if (Mathf.Abs(player.moveInput.x) < 0.01)
+        {
+            idleTimer += Time.deltaTime;
+            if (idleTimer >= idleBuffer)
+            {
+
+                player.stateMachine.ChangeState(new IdleState(player));
+            }
+        }
+        else
+        {
+            idleTimer = 0f;
         }
     }
 

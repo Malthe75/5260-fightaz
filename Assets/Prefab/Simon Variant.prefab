@@ -125,6 +125,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: blockingLayers.m_Bits
+      value: 20480
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: idleSprites.Array.size
       value: 2
       objectReference: {fileID: 0}

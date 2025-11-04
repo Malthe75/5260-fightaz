@@ -18,7 +18,6 @@ public class NewPlayerController : MonoBehaviour
     public Sprite[] walkSprites;
     public float walkSpeed = 5f;
     public float animationSpeed = 0.2f;
-    public Vector2 blockedDirection;
 
     [Header("Attack state")]
     public List<AttackData> attackData;
@@ -151,19 +150,6 @@ public class NewPlayerController : MonoBehaviour
             gravity = 0f;
         }
 
-        // Collisions against players.
-        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
-        {
-            Vector2 contactNormal = collision.contacts[0].normal;
-
-            // Horizontal collision
-            if (contactNormal.x > 0.1f) blockedDirection.x = -1;   // Something on right
-            else if (contactNormal.x < -0.1f) blockedDirection.x = 1; // Something on left
-
-            // Optional: vertical collision
-            //if (contactNormal.y > 0.1f) blockedDirection.y = -1;   // Something above
-            //else if (contactNormal.y < -0.1f) blockedDirection.y = 1; // Something below
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -173,14 +159,35 @@ public class NewPlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
-
-        // Collisions against players.
-        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
-        {
-            blockedDirection = Vector2.zero; // Reset blocked direction
-        }
     }
 
+    public LayerMask blockingLayers; // Assign in inspector (e.g. "Ground", "Walls", "Player")
 
+
+    public Vector2 StopMovementForCollsions(Vector2 desiredMove)
+    {
+        if (desiredMove.sqrMagnitude < 0.0001f)
+            return desiredMove; // Nothing to do
+
+        // Prepare cast
+        Vector2 moveDir = desiredMove.normalized;
+        float moveDistance = desiredMove.magnitude + 0.001f; // tiny "skin" to prevent sticking
+        RaycastHit2D[] hits = new RaycastHit2D[8];
+
+        // Setup the contact filter
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(blockingLayers); // only collide with blocking layers
+        filter.useTriggers = false;          // ignore triggers like hitboxes/hurtboxes
+
+        int hitCount = rb.Cast(moveDir, filter, hits, moveDistance);
+
+        if (hitCount > 0)
+        {
+            Debug.Log("Stop movement?");
+            // Something in the way — block horizontal movement
+            desiredMove.x = 0f;
+        }
+        return desiredMove;
+    }
 
 }
