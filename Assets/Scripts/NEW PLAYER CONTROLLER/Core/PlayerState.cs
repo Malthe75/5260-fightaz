@@ -19,4 +19,8 @@ public abstract class PlayerState
 
     public virtual void HandleNextState() { }
 
+    public virtual Vector2 GetDesiredMovement()
+    {
+        return Vector2.zero; // Default implementation returns Vector2.zero
+    }
 }

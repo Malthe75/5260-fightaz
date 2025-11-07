@@ -33,27 +33,25 @@ public class JumpState : PlayerState
         {
             case JumpInput.Right:
                 jumpDirection = new Vector2(1f, 1f).normalized;
-                sprite = player.jumpSprites[0];
+                player.sr.sprite = player.jumpSprites[0];
                 xVelocity = 5f;
                 break;
             case JumpInput.Left:
                 jumpDirection = new Vector2(-1f, 1f).normalized;
                 xVelocity = -5f;
-                sprite = player.jumpSprites[1];
+                player.sr.sprite = player.jumpSprites[1];
                 break;
             case JumpInput.Up:
                 jumpDirection = Vector2.up;
                 xVelocity = 0f;
-                sprite = player.jumpSprites[2];
+                player.sr.sprite = player.jumpSprites[2];
                 break;
             default:
                 jumpDirection = Vector2.up;
                 xVelocity = 0f;
-                sprite = player.jumpSprites[0];
+                player.sr.sprite = player.jumpSprites[0];
                 break;
         }
-
-        //Jump();
     }
     public override void Update()
 
@@ -63,16 +61,8 @@ public class JumpState : PlayerState
 
     public override void FixedUpdate()
     {
-
-        Vector2 move = new Vector2(xVelocity, verticalVelocity) * Time.fixedDeltaTime;
-        // Move player
-        player.rb.MovePosition(player.rb.position + move);
-
-        // Apply gravity
-        verticalVelocity += gravity * Time.fixedDeltaTime;
-
+        // This bit is for landing detection and transition to IdleState
         startTimer += Time.fixedDeltaTime;
-        // Check if landed
         if (player.isGrounded && startTimer > 0.3f)
         {
             verticalVelocity = 0;
@@ -80,7 +70,12 @@ public class JumpState : PlayerState
         }
     }
 
-
+    public override Vector2 GetDesiredMovement()
+    {
+        // Apply movement and gravity
+        verticalVelocity += gravity * Time.fixedDeltaTime;
+        return new Vector2(player.horizontalMultiplier * xVelocity, verticalVelocity) * Time.fixedDeltaTime;
+    }
 
     public override void Exit()
     {
@@ -113,23 +108,6 @@ public class JumpState : PlayerState
     //        return;
     //    }
 
-    //}
-
-    //private void Jump()
-    //{
-    //    player.rb.velocity = new Vector2(player.rb.velocity.x, 0f);
-
-    //    // Apply vertical jump force
-    //    player.rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
-    //    if (jumpDirection.x != 0)
-    //    {
-    //        player.rb.AddForce(new Vector2(jumpDirection.x * jumpForce, 0f), ForceMode2D.Impulse);
-    //    }
-
-
-    //    player.sr.sprite = sprite;
-    //    player.isGrounded = false;
     //}
 
 }

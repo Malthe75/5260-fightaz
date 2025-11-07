@@ -5,15 +5,16 @@ using UnityEngine;
 public class HurtState : PlayerState
 {
     float knockbackForce; // How strong the knockback is
-    float hurtTimer = 0.1f; // How long the player stays in hurt state (total time in hurt state)
-    float knockbackTimer; // Timer for the knockback duration
+    //float hurtTimer = 0.1f; // How long the player stays in hurt state (total time in hurt state)
+    float knockbackTimer = 0.3f; // Timer for the knockback duration
+    float totalKnockbackDuration = 0.2f; // Total duration of the knockback effect
     Vector2 knockbackDirection; // Direction of knockback (to the right or left)
 
     AttackFrameData attack;
     public HurtState(NewPlayerController player, AttackFrameData attack) : base(player)
     {
         this.attack = attack;
-        knockbackTimer = hurtTimer;
+        //knockbackTimer = hurtTimer;
     }
     // hurtTImer set to high, to test for now.
 
@@ -35,27 +36,19 @@ public class HurtState : PlayerState
         player.sr.color = Color.white;
     }
 
-    public override void Update()
+    public override Vector2 GetDesiredMovement()
     {
-
-        if (knockbackTimer > 0)
+        if (knockbackTimer > 0f)
         {
-            // Move player based on knockback force
-            player.transform.position = Vector2.MoveTowards(player.transform.position,
-                (Vector2)player.transform.position + knockbackDirection, knockbackForce * Time.deltaTime);
+            float t = knockbackTimer / totalKnockbackDuration; // normalized 0–1
+            float currentForce = Mathf.Lerp(0f, knockbackForce, t);
+            Vector2 knockbackMove = knockbackDirection * currentForce * Time.fixedDeltaTime;
 
-            // Decrease the knockback timer
-            knockbackTimer -= Time.deltaTime;
+            knockbackTimer -= Time.fixedDeltaTime;
+            return knockbackMove;
         }
 
-        // After knockback ends, transition to the idle state
-        if (knockbackTimer <= 0)
-        {
-            hurtTimer -= Time.deltaTime;  // Handle the remaining hurt state time
-            if (hurtTimer <= 0)
-            {
-                player.stateMachine.ChangeState(new IdleState(player)); // Transition back to idle
-            }
-        }
+        player.stateMachine.ChangeState(new IdleState(player));
+        return Vector2.zero;
     }
 }

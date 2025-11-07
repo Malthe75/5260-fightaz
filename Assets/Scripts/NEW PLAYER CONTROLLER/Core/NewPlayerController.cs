@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class NewPlayerController : MonoBehaviour
 {
+
+    [HideInInspector] public float horizontalMultiplier = 0f;
     [Header("Move Map")]
     public MoveMap moveMap;
 
@@ -20,9 +22,9 @@ public class NewPlayerController : MonoBehaviour
     public float walkSpeed = 5f;
     public float animationSpeed = 0.2f;
 
+
     [Header("Attack state")]
     public List<AttackData> attackData;
-    //[HideInInspector] public AttackInput input = AttackInput.Nothing;
     [HideInInspector] public MoveInput input = MoveInput.Nothing;
 
     [Header("Block state")]
@@ -72,8 +74,12 @@ public class NewPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        // Physics and movement updates
         isGrounded = CheckGrounded();
+        Vector2 desiredMove = stateMachine.CurrentState.GetDesiredMovement();
+        Vector2 finalMove = StopMovementForCollsions(desiredMove);
+        rb.MovePosition(rb.position + finalMove);
+
         if (isGrounded)
         {
             gravity = 0f;
@@ -149,26 +155,6 @@ public class NewPlayerController : MonoBehaviour
         stateMachine.ChangeState(new HurtState(this, attack));
     }
 
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    // Collions against ground.
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isGrounded = true;
-    //        gravity = 0f;
-    //    }
-
-    //}
-
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    // Collions against ground.
-    //    if (collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
-
     public LayerMask blockingLayers; // Assign in inspector (e.g. "Ground", "Walls", "Player")
     public LayerMask groundBlockLayer;
     public Vector2 feetOffset = new Vector2(0f, -0.5f); // Adjust based on player's feet position
@@ -197,7 +183,10 @@ public class NewPlayerController : MonoBehaviour
     public Vector2 StopMovementForCollsions(Vector2 desiredMove)
     {
         if (desiredMove.sqrMagnitude < 0.0001f)
+        {
+            horizontalMultiplier = 1f;
             return desiredMove; // Nothing to do
+        }
 
         // Prepare cast
         Vector2 moveDir = desiredMove.normalized;
@@ -213,11 +202,14 @@ public class NewPlayerController : MonoBehaviour
 
         if (hitCount > 0)
         {
-            Debug.Log("Stop movement?");
             // Something in the way — block horizontal movement
             desiredMove.x = 0f;
+            horizontalMultiplier = 0f;
         }
-        return desiredMove;
+        else
+        {
+            horizontalMultiplier = 1f;
+        }
+            return desiredMove;
     }
-
 }
