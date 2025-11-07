@@ -16,7 +16,6 @@ public class JumpState : PlayerState
     private Vector2 jumpDirection;
     private Sprite sprite;
     private float jumpForce = 15f;
-    float gravity = -20f;
     float verticalVelocity;
     private JumpInput jumpInput = JumpInput.Nothing;
     private float startTimer = 0f;
@@ -63,17 +62,13 @@ public class JumpState : PlayerState
     {
         // This bit is for landing detection and transition to IdleState
         startTimer += Time.fixedDeltaTime;
-        if (player.isGrounded && startTimer > 0.3f)
-        {
-            verticalVelocity = 0;
-            player.stateMachine.ChangeState(new IdleState(player));
-        }
+
     }
 
     public override Vector2 GetDesiredMovement()
     {
         // Apply movement and gravity
-        verticalVelocity += gravity * Time.fixedDeltaTime;
+        verticalVelocity += player.gravity * Time.fixedDeltaTime;
         return new Vector2(player.horizontalMultiplier * xVelocity, verticalVelocity) * Time.fixedDeltaTime;
     }
 
@@ -82,32 +77,34 @@ public class JumpState : PlayerState
         player.shouldJump = false;
     }
 
-    //public override void HandleNextState()
-    //{
-    //    if (player.isGrounded)
-    //    {
-    //        if (Mathf.Abs(player.moveInput.x) > 0.1f)
-    //        {
-    //            player.stateMachine.ChangeState(new WalkState(player));
-    //        }
-    //        else
-    //        {
-    //            player.stateMachine.ChangeState(new IdleState(player));
+    public override void HandleNextState()
+    {
+        if (player.isGrounded && startTimer > 0.3f)
+        {
+            verticalVelocity = 0;
+            if (Mathf.Abs(player.moveInput.x) > 0.1f)
+            {
+                player.stateMachine.ChangeState(new WalkState(player));
+            }
+            else
+            {
+                player.stateMachine.ChangeState(new IdleState(player));
 
-    //        }
-    //    }
+            }
+        }
 
-    //    //Jump Attack transition
-    //    if (player.input == MoveInput.Hit)
-    //    {
-    //        player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Hit_Jump));
-    //        return;
-    //    }else if(player.input == MoveInput.Kick)
-    //    {
-    //        player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Kick_Jump));
-    //        return;
-    //    }
+        //Jump Attack transition
+        if (player.input == MoveInput.Hit)
+        {
+            player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Hit_Jump, xVelocity, verticalVelocity));
+            return;
+        }
+        else if (player.input == MoveInput.Kick)
+        {
+            player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Kick_Jump, xVelocity, verticalVelocity));
+            return;
+        }
 
-    //}
+    }
 
 }

@@ -6,10 +6,15 @@ public class JumpAttackState : PlayerState
 {
     private MoveInput attackInput;
     private int dashDirection;
+    private float vecticalVelocity = 0f;
+    private float xVelocity = 0f;
+    private float verticalVelocity = 0f;
 
-    public JumpAttackState(NewPlayerController player, MoveInput attackInput) : base(player)
+    public JumpAttackState(NewPlayerController player, MoveInput attackInput, float xVelocity, float verticalVelocity) : base(player)
     {
         this.attackInput = attackInput;
+        this.xVelocity = xVelocity;
+        this.verticalVelocity = verticalVelocity;
     }
 
     public override void Enter()
@@ -21,6 +26,13 @@ public class JumpAttackState : PlayerState
     public override void Update() 
     { 
         HandleNextState();
+    }
+
+    public override Vector2 GetDesiredMovement()
+    {
+        // Apply movement and gravity
+        verticalVelocity += player.gravity * Time.fixedDeltaTime;
+        return new Vector2(player.horizontalMultiplier * xVelocity, verticalVelocity) * Time.fixedDeltaTime;
     }
 
     public override void HandleNextState()

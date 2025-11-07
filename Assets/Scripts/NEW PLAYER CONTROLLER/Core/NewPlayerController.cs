@@ -52,7 +52,7 @@ public class NewPlayerController : MonoBehaviour
 
     public AttackHitbox attackHitbox;
 
-    public float gravity = -9.81f;
+    public float gravity = -20f;
 
     #endregion
     private void Awake()
@@ -80,10 +80,6 @@ public class NewPlayerController : MonoBehaviour
         Vector2 finalMove = StopMovementForCollsions(desiredMove);
         rb.MovePosition(rb.position + finalMove);
 
-        if (isGrounded)
-        {
-            gravity = 0f;
-        }
 
         if (stateMachine != null)
             stateMachine.CurrentState?.FixedUpdate();
@@ -212,4 +208,5 @@ public class NewPlayerController : MonoBehaviour
         }
             return desiredMove;
     }
+
 }

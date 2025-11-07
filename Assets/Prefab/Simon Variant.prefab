@@ -109,6 +109,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: d3e9c1a5a0b1c024eb686e9ed08e4e9f, type: 3}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: gravity
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: moveMap
       value: 
       objectReference: {fileID: 11400000, guid: e99fa40cc615c14469a92b8b5ed88a39, type: 2}
