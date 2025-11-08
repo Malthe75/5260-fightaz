@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class NewPlayerController : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public bool shouldJump = false;
     [HideInInspector] public bool isGrounded = true;
 
+    [Header("Fall state")]
+    public Sprite fallSprite;
+    //[HideInInspector] public bool 
+
 
     [Header("Physics")]
     public LayerMask layerMask;
@@ -57,8 +62,9 @@ public class NewPlayerController : MonoBehaviour
 
     public AttackHitbox attackHitbox;
 
-    public float gravity = -20f;
 
+
+    private LayerMask enemyLayer;
     #endregion
     private void Awake()
     {
@@ -71,13 +77,30 @@ public class NewPlayerController : MonoBehaviour
         if(stateMachine.CurrentState == null)
         {
 
-            stateMachine.ChangeState(new IdleState(this));
+            stateMachine.ChangeState(new FallState(this));
         }
         // Start with IdleState
 
     }
 
-    void OnDrawGizmosSelected()
+    private void Start()
+    {
+        if (gameObject.layer == LayerMask.NameToLayer("Player1"))
+        {
+            Debug.Log("Im palyer 1 enemy is player 2");
+            enemyLayer = LayerMask.NameToLayer("Player2");
+            Debug.Log("Enemy layer name: " + LayerMask.LayerToName(enemyLayer));
+        }
+        else if (gameObject.layer == LayerMask.NameToLayer("Player2"))
+        {
+            Debug.Log("Im palyer 2 enemy is player 1");
+            enemyLayer = LayerMask.NameToLayer("Player1");
+            Debug.Log("Enemy layer name: " + LayerMask.LayerToName(enemyLayer));
+
+        }
+    }
+
+        void OnDrawGizmosSelected()
     {
         if (capsule == null) return;
 
@@ -128,11 +151,11 @@ public class NewPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 da = AdjustForCollisions(transform.position, moveInput, layerMask);
+        //Vector2 da = AdjustForCollisions(transform.position, moveInput, enemyLayer);
         // Physics and movement updates
-        isGrounded = CheckGrounded();
-        Vector2 desiredMove = stateMachine.CurrentState.GetDesiredMovement();
-        rb.MovePosition(rb.position + desiredMove);
+        //isGrounded = CheckGrounded();
+        //Vector2 desiredMove = stateMachine.CurrentState.GetDesiredMovement();
+        //rb.MovePosition(rb.position + desiredMove);
 
 
         if (stateMachine != null)
@@ -220,6 +243,127 @@ public class NewPlayerController : MonoBehaviour
         // OverlapBox for ground detection
         RaycastHit2D hit = Physics2D.BoxCast(rb.position + feetOffset, feetBoxSize, 0f, Vector2.down, 0.01f, groundBlockLayer);
         return hit.collider != null;
+    }
+
+
+
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Enter");
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player1") || collision.CompareTag("Player2"))
+        {
+            Vector2 dir = (transform.position - collision.transform.position).normalized;
+            transform.position += (Vector3)dir * 0.02f; // small push apart
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("exit");
+    }
+
+    //public GameObject floor;
+    public float floorY = -3;
+    public float gravity = -20f;
+    public float verticalVelocity = 0f;
+    public Vector2 velocity;
+    public float skin = 0.01f;
+
+    public bool IsGrounded()
+    {
+        if (transform.position.y > floorY)
+        {
+            // Apply gravity
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public Transform feet;
+    
+   
+//    public void GroundCheck()
+//    {
+//        Debug.Log(GetCapsuleBottomY());
+
+//        // The velocity?
+//        verticalVelocity += gravity * Time.fixedDeltaTime;
+
+//        // Figure out where it will land in the next frame?
+//        float playerBottomY = GetCapsuleBottomY();
+//        float nextY = playerBottomY + verticalVelocity * Time.fixedDeltaTime;
+
+//        float centerY = GetCenterYFromBottomY(nextY);
+//        rb.MovePosition(new Vector2(rb.position.x, centerY));
+
+//        Debug.DrawLine(
+//    new Vector2(rb.position.x - 0.5f, floorY),
+//    new Vector2(rb.position.x + 0.5f, floorY),
+//    Color.yellow
+//);
+
+    //    float bottom = GetCapsuleBottomY();
+    //    Debug.DrawLine(
+    //        new Vector2(rb.position.x - 0.5f, bottom),
+    //        new Vector2(rb.position.x + 0.5f, bottom),
+    //        Color.cyan
+    //    );
+    //    if (nextY < floorY)
+    //    {
+    //        nextY = floorY;
+    //        Debug.Log("Under floor next time");
+    //        verticalVelocity = 0f;
+    //    }
+    //     ApplyGravity(nextY);
+    //}
+
+
+
+
+
+
+
+
+    // Capsule stuff
+    Vector2 GetCapsuleWorldCenter()
+    {
+        return rb.position + Vector2.Scale(capsule.offset, transform.localScale);
+    }
+
+    float GetCapsuleBottomY()
+    {
+        // capsuleSize already scaled to world:
+        Vector2 capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
+
+        Vector2 center = GetCapsuleWorldCenter();
+        if (capsule.direction == CapsuleDirection2D.Vertical)
+        {
+            float halfHeight = capsuleSize.y * 0.5f;
+            return center.y - halfHeight;
+        }
+        else // Horizontal capsule: width is the long axis
+        {
+            float halfHeight = capsuleSize.x * 0.5f; // horizontal capsule's "height" along y
+            return center.y - halfHeight;
+        }
+    }
+
+    float GetCenterYFromBottomY(float bottomY)
+    {
+        Vector2 capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
+        float halfHeight = (capsule.direction == CapsuleDirection2D.Vertical)
+            ? capsuleSize.y * 0.5f
+            : capsuleSize.x * 0.5f;
+        return bottomY + halfHeight;
     }
 
 

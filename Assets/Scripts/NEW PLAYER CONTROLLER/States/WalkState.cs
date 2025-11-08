@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Windows;
@@ -27,9 +28,10 @@ public class WalkState : PlayerState
 
     }
 
-    public override Vector2 GetDesiredMovement()
+    public override void FixedUpdate()
     {
-        return new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
+        Vector2 desiredMove = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
+        player.rb.MovePosition(player.rb.position + desiredMove);
     }
 
     public override void HandleNextState()
