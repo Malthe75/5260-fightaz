@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class HurtState : PlayerState
@@ -21,13 +22,16 @@ public class HurtState : PlayerState
     public override void Enter()
     {
         knockbackForce = attack.knockback;
-        Debug.Log("WHat?");
-        Debug.Log(knockbackForce);
         if (player.tag == "Player1") knockbackDirection = Vector2.left;
         else knockbackDirection = Vector2.right;
         // Set color to red, when hurt.
         player.sr.sprite = player.idleSprites[1];
         player.sr.color = Color.red;
+
+        if (player.hurtSounds != null)
+        {
+            AudioManagerTwo.Instance.PlaySFX(player.hurtSounds[0]);
+        }
 
     }
     public override void Exit()

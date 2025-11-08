@@ -6,6 +6,13 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FallState : PlayerState
 {
+    Sprite sprite = null;
+    float xVelocity = 0f;
+    public FallState(NewPlayerController player, Sprite sprite, float xVelocity) : base(player)
+    {
+        this.sprite = sprite;
+        this.xVelocity = xVelocity;
+    }
     public FallState(NewPlayerController player) : base(player)
     {
     }
@@ -17,6 +24,7 @@ public class FallState : PlayerState
 
     public override void Enter()
     {
+       
         player.sr.sprite = player.fallSprite;
         player.isGrounded = false;
     }
@@ -32,6 +40,8 @@ public class FallState : PlayerState
         }
         else
         {
+            Debug.Log(xVelocity);
+            player.velocity.x = xVelocity;
             player.velocity.y += player.gravity * Time.fixedDeltaTime;
         }
 
@@ -42,6 +52,7 @@ public class FallState : PlayerState
     {
         player.isGrounded = true;
         player.velocity.y = 0f;
+        player.velocity.x = 0f;
 
     }
 }

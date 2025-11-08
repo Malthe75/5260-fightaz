@@ -34,12 +34,18 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Jump state")]
     public Sprite[] jumpSprites;
+    public float jumpForce = 15f;
+    public AudioClip[] jumpSounds;
     [HideInInspector] public bool shouldJump = false;
     [HideInInspector] public bool isGrounded = true;
 
     [Header("Fall state")]
     public Sprite fallSprite;
     //[HideInInspector] public bool 
+
+    [Header("Hurt state")]
+    public AudioClip[] hurtSounds;
+
 
 
     [Header("Physics")]
