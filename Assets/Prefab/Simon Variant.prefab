@@ -323,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Layer
-      value: 18
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: comboLibrary

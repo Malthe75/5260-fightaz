@@ -28,10 +28,40 @@ public class WalkState : PlayerState
 
     }
 
+    private Vector2 RaycastCalculator(Vector2 desiredMove)
+    {
+        // Raycast in the direction we want to move from an origin.
+        // Uses 0 for Y for this example.
+        float rayLength = Mathf.Abs(desiredMove.x) + 0.1f;
+        Vector2 rayDirection = new Vector2(Mathf.Sign(desiredMove.x), 0f);
+        Vector2 rayOrigin = player.rb.position;
+
+        // Draw ray in the scene view
+        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
+        // LayerMask
+        int playerLayerMask = LayerMask.GetMask("Player");
+
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, playerLayerMask);
+
+        if(hit.collider != null && hit.collider != player.capsule)
+        {
+            Debug.Log("IM hitting?");
+            Debug.Log(hit.collider.name);
+            //Debug.Log(player.capsule.name);
+
+            desiredMove.x = 0f;
+
+            Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
+        }
+
+        return desiredMove;
+    }
+
     public override void FixedUpdate()
     {
         Vector2 desiredMove = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
-        player.rb.MovePosition(player.rb.position + desiredMove);
+        Vector2 actualMove = RaycastCalculator(desiredMove);
+        player.rb.MovePosition(player.rb.position + actualMove);
     }
 
     public override void HandleNextState()
