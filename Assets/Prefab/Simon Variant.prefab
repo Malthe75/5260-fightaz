@@ -84,22 +84,6 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[8].y
       value: 3.132627
       objectReference: {fileID: 0}
-    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Size.x
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Size.y
-      value: 8.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Offset.y
-      value: -3.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1526576385052128665, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -160,18 +144,6 @@ PrefabInstance:
       propertyPath: walkSprites.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 75c28e4c143eb424cb9ef987eea72b39, type: 3}
-    - target: {fileID: 2907835172692215638, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793423964583657091, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856578251420467495, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Name
       value: Simon Variant
@@ -208,22 +180,6 @@ PrefabInstance:
       propertyPath: crouchSprites.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 760ab3322b5dcab4391768f85586ffbb, type: 3}
-    - target: {fileID: 5418765017322279716, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5541098351558506658, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5906971300936467384, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5906971300936467384, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6289871243123928141, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 6
@@ -315,6 +271,22 @@ PrefabInstance:
     - target: {fileID: 6289871243123928141, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[10].y
       value: -0.8706051
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402425026194026459, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Size.x
+      value: 2.2933035
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402425026194026459, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Size.y
+      value: 8.381741
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402425026194026459, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402425026194026459, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Offset.y
+      value: -3.1695604
       objectReference: {fileID: 0}
     - target: {fileID: 7169781433456424141, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
