@@ -125,6 +125,10 @@ PrefabInstance:
       value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 262144
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 128
       objectReference: {fileID: 0}
@@ -218,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4508458026034266834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: comboLibrary
@@ -248,6 +252,14 @@ PrefabInstance:
       propertyPath: crouchSprites.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 760ab3322b5dcab4391768f85586ffbb, type: 3}
+    - target: {fileID: 4652715480512573613, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4652715480512573613, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5418765017322279716, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -524,14 +536,57 @@ PrefabInstance:
     - {fileID: 774113454451992834, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4300341156516772030}
   m_SourcePrefab: {fileID: 100100000, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+--- !u!1 &4778366366375149163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+  m_PrefabInstance: {fileID: 8804802657546250301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &4300341156516772030
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778366366375149163}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.093948364, y: -3.215107}
+  m_Size: {x: 2.0657978, y: 8.474079}
+  m_Direction: 0
 --- !u!114 &7053683366832920144 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
   m_PrefabInstance: {fileID: 8804802657546250301}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4778366366375149163}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ea07964693a1c74dbf42d461d549c29, type: 3}

@@ -8,10 +8,10 @@ using UnityEngine.InputSystem;
 
 public class NewPlayerController : MonoBehaviour
 {
-
     [HideInInspector] public float horizontalMultiplier = 0f;
     [Header("Move Map")]
     public MoveMap moveMap;
+
 
     #region State variables
     [Header("Idle state")]
@@ -36,12 +36,17 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public bool shouldJump = false;
     [HideInInspector] public bool isGrounded = true;
 
+
+    [Header("Physics")]
+    public LayerMask layerMask;
+
     [Header("JumpAttack state")]
 
 
     // References
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer sr;
+    [HideInInspector] public CapsuleCollider2D capsule;
     //[HideInInspector] public AttackHitbox attackHitbox;
 
     // Input
@@ -59,7 +64,7 @@ public class NewPlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
-
+        capsule = GetComponent<CapsuleCollider2D>();
         // Initialize state machine
         stateMachine = new StateMachine();
 
@@ -72,13 +77,62 @@ public class NewPlayerController : MonoBehaviour
 
     }
 
+    void OnDrawGizmosSelected()
+    {
+        if (capsule == null) return;
+
+        Gizmos.color = Color.green;
+
+        // Use the already calculated capsule size and center (from AdjustForCollisions)
+        Vector2 size = capsuleSize;          // don’t scale again
+        Vector2 pos = capsuleCenter;
+
+        // Draw rectangle approximation
+        Gizmos.DrawWireCube(pos, size);
+
+        // Optional: draw small circles at top/bottom to better approximate the capsule ends
+        if (capsule.direction == CapsuleDirection2D.Vertical)
+        {
+            float radius = size.x / 2f;
+            Vector2 top = pos + Vector2.up * (size.y / 2f - radius);
+            Vector2 bottom = pos - Vector2.up * (size.y / 2f - radius);
+            Gizmos.DrawWireSphere(top, radius);
+            Gizmos.DrawWireSphere(bottom, radius);
+        }
+        else
+        {
+            float radius = size.y / 2f;
+            Vector2 left = pos - Vector2.right * (size.x / 2f - radius);
+            Vector2 right = pos + Vector2.right * (size.x / 2f - radius);
+            Gizmos.DrawWireSphere(left, radius);
+            Gizmos.DrawWireSphere(right, radius);
+        }
+    }
+
+    Vector2 capsuleSize;
+    Vector2 capsuleCenter;
+    Vector2 AdjustForCollisions(Vector2 position, Vector2 move, LayerMask mask)
+    {
+        // Getting size of collider and its center and using it for the overlapping.
+        capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
+        capsuleCenter = rb.position + Vector2.Scale(capsule.offset, transform.localScale);
+
+        Collider2D hit = Physics2D.OverlapCapsule(capsuleCenter, capsuleSize, capsule.direction, 0f, layerMask);
+        if (hit != null && hit.gameObject != gameObject)
+        {
+            Debug.Log("hitting");
+            Debug.Log(hit);
+        }
+        return Vector2.zero;
+    }
+
     private void FixedUpdate()
     {
+        Vector2 da = AdjustForCollisions(transform.position, moveInput, layerMask);
         // Physics and movement updates
         isGrounded = CheckGrounded();
         Vector2 desiredMove = stateMachine.CurrentState.GetDesiredMovement();
-        Vector2 finalMove = StopMovementForCollsions(desiredMove);
-        rb.MovePosition(rb.position + finalMove);
+        rb.MovePosition(rb.position + desiredMove);
 
 
         if (stateMachine != null)
@@ -168,45 +222,5 @@ public class NewPlayerController : MonoBehaviour
         return hit.collider != null;
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (rb == null) return;
-        Gizmos.color = Color.green;
-        Vector2 feetPos = (Vector2)rb.position + feetOffset;
-        Gizmos.DrawWireCube(feetPos, feetBoxSize);
-    }
-
-    public Vector2 StopMovementForCollsions(Vector2 desiredMove)
-    {
-        if (desiredMove.sqrMagnitude < 0.0001f)
-        {
-            horizontalMultiplier = 1f;
-            return desiredMove; // Nothing to do
-        }
-
-        // Prepare cast
-        Vector2 moveDir = desiredMove.normalized;
-        float moveDistance = desiredMove.magnitude + 0.001f; // tiny "skin" to prevent sticking
-        RaycastHit2D[] hits = new RaycastHit2D[8];
-
-        // Setup the contact filter
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(blockingLayers); // only collide with blocking layers
-        filter.useTriggers = false;          // ignore triggers like hitboxes/hurtboxes
-
-        int hitCount = rb.Cast(moveDir, filter, hits, moveDistance);
-
-        if (hitCount > 0)
-        {
-            // Something in the way — block horizontal movement
-            desiredMove.x = 0f;
-            horizontalMultiplier = 0f;
-        }
-        else
-        {
-            horizontalMultiplier = 1f;
-        }
-            return desiredMove;
-    }
 
 }
