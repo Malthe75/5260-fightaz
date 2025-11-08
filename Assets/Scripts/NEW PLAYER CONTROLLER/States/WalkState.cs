@@ -32,9 +32,13 @@ public class WalkState : PlayerState
     {
         // Raycast in the direction we want to move from an origin.
         // Uses 0 for Y for this example.
-        float rayLength = Mathf.Abs(desiredMove.x) + 0.1f;
-        Vector2 rayDirection = new Vector2(Mathf.Sign(desiredMove.x), 0f);
-        Vector2 rayOrigin = player.rb.position;
+        float rayLength = Mathf.Abs(desiredMove.x) + 1f;
+        //Vector2 rayDirection = new Vector2(Mathf.Sign(desiredMove.x), 0f);
+        Vector2 rayOrigin = (Vector2)player.body.transform.position;
+
+        Vector2 enemyPosition = (Vector2)(player.enemy.body.transform.position);
+        Vector2 rayDirection = (enemyPosition - rayOrigin).normalized;
+
 
         // Draw ray in the scene view
         Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
@@ -43,8 +47,9 @@ public class WalkState : PlayerState
 
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, playerLayerMask);
 
-        if(hit.collider != null && hit.collider != player.capsule)
+        if(hit.collider != null)
         {
+            if (hit.collider == player.body.GetComponent<Collider2D>()) return desiredMove;
             Debug.Log("IM hitting?");
             Debug.Log(hit.collider.name);
             //Debug.Log(player.capsule.name);

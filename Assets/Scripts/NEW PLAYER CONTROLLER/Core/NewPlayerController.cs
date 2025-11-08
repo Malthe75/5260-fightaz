@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -57,7 +58,7 @@ public class NewPlayerController : MonoBehaviour
     // References
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer sr;
-    [HideInInspector] public CapsuleCollider2D capsule;
+    //[HideInInspector] public CapsuleCollider2D capsule;
     //[HideInInspector] public AttackHitbox attackHitbox;
 
     // Input
@@ -68,7 +69,8 @@ public class NewPlayerController : MonoBehaviour
 
     public AttackHitbox attackHitbox;
 
-
+    //public GameObject enemy
+    public NewPlayerController enemy;
 
     private LayerMask enemyLayer;
     #endregion
@@ -76,7 +78,7 @@ public class NewPlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        capsule = GetComponent<CapsuleCollider2D>();
+        //capsule = GetComponentInChildren<CapsuleCollider2D>();
         // Initialize state machine
         stateMachine = new StateMachine();
 
@@ -91,69 +93,65 @@ public class NewPlayerController : MonoBehaviour
 
     private void Start()
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Player1"))
+        if(gameObject.tag == "Player1")
         {
-            Debug.Log("Im palyer 1 enemy is player 2");
-            enemyLayer = LayerMask.NameToLayer("Player2");
-            Debug.Log("Enemy layer name: " + LayerMask.LayerToName(enemyLayer));
-        }
-        else if (gameObject.layer == LayerMask.NameToLayer("Player2"))
+            GameObject enemy = GameObject.FindGameObjectWithTag("Player2");
+            this.enemy = enemy.GetComponent<NewPlayerController>();
+        }else if(gameObject.tag == "Player2")
         {
-            Debug.Log("Im palyer 2 enemy is player 1");
-            enemyLayer = LayerMask.NameToLayer("Player1");
-            Debug.Log("Enemy layer name: " + LayerMask.LayerToName(enemyLayer));
-
+            GameObject enemy = GameObject.FindGameObjectWithTag("Player1");
+            this.enemy = enemy.GetComponent<NewPlayerController>();
         }
     }
 
-        void OnDrawGizmosSelected()
-    {
-        if (capsule == null) return;
+    //    void OnDrawGizmosSelected()
+    //{
+    //    if (capsule == null) return;
 
-        Gizmos.color = Color.green;
+    //    Gizmos.color = Color.green;
 
-        // Use the already calculated capsule size and center (from AdjustForCollisions)
-        Vector2 size = capsuleSize;          // don’t scale again
-        Vector2 pos = capsuleCenter;
+    //    // Use the already calculated capsule size and center (from AdjustForCollisions)
+    //    Vector2 size = capsuleSize;          // don’t scale again
+    //    Vector2 pos = capsuleCenter;
 
-        // Draw rectangle approximation
-        Gizmos.DrawWireCube(pos, size);
+    //    // Draw rectangle approximation
+    //    Gizmos.DrawWireCube(pos, size);
 
-        // Optional: draw small circles at top/bottom to better approximate the capsule ends
-        if (capsule.direction == CapsuleDirection2D.Vertical)
-        {
-            float radius = size.x / 2f;
-            Vector2 top = pos + Vector2.up * (size.y / 2f - radius);
-            Vector2 bottom = pos - Vector2.up * (size.y / 2f - radius);
-            Gizmos.DrawWireSphere(top, radius);
-            Gizmos.DrawWireSphere(bottom, radius);
-        }
-        else
-        {
-            float radius = size.y / 2f;
-            Vector2 left = pos - Vector2.right * (size.x / 2f - radius);
-            Vector2 right = pos + Vector2.right * (size.x / 2f - radius);
-            Gizmos.DrawWireSphere(left, radius);
-            Gizmos.DrawWireSphere(right, radius);
-        }
-    }
+    //    // Optional: draw small circles at top/bottom to better approximate the capsule ends
+    //    if (capsule.direction == CapsuleDirection2D.Vertical)
+    //    {
+    //        float radius = size.x / 2f;
+    //        Vector2 top = pos + Vector2.up * (size.y / 2f - radius);
+    //        Vector2 bottom = pos - Vector2.up * (size.y / 2f - radius);
+    //        Gizmos.DrawWireSphere(top, radius);
+    //        Gizmos.DrawWireSphere(bottom, radius);
+    //    }
+    //    else
+    //    {
+    //        float radius = size.y / 2f;
+    //        Vector2 left = pos - Vector2.right * (size.x / 2f - radius);
+    //        Vector2 right = pos + Vector2.right * (size.x / 2f - radius);
+    //        Gizmos.DrawWireSphere(left, radius);
+    //        Gizmos.DrawWireSphere(right, radius);
+    //    }
+    //}
 
-    Vector2 capsuleSize;
-    Vector2 capsuleCenter;
-    Vector2 AdjustForCollisions(Vector2 position, Vector2 move, LayerMask mask)
-    {
-        // Getting size of collider and its center and using it for the overlapping.
-        capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
-        capsuleCenter = rb.position + Vector2.Scale(capsule.offset, transform.localScale);
+    //Vector2 capsuleSize;
+    //Vector2 capsuleCenter;
+    //Vector2 AdjustForCollisions(Vector2 position, Vector2 move, LayerMask mask)
+    //{
+    //    // Getting size of collider and its center and using it for the overlapping.
+    //    capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
+    //    capsuleCenter = rb.position + Vector2.Scale(capsule.offset, transform.localScale);
 
-        Collider2D hit = Physics2D.OverlapCapsule(capsuleCenter, capsuleSize, capsule.direction, 0f, layerMask);
-        if (hit != null && hit.gameObject != gameObject)
-        {
-            Debug.Log("hitting");
-            Debug.Log(hit);
-        }
-        return Vector2.zero;
-    }
+    //    Collider2D hit = Physics2D.OverlapCapsule(capsuleCenter, capsuleSize, capsule.direction, 0f, layerMask);
+    //    if (hit != null && hit.gameObject != gameObject)
+    //    {
+    //        Debug.Log("hitting");
+    //        Debug.Log(hit);
+    //    }
+    //    return Vector2.zero;
+    //}
 
     private void FixedUpdate()
     {
@@ -295,6 +293,7 @@ public class NewPlayerController : MonoBehaviour
     }
 
     public Transform feet;
+    public Transform body; 
     
    
 //    public void GroundCheck()
@@ -331,46 +330,5 @@ public class NewPlayerController : MonoBehaviour
     //    }
     //     ApplyGravity(nextY);
     //}
-
-
-
-
-
-
-
-
-    // Capsule stuff
-    Vector2 GetCapsuleWorldCenter()
-    {
-        return rb.position + Vector2.Scale(capsule.offset, transform.localScale);
-    }
-
-    float GetCapsuleBottomY()
-    {
-        // capsuleSize already scaled to world:
-        Vector2 capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
-
-        Vector2 center = GetCapsuleWorldCenter();
-        if (capsule.direction == CapsuleDirection2D.Vertical)
-        {
-            float halfHeight = capsuleSize.y * 0.5f;
-            return center.y - halfHeight;
-        }
-        else // Horizontal capsule: width is the long axis
-        {
-            float halfHeight = capsuleSize.x * 0.5f; // horizontal capsule's "height" along y
-            return center.y - halfHeight;
-        }
-    }
-
-    float GetCenterYFromBottomY(float bottomY)
-    {
-        Vector2 capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
-        float halfHeight = (capsule.direction == CapsuleDirection2D.Vertical)
-            ? capsuleSize.y * 0.5f
-            : capsuleSize.x * 0.5f;
-        return bottomY + halfHeight;
-    }
-
 
 }
