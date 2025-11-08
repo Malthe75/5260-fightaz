@@ -45,18 +45,24 @@ public class WalkState : PlayerState
         // LayerMask
         int playerLayerMask = LayerMask.GetMask("Player");
 
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, playerLayerMask);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
 
-        if(hit.collider != null)
+        foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider == player.body.GetComponent<Collider2D>()) return desiredMove;
-            Debug.Log("IM hitting?");
-            Debug.Log(hit.collider.name);
-            //Debug.Log(player.capsule.name);
+            if (hit.collider != null)
+            {
+                if (hit.collider != player.body.GetComponent<Collider2D>())
+                {
 
-            desiredMove.x = 0f;
+                    Debug.Log("IM hitting?");
+                    Debug.Log(hit.collider.name);
+                    //Debug.Log(player.capsule.name);
 
-            Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
+                    desiredMove.x = 0f;
+
+                    Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
+                }
+            }
         }
 
         return desiredMove;

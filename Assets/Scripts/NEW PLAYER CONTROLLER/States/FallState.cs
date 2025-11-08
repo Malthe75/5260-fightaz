@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -24,9 +25,14 @@ public class FallState : PlayerState
 
     public override void Enter()
     {
-       
+        
         player.sr.sprite = player.fallSprite;
         player.isGrounded = false;
+
+        if (player.fallSounds != null)
+        {
+            AudioManagerTwo.Instance.PlaySFX(player.fallSounds[0]);
+        }
     }
     
     private void Gravity()
@@ -40,7 +46,6 @@ public class FallState : PlayerState
         }
         else
         {
-            Debug.Log(xVelocity);
             player.velocity.x = xVelocity;
             player.velocity.y += player.gravity * Time.fixedDeltaTime;
         }

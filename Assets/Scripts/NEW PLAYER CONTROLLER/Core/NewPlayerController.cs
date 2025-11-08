@@ -42,6 +42,8 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Fall state")]
     public Sprite fallSprite;
+    public AudioClip[] fallSounds;
+
     //[HideInInspector] public bool 
 
     [Header("Hurt state")]

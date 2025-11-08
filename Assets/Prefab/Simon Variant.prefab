@@ -297,6 +297,10 @@ PrefabInstance:
       value: 20480
       objectReference: {fileID: 0}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: fallSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: hurtSounds.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -324,6 +328,10 @@ PrefabInstance:
       propertyPath: attackData.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: df84742b48bcc764fb9531a4c3ae6fed, type: 2}
+    - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
+      propertyPath: fallSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: d7f9599186904fc4a8fd8c12dc05622e, type: 3}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: hurtSounds.Array.data[0]
       value: 
