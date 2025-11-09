@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 3105341680962987709}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: gravity
-      value: -20
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 2005024291927490157, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: moveMap

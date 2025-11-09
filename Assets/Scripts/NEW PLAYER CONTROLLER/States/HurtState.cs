@@ -7,7 +7,7 @@ public class HurtState : PlayerState
 {
     float knockbackForce; // How strong the knockback is
     //float hurtTimer = 0.1f; // How long the player stays in hurt state (total time in hurt state)
-    float knockbackTimer = 0.3f; // Timer for the knockback duration
+    float knockbackTimer = 0.8f; // Timer for the knockback duration
     float totalKnockbackDuration = 0.2f; // Total duration of the knockback effect
     Vector2 knockbackDirection; // Direction of knockback (to the right or left)
 
@@ -34,13 +34,8 @@ public class HurtState : PlayerState
         }
 
     }
-    public override void Exit()
-    {
-        // white should be defautlt i think.
-        player.sr.color = Color.white;
-    }
 
-    public override Vector2 GetDesiredMovement()
+    public override void Update()
     {
         if (knockbackTimer > 0f)
         {
@@ -49,10 +44,17 @@ public class HurtState : PlayerState
             Vector2 knockbackMove = knockbackDirection * currentForce * Time.fixedDeltaTime;
 
             knockbackTimer -= Time.fixedDeltaTime;
-            return knockbackMove;
         }
+        else
+        {
 
-        player.stateMachine.ChangeState(new IdleState(player));
-        return Vector2.zero;
+            player.stateMachine.ChangeState(new IdleState(player));
+        }
     }
+    public override void Exit()
+    {
+        // white should be defautlt i think.
+        player.sr.color = Color.white;
+    }
+
 }

@@ -35,7 +35,7 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Jump state")]
     public Sprite[] jumpSprites;
-    public float jumpForce = 15f;
+    public float jumpForce = 25f;
     public AudioClip[] jumpSounds;
     [HideInInspector] public bool shouldJump = false;
     [HideInInspector] public bool isGrounded = true;
@@ -43,8 +43,10 @@ public class NewPlayerController : MonoBehaviour
     [Header("Fall state")]
     public Sprite fallSprite;
     public AudioClip[] fallSounds;
-
-    //[HideInInspector] public bool 
+    public float gravity = -65f;
+    public float floorY = -3;
+    public float verticalVelocity = 0f;
+    public Vector2 velocity; 
 
     [Header("Hurt state")]
     public AudioClip[] hurtSounds;
@@ -53,6 +55,8 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Physics")]
     public LayerMask layerMask;
+    public Transform feet;
+    public Transform body;
 
     [Header("JumpAttack state")]
 
@@ -106,64 +110,8 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
-    //    void OnDrawGizmosSelected()
-    //{
-    //    if (capsule == null) return;
-
-    //    Gizmos.color = Color.green;
-
-    //    // Use the already calculated capsule size and center (from AdjustForCollisions)
-    //    Vector2 size = capsuleSize;          // don’t scale again
-    //    Vector2 pos = capsuleCenter;
-
-    //    // Draw rectangle approximation
-    //    Gizmos.DrawWireCube(pos, size);
-
-    //    // Optional: draw small circles at top/bottom to better approximate the capsule ends
-    //    if (capsule.direction == CapsuleDirection2D.Vertical)
-    //    {
-    //        float radius = size.x / 2f;
-    //        Vector2 top = pos + Vector2.up * (size.y / 2f - radius);
-    //        Vector2 bottom = pos - Vector2.up * (size.y / 2f - radius);
-    //        Gizmos.DrawWireSphere(top, radius);
-    //        Gizmos.DrawWireSphere(bottom, radius);
-    //    }
-    //    else
-    //    {
-    //        float radius = size.y / 2f;
-    //        Vector2 left = pos - Vector2.right * (size.x / 2f - radius);
-    //        Vector2 right = pos + Vector2.right * (size.x / 2f - radius);
-    //        Gizmos.DrawWireSphere(left, radius);
-    //        Gizmos.DrawWireSphere(right, radius);
-    //    }
-    //}
-
-    //Vector2 capsuleSize;
-    //Vector2 capsuleCenter;
-    //Vector2 AdjustForCollisions(Vector2 position, Vector2 move, LayerMask mask)
-    //{
-    //    // Getting size of collider and its center and using it for the overlapping.
-    //    capsuleSize = Vector2.Scale(capsule.size, transform.localScale);
-    //    capsuleCenter = rb.position + Vector2.Scale(capsule.offset, transform.localScale);
-
-    //    Collider2D hit = Physics2D.OverlapCapsule(capsuleCenter, capsuleSize, capsule.direction, 0f, layerMask);
-    //    if (hit != null && hit.gameObject != gameObject)
-    //    {
-    //        Debug.Log("hitting");
-    //        Debug.Log(hit);
-    //    }
-    //    return Vector2.zero;
-    //}
-
     private void FixedUpdate()
     {
-        //Vector2 da = AdjustForCollisions(transform.position, moveInput, enemyLayer);
-        // Physics and movement updates
-        //isGrounded = CheckGrounded();
-        //Vector2 desiredMove = stateMachine.CurrentState.GetDesiredMovement();
-        //rb.MovePosition(rb.position + desiredMove);
-
-
         if (stateMachine != null)
             stateMachine.CurrentState?.FixedUpdate();
     }
@@ -238,99 +186,6 @@ public class NewPlayerController : MonoBehaviour
     public LayerMask groundBlockLayer;
     public Vector2 feetOffset = new Vector2(0f, -0.5f); // Adjust based on player's feet position
     public Vector2 feetBoxSize = new Vector2(0.5f, 0.1f); // Width and height of the box for ground check
-
-
-    public bool CheckGrounded()
-    {
-        // Position slightly below the player's feet
-        Vector2 feetPos = (Vector2)rb.position + feetOffset;
-        Vector2 boxSize = feetBoxSize;
-
-        // OverlapBox for ground detection
-        RaycastHit2D hit = Physics2D.BoxCast(rb.position + feetOffset, feetBoxSize, 0f, Vector2.down, 0.01f, groundBlockLayer);
-        return hit.collider != null;
-    }
-
-
-
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Enter");
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player1") || collision.CompareTag("Player2"))
-        {
-            Vector2 dir = (transform.position - collision.transform.position).normalized;
-            transform.position += (Vector3)dir * 0.02f; // small push apart
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Debug.Log("exit");
-    }
-
-    //public GameObject floor;
-    public float floorY = -3;
-    public float gravity = -20f;
-    public float verticalVelocity = 0f;
-    public Vector2 velocity;
-    public float skin = 0.01f;
-
-    public bool IsGrounded()
-    {
-        if (transform.position.y > floorY)
-        {
-            // Apply gravity
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    public Transform feet;
-    public Transform body; 
     
-   
-//    public void GroundCheck()
-//    {
-//        Debug.Log(GetCapsuleBottomY());
-
-//        // The velocity?
-//        verticalVelocity += gravity * Time.fixedDeltaTime;
-
-//        // Figure out where it will land in the next frame?
-//        float playerBottomY = GetCapsuleBottomY();
-//        float nextY = playerBottomY + verticalVelocity * Time.fixedDeltaTime;
-
-//        float centerY = GetCenterYFromBottomY(nextY);
-//        rb.MovePosition(new Vector2(rb.position.x, centerY));
-
-//        Debug.DrawLine(
-//    new Vector2(rb.position.x - 0.5f, floorY),
-//    new Vector2(rb.position.x + 0.5f, floorY),
-//    Color.yellow
-//);
-
-    //    float bottom = GetCapsuleBottomY();
-    //    Debug.DrawLine(
-    //        new Vector2(rb.position.x - 0.5f, bottom),
-    //        new Vector2(rb.position.x + 0.5f, bottom),
-    //        Color.cyan
-    //    );
-    //    if (nextY < floorY)
-    //    {
-    //        nextY = floorY;
-    //        Debug.Log("Under floor next time");
-    //        verticalVelocity = 0f;
-    //    }
-    //     ApplyGravity(nextY);
-    //}
 
 }
