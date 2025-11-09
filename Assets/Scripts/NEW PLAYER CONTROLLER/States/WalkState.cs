@@ -53,11 +53,11 @@ public class WalkState : PlayerState
             {
                 if (hit.collider != player.body.GetComponent<Collider2D>())
                 {
-
                     Debug.Log("IM hitting?");
                     Debug.Log(hit.collider.name);
-                    //Debug.Log(player.capsule.name);
 
+
+                    PushPlayer();
                     desiredMove.x = 0f;
 
                     Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
@@ -66,6 +66,23 @@ public class WalkState : PlayerState
         }
 
         return desiredMove;
+    }
+
+    private void PushPlayer()
+    {
+        float dist = Vector2.Distance(player.body.transform.position, player.enemy.transform.position);
+
+        float pushDistance = 1.0f;
+
+        if(dist > pushDistance)
+        {
+            // Calculate push direction (away from each other)
+            Vector2 pushDir = (player.body.transform.position - player.enemy.body.transform.position).normalized;
+
+            // Apply a *tiny* push to both players
+            player.rb.MovePosition(player.rb.position + pushDir * 0.02f);
+            player.enemy.rb.MovePosition(player.enemy.rb.position - pushDir * 0.02f);
+        }
     }
 
     public override void FixedUpdate()
