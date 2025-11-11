@@ -28,67 +28,10 @@ public class WalkState : PlayerState
 
     }
 
-    private Vector2 RaycastCalculator(Vector2 desiredMove)
-    {
-        // Raycast in the direction we want to move from an origin.
-        // Uses 0 for Y for this example.
-        float rayLength = Mathf.Abs(desiredMove.x) + 1f;
-        //Vector2 rayDirection = new Vector2(Mathf.Sign(desiredMove.x), 0f);
-        Vector2 rayOrigin = (Vector2)player.body.transform.position;
-
-        Vector2 enemyPosition = (Vector2)(player.enemy.body.transform.position);
-        Vector2 rayDirection = (enemyPosition - rayOrigin).normalized;
-
-
-        // Draw ray in the scene view
-        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
-        // LayerMask
-        int playerLayerMask = LayerMask.GetMask("Player");
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
-
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider != null)
-            {
-                if (hit.collider != player.body.GetComponent<Collider2D>())
-                {
-                    Debug.Log("IM hitting?");
-                    Debug.Log(hit.collider.name);
-
-
-                    PushPlayer();
-                    desiredMove.x = 0f;
-
-                    Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
-                }
-            }
-        }
-
-        return desiredMove;
-    }
-
-    private void PushPlayer()
-    {
-        float dist = Vector2.Distance(player.body.transform.position, player.enemy.transform.position);
-
-        float pushDistance = 1.0f;
-
-        if(dist > pushDistance)
-        {
-            // Calculate push direction (away from each other)
-            Vector2 pushDir = (player.body.transform.position - player.enemy.body.transform.position).normalized;
-
-            // Apply a *tiny* push to both players
-            player.rb.MovePosition(player.rb.position + pushDir * 0.02f);
-            player.enemy.rb.MovePosition(player.enemy.rb.position - pushDir * 0.02f);
-        }
-    }
-
     public override void FixedUpdate()
     {
         Vector2 desiredMove = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
-        Vector2 actualMove = RaycastCalculator(desiredMove);
+        Vector2 actualMove = player.PushboxCalculator(desiredMove);
         player.rb.MovePosition(player.rb.position + actualMove);
     }
 

@@ -46,7 +46,7 @@ public class NewPlayerController : MonoBehaviour
     public float gravity = -65f;
     public float floorY = -3;
     public float verticalVelocity = 0f;
-    public Vector2 velocity; 
+    public Vector2 velocity;
 
     [Header("Hurt state")]
     public AudioClip[] hurtSounds;
@@ -57,6 +57,8 @@ public class NewPlayerController : MonoBehaviour
     public LayerMask layerMask;
     public Transform feet;
     public Transform body;
+    public float pushDistance = 1f;
+    private Collider2D pushbox;
 
     [Header("JumpAttack state")]
 
@@ -79,16 +81,19 @@ public class NewPlayerController : MonoBehaviour
     public NewPlayerController enemy;
 
     private LayerMask enemyLayer;
+
+    private int playerLayerMask;
     #endregion
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        //capsule = GetComponentInChildren<CapsuleCollider2D>();
+        playerLayerMask = LayerMask.GetMask("Player");
+
         // Initialize state machine
         stateMachine = new StateMachine();
 
-        if(stateMachine.CurrentState == null)
+        if (stateMachine.CurrentState == null)
         {
 
             stateMachine.ChangeState(new FallState(this));
@@ -99,15 +104,18 @@ public class NewPlayerController : MonoBehaviour
 
     private void Start()
     {
-        if(gameObject.tag == "Player1")
+        if (gameObject.tag == "Player1")
         {
             GameObject enemy = GameObject.FindGameObjectWithTag("Player2");
             this.enemy = enemy.GetComponent<NewPlayerController>();
-        }else if(gameObject.tag == "Player2")
+        }
+        else if (gameObject.tag == "Player2")
         {
             GameObject enemy = GameObject.FindGameObjectWithTag("Player1");
             this.enemy = enemy.GetComponent<NewPlayerController>();
+
         }
+        pushbox = body.GetComponent<Collider2D>();
     }
 
     private void FixedUpdate()
@@ -118,7 +126,7 @@ public class NewPlayerController : MonoBehaviour
     private void Update()
     {
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
-        if(stateMachine != null)
+        if (stateMachine != null)
             stateMachine.Update();
         input = MoveInput.Nothing;
     }
@@ -160,7 +168,7 @@ public class NewPlayerController : MonoBehaviour
         {
 
             string actionName = context.action.name;
-            if(Enum.TryParse(actionName, ignoreCase: true, out MoveInput moveInput))
+            if (Enum.TryParse(actionName, ignoreCase: true, out MoveInput moveInput))
             {
                 this.input = moveInput;
                 //moveMap.GetAttack(moveInput);
@@ -169,7 +177,7 @@ public class NewPlayerController : MonoBehaviour
             {
                 Debug.LogWarning($"Unknown action: {actionName}");
             }
-            
+
         }
     }
 
@@ -182,10 +190,66 @@ public class NewPlayerController : MonoBehaviour
         stateMachine.ChangeState(new HurtState(this, attack));
     }
 
-    public LayerMask blockingLayers; // Assign in inspector (e.g. "Ground", "Walls", "Player")
-    public LayerMask groundBlockLayer;
-    public Vector2 feetOffset = new Vector2(0f, -0.5f); // Adjust based on player's feet position
-    public Vector2 feetBoxSize = new Vector2(0.5f, 0.1f); // Width and height of the box for ground check
-    
+
+
+    // THIS IS FOR PHYSICS PUSHING PLAYERS:
+
+    public Vector2 PushboxCalculator(Vector2 desiredMove)
+    {
+        // Raycast from the player origin
+        Vector2 rayOrigin = (Vector2)body.transform.position;
+
+
+        // Raycast in the direction of the of the enemy
+        Vector2 enemyPosition = (Vector2)enemy.body.transform.position;
+        Vector2 rayDirection = (enemyPosition - rayOrigin).normalized;
+
+        // Ray length changed the number 1 to anything for longer length
+        float rayLength = Mathf.Abs(desiredMove.x) + 1f;
+
+        // Draw ray the length of the ray
+        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
+
+        // Raycasthits
+        RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
+
+        // Foreach loop to iterate all raycasts and only getting the ones that hit the enemy player.
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider != pushbox)
+            {
+                PushPlayer();
+                bool blockedRight = rayDirection.x > 0;
+                bool blockedLeft = rayDirection.x < 0;
+
+                if (blockedRight && desiredMove.x > 0f)
+                    desiredMove.x = 0f;          // stop rightward motion
+                else if (blockedLeft && desiredMove.x < 0f)
+                    desiredMove.x = 0f;          // stop leftward motion
+
+                Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
+                
+            }   
+        }
+        return desiredMove;
+    }
+
+
+    private void PushPlayer()
+    {
+     
+        float dist = Vector2.Distance(body.transform.position, enemy.transform.position);
+
+
+        if (dist > pushDistance)
+        {
+            // Calculate push direction (away from each other)
+            Vector2 pushDir = (body.transform.position - enemy.body.transform.position).normalized;
+
+            // Apply a *tiny* push to both players
+            rb.MovePosition(rb.position + pushDir * 0.02f);
+            enemy.rb.MovePosition(enemy.rb.position - pushDir * 0.02f);
+        }
+    }
 
 }
