@@ -45,6 +45,8 @@ public class FallState : PlayerState
             player.velocity.y += player.gravity * Time.fixedDeltaTime;
         }
 
+        player.velocity = player.PushboxFeetCalculator(player.velocity);
+
         player.transform.Translate(player.velocity * Time.fixedDeltaTime);
     }
 

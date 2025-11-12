@@ -234,6 +234,43 @@ public class NewPlayerController : MonoBehaviour
         return desiredMove;
     }
 
+    public Vector2 PushboxFeetCalculator(Vector2 velocity)
+    {
+        Vector2 rayOrigin = (Vector2)feet.transform.position;
+        Vector2 rayDirection = Vector2.down; // Only look downwards
+        float rayLength = 0.2f; // Short ray, just under your feet
+
+        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.blue);
+
+        int playerLayerMask = LayerMask.GetMask("Player");
+        RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+
+            if (hit.collider != null && hit.collider != pushbox)
+            {
+                Debug.Log("Hitting?");
+                Debug.Log(hit.collider.tag);
+                Debug.Log(pushbox.tag);
+                // We hit the opponent's body collider from above
+                Debug.DrawRay(hit.point, Vector2.up * 0.3f, Color.yellow);
+
+                // Push the jumper slightly away
+                float dir = Mathf.Sign(transform.position.x - hit.collider.transform.position.x);
+                rb.MovePosition(rb.position + Vector2.right * dir * 0.05f);
+
+                // Optional tiny bounce up
+                velocity.y = Mathf.Abs(velocity.y) * 0.5f;
+
+                // Optional: stop falling state and transition to fall or idle again
+                // (depending if they are still in the air)
+                break;
+            }
+        }
+
+        return velocity;
+    }
 
     private void PushPlayer()
     {
