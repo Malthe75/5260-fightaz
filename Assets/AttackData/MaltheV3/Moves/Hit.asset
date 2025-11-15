@@ -20,16 +20,16 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.4
+    frameDuration: 0.1
     knockback: 0
     dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: c8a708ab0ce1a4e4db98511202ac8cab, type: 3}
+  - frameSprite: {fileID: 21300000, guid: 3cae14a428030144e962c1ba93aae146, type: 3}
     hitboxSize: {x: 0, y: 0}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.4
+    frameDuration: 0.2
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: f5588a55611d9d9419e693963b1190e7, type: 3}
@@ -38,15 +38,15 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.4
+    frameDuration: 0.1
     knockback: 0
     dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: fdbc19e22f53db942af4cc63098f7dc3, type: 3}
+  - frameSprite: {fileID: 21300000, guid: 1352d0d1e5e5e4d49850065ea3b042a8, type: 3}
     hitboxSize: {x: 0, y: 0}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.4
+    frameDuration: 0.2
     knockback: 0
     dashForce: 0
