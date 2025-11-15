@@ -340,7 +340,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 415e27da7000599489f68e17e5ebaf4d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35e7d62ccce80c242a3c1d77f206a061, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackToPreview: {fileID: 11400000, guid: 8903d9c5e7f9f2b47bd72632c12609e8, type: 2}
-  frameIndex: 1
+  frameIndex: 0
   spriteRenderer: {fileID: 430247825}
 --- !u!4 &430247827
 Transform:
@@ -375,8 +375,8 @@ Transform:
   m_GameObject: {fileID: 430247824}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.57, y: -1, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -30, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

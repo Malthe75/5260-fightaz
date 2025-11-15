@@ -24,7 +24,7 @@ public class FallState : PlayerState
         player.sr.sprite = player.fallSprite;
         player.isGrounded = false;
 
-        if (player.fallSounds != null)
+        if (player.fallSounds != null && player.fallSounds.Length > 0)
         {
             AudioManagerTwo.Instance.PlaySFX(player.fallSounds[0]);
         }

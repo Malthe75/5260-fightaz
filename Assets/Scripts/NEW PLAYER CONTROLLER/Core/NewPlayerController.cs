@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class NewPlayerController : MonoBehaviour
 {
@@ -54,11 +49,12 @@ public class NewPlayerController : MonoBehaviour
 
 
     [Header("Physics")]
-    public LayerMask layerMask;
     public Transform feet;
     public Transform body;
     public float pushDistance = 1f;
     private Collider2D pushbox;
+    public AttackHitbox attackHitbox;
+    private NewPlayerController enemy;
 
     [Header("JumpAttack state")]
 
@@ -75,12 +71,7 @@ public class NewPlayerController : MonoBehaviour
     // State Machine
     public StateMachine stateMachine;
 
-    public AttackHitbox attackHitbox;
-
-    //public GameObject enemy
-    public NewPlayerController enemy;
-
-    private LayerMask enemyLayer;
+ 
 
     private int playerLayerMask;
     #endregion

@@ -386,7 +386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2966674222527440294, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_UseFullKinematicContacts
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3793423964583657091, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
       propertyPath: m_Layer

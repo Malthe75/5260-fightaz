@@ -32,8 +32,8 @@ public class FightManagerTest : MonoBehaviour
         p1 = PlayerInput.Instantiate(playerPrefab1, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
         p1.transform.position = player1Spawn.position;
         Vector3 newScale = p1.transform.localScale;
-        newScale.x = -0.5f;
-        newScale.y = 0.5f;
+        newScale.x = -0.25f;
+        newScale.y = 0.25f;
         p1.transform.localScale = newScale;
         p1.gameObject.name = "Player1";
         p1.tag = "Player1";

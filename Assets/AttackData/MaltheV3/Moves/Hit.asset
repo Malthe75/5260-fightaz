@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edff4a6356234b14ab89488a5efbf3d8, type: 3}
+  m_Name: Hit
+  m_EditorClassIdentifier: 
+  attackName: Hit
+  frames:
+  - frameSprite: {fileID: 21300000, guid: dc4086530cb00e34d8dc19f0301f8dba, type: 3}
+    hitboxSize: {x: 0, y: 0}
+    hitboxOffset: {x: 0, y: 0}
+    hasHitbox: 0
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.4
+    knockback: 0
+    dashForce: 0
+  - frameSprite: {fileID: 21300000, guid: c8a708ab0ce1a4e4db98511202ac8cab, type: 3}
+    hitboxSize: {x: 0, y: 0}
+    hitboxOffset: {x: 0, y: 0}
+    hasHitbox: 0
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.4
+    knockback: 0
+    dashForce: 0
+  - frameSprite: {fileID: 21300000, guid: f5588a55611d9d9419e693963b1190e7, type: 3}
+    hitboxSize: {x: 0, y: 0}
+    hitboxOffset: {x: 0, y: 0}
+    hasHitbox: 0
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.4
+    knockback: 0
+    dashForce: 0
+  - frameSprite: {fileID: 21300000, guid: fdbc19e22f53db942af4cc63098f7dc3, type: 3}
+    hitboxSize: {x: 0, y: 0}
+    hitboxOffset: {x: 0, y: 0}
+    hasHitbox: 0
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.4
+    knockback: 0
+    dashForce: 0

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5386469fab652a46bef721b68257b2e, type: 3}
+  m_Name: Malthe_Movemap
+  m_EditorClassIdentifier: 
+  moves:
+  - input: 0
+    attack: {fileID: 0}
+  - input: 1
+    attack: {fileID: 11400000, guid: 636924bcf2ab50645b0e2d8084e6ee46, type: 2}
+  - input: 2
+    attack: {fileID: 0}
+  - input: 3
+    attack: {fileID: 0}
+  - input: 4
+    attack: {fileID: 0}
+  - input: 5
+    attack: {fileID: 0}
+  - input: 6
+    attack: {fileID: 0}
+  - input: 7
+    attack: {fileID: 0}
+  - input: 8
+    attack: {fileID: 0}
+  - input: 9
+    attack: {fileID: 0}
+  - input: 10
+    attack: {fileID: 0}
+  - input: 11
+    attack: {fileID: 0}
+  - input: 12
+    attack: {fileID: 0}
+  - input: 13
+    attack: {fileID: 0}
+  - input: 14
+    attack: {fileID: 0}
+  - input: 15
+    attack: {fileID: 0}
