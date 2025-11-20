@@ -18,21 +18,21 @@ MonoBehaviour:
   - input: 1
     attack: {fileID: 11400000, guid: 636924bcf2ab50645b0e2d8084e6ee46, type: 2}
   - input: 2
-    attack: {fileID: 0}
+    attack: {fileID: 11400000, guid: 015a149e5b3b42f448c68da6ba075448, type: 2}
   - input: 3
-    attack: {fileID: 0}
+    attack: {fileID: 11400000, guid: 73965a4af8dd25d449b95b2c141e772c, type: 2}
   - input: 4
-    attack: {fileID: 0}
+    attack: {fileID: 11400000, guid: c3d6051aa791b6843964f48ef4247c31, type: 2}
   - input: 5
     attack: {fileID: 0}
   - input: 6
-    attack: {fileID: 0}
+    attack: {fileID: 11400000, guid: b3d995a6564c872478b3226e41aed02b, type: 2}
   - input: 7
-    attack: {fileID: 0}
+    attack: {fileID: 11400000, guid: bfc9e5f66fd003a4d86c7788153a3127, type: 2}
   - input: 8
     attack: {fileID: 0}
   - input: 9
-    attack: {fileID: 0}
+    attack: {fileID: 11400000, guid: 51a9d35e551126840828eb5bf9045ad7, type: 2}
   - input: 10
     attack: {fileID: 0}
   - input: 11

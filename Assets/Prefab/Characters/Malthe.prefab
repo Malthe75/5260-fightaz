@@ -381,23 +381,25 @@ MonoBehaviour:
   animationSpeed: 0.2
   attackData:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   input: 0
   blockSprites:
   - {fileID: 21300000, guid: 024526497d306a84c8b1df30d0c6bfcc, type: 3}
   - {fileID: 21300000, guid: 6b751b9cfffaeb440b5da7aa3b763ccd, type: 3}
   isBlocking: 0
   jumpSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 46f507e900947814cad177d34987fbdb, type: 3}
+  - {fileID: 21300000, guid: eea5a9130f287e44dacf96323ef83751, type: 3}
+  - {fileID: 21300000, guid: 37ca529439233994ebc72ab1885ceddb, type: 3}
+  - {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
+  - {fileID: 21300000, guid: 4c7540004c1c7ba4db1a1de9dcec94be, type: 3}
+  - {fileID: 21300000, guid: 18d8b14668bb9d047bf65459dd5676d2, type: 3}
+  - {fileID: 21300000, guid: a18881b2024c98248a63474a2da4ad9d, type: 3}
   jumpForce: 25
-  jumpSounds: []
+  jumpSounds:
+  - {fileID: 8300000, guid: c3d317669fac1ef499505e624973d804, type: 3}
   shouldJump: 0
   isGrounded: 1
-  fallSprite: {fileID: 21300000, guid: 2b6cf1f5c55b1834899235b1687f6a7e, type: 3}
+  fallSprite: {fileID: 21300000, guid: 9ecf4b9063d329940bcef14a392da722, type: 3}
   fallSounds: []
   gravity: -65
   floorY: -3
