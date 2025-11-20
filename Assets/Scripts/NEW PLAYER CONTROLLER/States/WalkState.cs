@@ -40,7 +40,8 @@ public class WalkState : PlayerState
         // Attack transition
         if (player.input != MoveInput.Nothing)
         {
-            player.stateMachine.ChangeState(new AttackState(player, player.input));
+            float x = player.moveInput.x;
+            player.stateMachine.ChangeState(new AttackState(player, player.input, x));
             return;
         }
         // Jump transition

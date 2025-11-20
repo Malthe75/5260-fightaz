@@ -15,7 +15,7 @@ public class IdleState : PlayerState
     {
         if (player.input != MoveInput.Nothing)
         {
-            player.stateMachine.ChangeState(new AttackState(player, player.input));
+            player.stateMachine.ChangeState(new AttackState(player, player.input, 0));
             return;
         }
 

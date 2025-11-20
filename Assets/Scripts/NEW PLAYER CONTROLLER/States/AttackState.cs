@@ -6,10 +6,12 @@ public class AttackState : PlayerState
     private MoveInput attackInput;
     private int dashDirection;
     private Coroutine attackRoutine;
+    private float x;
 
-    public AttackState(NewPlayerController player, MoveInput input) : base(player)
+    public AttackState(NewPlayerController player, MoveInput input, float x) : base(player)
     {
         attackInput = input;
+        this.x = x;
     }
 
     public override void Enter()
@@ -29,8 +31,19 @@ public class AttackState : PlayerState
 
     private void attack(MoveInput attackInput)
     {
-        
-        attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(attackInput)));
+
+        if (x == 0)
+        {
+            attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(attackInput)));
+        }
+        else if(x > 0)
+        {
+            attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunForward)));
+        }
+        else if (x < 0)
+        {
+            attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunBackward)));
+        }
 
     }
 
