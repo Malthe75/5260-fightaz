@@ -219,7 +219,7 @@ MonoBehaviour:
   player1Spawn: {fileID: 211918952}
   player2Spawn: {fileID: 1727048919}
   playerPrefab1: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
-  playerPrefab2: {fileID: 4778366366375149163, guid: da079f88fe4e0434cb211c890492ffc4, type: 3}
+  playerPrefab2: {fileID: 4062488458785150550, guid: 32c8c0e6d24149645b359b7a44931678, type: 3}
   stages: []
   p1: {fileID: 0}
   p2: {fileID: 0}
