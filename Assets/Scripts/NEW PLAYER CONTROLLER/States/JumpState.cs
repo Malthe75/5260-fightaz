@@ -17,7 +17,6 @@ public class JumpState : PlayerState
     private Vector2 jumpDirection;
     private JumpInput jumpInput = JumpInput.Nothing;
     private float xVelocity = 0f;
-    private Sprite sprite;
     public JumpState(NewPlayerController player, JumpInput jumpInput) : base(player)
     {
         this.jumpInput = jumpInput;
@@ -73,7 +72,9 @@ public class JumpState : PlayerState
 
         // Move the player
         Vector2 movement = new Vector2(xVelocity, player.verticalVelocity) * Time.fixedDeltaTime;
-        player.transform.Translate(movement);
+        Vector2 nextPos = player.CalculateAllowedMovement(movement);
+        player.rb.MovePosition(nextPos);
+        //player.transform.Translate(movement);
 
         // Check if peak is reached (vertical velocity <= 0)  switch to fall state
         if (player.verticalVelocity <= 0)

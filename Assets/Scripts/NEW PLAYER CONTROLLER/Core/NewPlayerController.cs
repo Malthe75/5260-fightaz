@@ -58,7 +58,8 @@ public class NewPlayerController : MonoBehaviour
     private Collider2D pushbox;
     public AttackHitbox attackHitbox;
     private NewPlayerController enemy;
-
+    public float maxX = 8.5f;
+    public float minX = -8.5f;
     [Header("JumpAttack state")]
 
 
@@ -175,10 +176,10 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
-    private int facing;
+    public int facing;
     private void UpdateFacing()
     {
-        facing = transform.position.x < enemy.transform.position.x ? -1 : 1;
+        facing = transform.position.x < enemy.transform.position.x ? 1 : -1;
 
         Vector3 localScale = transform.localScale;
         localScale.x = Mathf.Abs(localScale.x) * facing; // positive for right, negative for left
@@ -191,7 +192,7 @@ public class NewPlayerController : MonoBehaviour
     public void TakeHit(int damage, AttackFrameData attack)
     {
         Debug.Log("IT did this damage");
-        stateMachine.ChangeState(new HurtState(this, attack));
+        stateMachine.ChangeState(new HurtState(this, attack.knockback));
     }
 
 
@@ -238,6 +239,19 @@ public class NewPlayerController : MonoBehaviour
         return desiredMove;
     }
 
+    public Vector2 CalculateAllowedMovement(Vector2 desiredMove)
+    {
+        Vector2 actualMove = PushboxCalculator(desiredMove);
+
+        Vector2 nextPos = rb.position + actualMove;
+
+        // Clamping to allowed range (wall collision)
+        nextPos.x = Mathf.Clamp(nextPos.x, minX, maxX);
+
+        // Move the player
+        return nextPos;
+    }
+
     public Vector2 PushboxFeetCalculator(Vector2 velocity)
     {
         Vector2 rayOrigin = (Vector2)feet.transform.position;
@@ -254,9 +268,6 @@ public class NewPlayerController : MonoBehaviour
 
             if (hit.collider != null && hit.collider != pushbox)
             {
-                Debug.Log("Hitting?");
-                Debug.Log(hit.collider.tag);
-                Debug.Log(pushbox.tag);
                 // We hit the opponent's body collider from above
                 Debug.DrawRay(hit.point, Vector2.up * 0.3f, Color.yellow);
 

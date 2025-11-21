@@ -1,10 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackState : PlayerState
 {
-    private int dashDirection;
     private Coroutine attackRoutine;
+    private float dashForce = 0f;
 
     public AttackState(NewPlayerController player) : base(player)
     {
@@ -20,7 +21,6 @@ public class AttackState : PlayerState
         {
             player.StopCoroutine(attackRoutine);
             attackRoutine = null;
-
             player.attackHitbox.Deactivate();
         }
         player.shouldAttack = false;
@@ -29,16 +29,14 @@ public class AttackState : PlayerState
     private void attack()
     {
         player.StartCoroutine(showFrames(player.attack));
+    }
 
-        //else if(x > 0)
-        //{
-        //    attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunForward)));
-        //}
-        //else if (x < 0)
-        //{
-        //    attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunBackward)));
-        //}
-
+    public override void FixedUpdate()
+    {
+        if (dashForce != 0)
+        {
+            Dash();
+        }
     }
 
     // Remember to delete coroutine if we exit the state early.
@@ -46,23 +44,23 @@ public class AttackState : PlayerState
     {
         foreach(var attackFrame in attack.frames)
         {
-            Debug.Log("What?");
             // Sprite
             player.sr.sprite = attackFrame.frameSprite;
 
+            // Dash if needed
             if (attackFrame.dashForce != 0)
-                {
-                    dash(attackFrame.dashForce);
-                }
+            {
+                dashForce = attackFrame.dashForce;
+            }
+
             // Activate hitbox if it exists
             if (attackFrame.hasHitbox)
             {
                 player.attackHitbox.Activate(attackFrame);
 
-                
-
             }
 
+            // Sound
             if (attackFrame.attackSound != null)
             {
                 AudioManagerTwo.Instance.PlaySFX(attackFrame.attackSound);
@@ -73,8 +71,10 @@ public class AttackState : PlayerState
             // Deactivate hitbox if it exists
             if (attackFrame.hasHitbox)
             {
+                Debug.Log("Why am i deactivating?");
                 player.attackHitbox.Deactivate();
             }
+            dashForce = 0f;
         }
         HandleNextState();
     }
@@ -91,11 +91,11 @@ public class AttackState : PlayerState
         }
     }
 
-    private void dash(float dashForce)
+    private void Dash()
     {
-        if (player.tag == "Player1") dashDirection = 1;
-        else dashDirection = -1;
-        player.rb.AddForce(new Vector2(dashDirection * dashForce, 0f), ForceMode2D.Impulse);
+        Vector2 desiredMove = new Vector2(player.facing * dashForce, 0f) * Time.fixedDeltaTime;
+        Vector2 actualMove = player.PushboxCalculator(desiredMove);
+        player.rb.MovePosition(player.rb.position + actualMove);
     }
 
 }

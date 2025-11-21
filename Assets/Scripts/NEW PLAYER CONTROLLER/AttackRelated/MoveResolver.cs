@@ -19,7 +19,7 @@ public class MoveResolver
         // Multiply by facing to get relative direction
         float relative = xInput * facing;
 
-        if (relative < 0)
+        if (relative > 0)
         {
             return RelativeDirection.Forward;
         }

@@ -32,9 +32,13 @@ public class WalkState : PlayerState
 
     public override void FixedUpdate()
     {
+        // 1. Desired movement
         Vector2 desiredMove = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
-        Vector2 actualMove = player.PushboxCalculator(desiredMove);
-        player.rb.MovePosition(player.rb.position + actualMove);
+
+        // 2. Check collision / pushback logic
+
+        Vector2 nextPos = player.CalculateAllowedMovement(desiredMove);
+        player.rb.MovePosition(nextPos);
     }
 
     public override void HandleNextState()

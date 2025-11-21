@@ -25,7 +25,7 @@ MonoBehaviour:
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 3cae14a428030144e962c1ba93aae146, type: 3}
     hitboxSize: {x: 2.5, y: 0.79}
-    hitboxOffset: {x: -2.47, y: 1.19}
+    hitboxOffset: {x: 2.47, y: 1.19}
     hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 8300000, guid: df22394acffbc9c49a7aaf6338962595, type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 1352d0d1e5e5e4d49850065ea3b042a8, type: 3}
     hitboxSize: {x: 2.53, y: 0.66}
-    hitboxOffset: {x: -2.49, y: 0.95}
+    hitboxOffset: {x: 2.49, y: 0.95}
     hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 8300000, guid: df22394acffbc9c49a7aaf6338962595, type: 3}

@@ -20,15 +20,15 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.5
+    frameDuration: 1
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 04958465d06da804288e963b815fd938, type: 3}
-    hitboxSize: {x: 0, y: 0}
-    hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
+    hitboxSize: {x: 4.24, y: 0.95}
+    hitboxOffset: {x: 2.21, y: -1.18}
+    hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.6
+    frameDuration: 0.4
     knockback: 0
-    dashForce: 4
+    dashForce: 25

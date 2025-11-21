@@ -31,4 +31,4 @@ MonoBehaviour:
     attackSound: {fileID: 0}
     frameDuration: 0.3
     knockback: 0
-    dashForce: 0
+    dashForce: 2

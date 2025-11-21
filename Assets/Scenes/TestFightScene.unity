@@ -1376,7 +1376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4b5623887d5c2489601fea5c3f47ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultVolume: 0.5
+  defaultVolume: 1
 --- !u!4 &1900652162
 Transform:
   m_ObjectHideFlags: 0
