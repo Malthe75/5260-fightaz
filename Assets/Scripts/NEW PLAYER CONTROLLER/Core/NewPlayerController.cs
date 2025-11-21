@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +23,9 @@ public class NewPlayerController : MonoBehaviour
 
 
     [Header("Attack state")]
-    public List<AttackData> attackData;
     [HideInInspector] public MoveInput input = MoveInput.Nothing;
+    [HideInInspector] public AttackData attack;
+    [HideInInspector] public bool shouldAttack = false;
 
     [Header("Block state")]
     public Sprite[] blockSprites;
@@ -67,6 +70,7 @@ public class NewPlayerController : MonoBehaviour
 
     // Input
     [HideInInspector] public Vector2 moveInput;
+    private MoveResolver moveResolver;
 
     // State Machine
     public StateMachine stateMachine;
@@ -77,6 +81,7 @@ public class NewPlayerController : MonoBehaviour
     #endregion
     private void Awake()
     {
+        moveResolver = new MoveResolver();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         playerLayerMask = LayerMask.GetMask("Player");
@@ -116,6 +121,7 @@ public class NewPlayerController : MonoBehaviour
     }
     private void Update()
     {
+        UpdateFacing();
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
         if (stateMachine != null)
             stateMachine.Update();
@@ -151,25 +157,32 @@ public class NewPlayerController : MonoBehaviour
             shouldJump = true;
         }
     }
+
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
+        // Resolve the attack
         if (context.performed)
         {
-
-            string actionName = context.action.name;
-            if (Enum.TryParse(actionName, ignoreCase: true, out MoveInput moveInput))
-            {
-                this.input = moveInput;
-                //moveMap.GetAttack(moveInput);
-            }
-            else
-            {
-                Debug.LogWarning($"Unknown action: {actionName}");
-            }
-
+            attack = moveResolver.ResolveAttack(
+                context.action.name,
+                moveInput.x,
+                facing,
+                moveMap
+            );
+            shouldAttack = true;
         }
+    }
+
+    private int facing;
+    private void UpdateFacing()
+    {
+        facing = transform.position.x < enemy.transform.position.x ? -1 : 1;
+
+        Vector3 localScale = transform.localScale;
+        localScale.x = Mathf.Abs(localScale.x) * facing; // positive for right, negative for left
+        transform.localScale = localScale;
     }
 
     #endregion

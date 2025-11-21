@@ -13,10 +13,10 @@ public class IdleState : PlayerState
 
     public override void Update()
     {
-        if (player.input != MoveInput.Nothing)
+        if (player.shouldAttack)
         {
-            player.stateMachine.ChangeState(new AttackState(player, player.input, 0));
-            return;
+            Debug.Log("Should attack");
+            player.stateMachine.ChangeState(new AttackState(player));
         }
 
         if (Mathf.Abs(player.moveInput.x) > 0.01f)

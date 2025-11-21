@@ -380,9 +380,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b8cc9ad22a088064faeb6a04bc76e172, type: 3}
   walkSpeed: 8
   animationSpeed: 0.2
-  attackData:
-  - {fileID: 0}
   input: 0
+  attack: {fileID: 0}
+  shouldAttack: 0
   blockSprites:
   - {fileID: 21300000, guid: 024526497d306a84c8b1df30d0c6bfcc, type: 3}
   - {fileID: 21300000, guid: 6b751b9cfffaeb440b5da7aa3b763ccd, type: 3}

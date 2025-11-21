@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UIElements.Experimental;
 using UnityEngine.Windows;
 
 public class WalkState : PlayerState
@@ -37,12 +39,10 @@ public class WalkState : PlayerState
 
     public override void HandleNextState()
     {
-        // Attack transition
-        if (player.input != MoveInput.Nothing)
+
+        if (player.shouldAttack)
         {
-            float x = player.moveInput.x;
-            player.stateMachine.ChangeState(new AttackState(player, player.input, x));
-            return;
+            player.stateMachine.ChangeState(new AttackState(player));
         }
         // Jump transition
         if (player.shouldJump)
@@ -51,6 +51,7 @@ public class WalkState : PlayerState
             else if (player.moveInput.x < 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Left));
         }
     }
+
 
     private void PlayAnimation()
     {

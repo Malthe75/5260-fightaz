@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: 
   frames:
-  - frameSprite: {fileID: 21300000, guid: fa62ad6661845b24bb529145fa8ab575, type: 3}
+  - frameSprite: {fileID: 21300000, guid: f92ed966bfb4cd94a8ce0bd8c8b0eaa6, type: 3}
     hitboxSize: {x: 0, y: 0}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     frameDuration: 0.5
     knockback: 0
     dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: f92ed966bfb4cd94a8ce0bd8c8b0eaa6, type: 3}
+  - frameSprite: {fileID: 21300000, guid: 04958465d06da804288e963b815fd938, type: 3}
     hitboxSize: {x: 0, y: 0}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0

@@ -3,20 +3,16 @@ using UnityEngine;
 
 public class AttackState : PlayerState
 {
-    private MoveInput attackInput;
     private int dashDirection;
     private Coroutine attackRoutine;
-    private float x;
 
-    public AttackState(NewPlayerController player, MoveInput input, float x) : base(player)
+    public AttackState(NewPlayerController player) : base(player)
     {
-        attackInput = input;
-        this.x = x;
     }
 
     public override void Enter()
     {
-        attack(attackInput);
+        attack();
     }
     public override void Exit()
     {
@@ -27,23 +23,21 @@ public class AttackState : PlayerState
 
             player.attackHitbox.Deactivate();
         }
+        player.shouldAttack = false;
     }
 
-    private void attack(MoveInput attackInput)
+    private void attack()
     {
+        player.StartCoroutine(showFrames(player.attack));
 
-        if (x == 0)
-        {
-            attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(attackInput)));
-        }
-        else if(x > 0)
-        {
-            attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunForward)));
-        }
-        else if (x < 0)
-        {
-            attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunBackward)));
-        }
+        //else if(x > 0)
+        //{
+        //    attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunForward)));
+        //}
+        //else if (x < 0)
+        //{
+        //    attackRoutine = player.StartCoroutine(showFrames(player.moveMap.GetAttack(MoveInput.Hit_RunBackward)));
+        //}
 
     }
 
