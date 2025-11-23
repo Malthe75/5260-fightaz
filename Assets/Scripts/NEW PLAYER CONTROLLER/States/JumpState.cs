@@ -25,6 +25,7 @@ public class JumpState : PlayerState
     public override void Enter()
     {
         player.verticalVelocity = player.jumpForce; // start jump
+        player.isGrounded = false; // mark as airborne
         switch (jumpInput)
         {
             case JumpInput.Right:
@@ -53,6 +54,8 @@ public class JumpState : PlayerState
         {
             AudioManagerTwo.Instance.PlaySFX(player.jumpSounds[0]);
         }
+
+
     }
     public override void Update()
 
@@ -66,62 +69,66 @@ public class JumpState : PlayerState
     }
 
     private void Jump()
+{
+    float dt = Time.fixedDeltaTime;
+
+    // integrate vertical velocity with gravity (gravity should be negative)
+    player.verticalVelocity += player.gravity * dt;
+
+    // Optionally update sprite based on vertical velocity (you already have this helper)
+    UpdateJumpSprite_FullArc();
+
+    // Build movement delta (what CalculateAllowedMovement expects)
+    Vector2 movement = new Vector2(xVelocity, player.verticalVelocity) * dt;
+
+    // CalculateAllowedMovement returns a world-space next position (it uses rb.position + movement internally)
+    Vector2 nextPos = player.CalculateAllowedMovement(movement);
+
+    // Landing detection — small epsilon to avoid float issues
+    const float eps = 0.001f;
+    if (nextPos.y <= player.floorY + eps && player.verticalVelocity <= 0f)
     {
-        // Apply jump
-        player.verticalVelocity += player.gravity * Time.fixedDeltaTime;
-
-        // Move the player
-        Vector2 movement = new Vector2(xVelocity, player.verticalVelocity) * Time.fixedDeltaTime;
-        Vector2 nextPos = player.CalculateAllowedMovement(movement);
+        // Snap to exact floor, stop vertical movement, mark grounded and switch to Idle
+        nextPos.y = player.floorY;
+        player.verticalVelocity = 0f;
+        player.velocity = Vector2.zero;
         player.rb.MovePosition(nextPos);
-        //player.transform.Translate(movement);
-
-        // Check if peak is reached (vertical velocity <= 0)  switch to fall state
-        if (player.verticalVelocity <= 0)
-        {
-            player.stateMachine.ChangeState(new FallState(player, player.sr.sprite, xVelocity));
-        }
-
+        player.stateMachine.ChangeState(new IdleState(player));
+        return;
     }
+
+    // Normal movement while in air
+    player.rb.MovePosition(nextPos);
+}
+
+    private int jumpSpriteIndex = -1;
+
+private void UpdateJumpSprite_FullArc(float maxFall = -1f)
+{
+    var sprites = player.jumpSprites;
+    if (sprites == null || sprites.Length == 0) return;
+
+    float maxV = player.jumpForce;
+    // allow caller to pass a desired min (negative). Default use -maxV if not provided.
+    float minV = (maxFall < 0f) ? -maxV : maxFall;
+
+    if (Mathf.Approximately(maxV, minV)) return;
+
+    // t = 0 at maxV, 1 at minV (so index increases as velocity goes down)
+    float t = Mathf.InverseLerp(maxV, minV, player.verticalVelocity);
+
+    int idx = Mathf.Clamp(Mathf.FloorToInt(t * sprites.Length), 0, sprites.Length - 1);
+
+    if (idx != jumpSpriteIndex)
+    {
+        jumpSpriteIndex = idx;
+        player.sr.sprite = sprites[jumpSpriteIndex];
+    }
+}
 
     public override void Exit()
     {
         player.shouldJump = false;
     }
-
-
-
-
-
-
-    //public override void HandleNextState()
-    //{
-    //    if (player.isGrounded && startTimer > 0.3f)
-    //    {
-    //        verticalVelocity = 0;
-    //        if (Mathf.Abs(player.moveInput.x) > 0.1f)
-    //        {
-    //            player.stateMachine.ChangeState(new WalkState(player));
-    //        }
-    //        else
-    //        {
-    //            player.stateMachine.ChangeState(new IdleState(player));
-
-    //        }
-    //    }
-
-    //    //Jump Attack transition
-    //    if (player.input == MoveInput.Hit)
-    //    {
-    //        player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Hit_Jump, xVelocity, verticalVelocity));
-    //        return;
-    //    }
-    //    else if (player.input == MoveInput.Kick)
-    //    {
-    //        player.stateMachine.ChangeState(new JumpAttackState(player, MoveInput.Kick_Jump, xVelocity, verticalVelocity));
-    //        return;
-    //    }
-
-    //}
 
 }
