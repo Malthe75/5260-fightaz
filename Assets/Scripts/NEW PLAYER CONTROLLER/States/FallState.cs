@@ -32,23 +32,37 @@ public class FallState : PlayerState
     
     private void Gravity()
     {
-        if (player.feet.position.y <= player.floorY)
-        {
-            float difference = player.floorY - player.feet.position.y;
-            player.transform.position += new Vector3(0, difference, 0); // Snap player up so feet touch ground
+        float dt = Time.fixedDeltaTime;
 
-            player.stateMachine.ChangeState(new IdleState(player));
-        }
-        else
-        {
-            player.velocity.x = xVelocity;
-            player.velocity.y += player.gravity * Time.fixedDeltaTime;
-        }
+        // integrate velocity
+        player.velocity.x = xVelocity;
+        player.velocity.y += player.gravity * dt;
 
+        // allow existing push/feet logic to modify velocity (optional)
         player.velocity = player.PushboxFeetCalculator(player.velocity);
 
-        player.transform.Translate(player.velocity * Time.fixedDeltaTime);
-    }
+        // movement delta (what CalculateAllowedMovement expects)
+        Vector2 movement = player.velocity * dt;
+
+        // returns a world-space nextPos (it does rb.position + movement internally)
+        Vector2 nextPos = player.CalculateAllowedMovement(movement);
+
+        const float eps = 0.001f;
+
+        // landed on the floor: stop vertical velocity, mark grounded and switch state
+        if (nextPos.y <= player.floorY + eps && player.velocity.y <= 0f)
+        {
+            nextPos.y = player.floorY;
+            player.velocity.y = 0f;
+            player.rb.MovePosition(nextPos);
+            player.stateMachine.ChangeState(new IdleState(player));
+            return;
+        }
+
+        // normal movement
+        player.rb.MovePosition(nextPos);
+}
+
 
     public override void Exit()
     {

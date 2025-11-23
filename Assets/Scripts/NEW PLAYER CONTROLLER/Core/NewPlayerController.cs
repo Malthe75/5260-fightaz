@@ -42,7 +42,7 @@ public class NewPlayerController : MonoBehaviour
     public Sprite fallSprite;
     public AudioClip[] fallSounds;
     public float gravity = -65f;
-    public float floorY = -3;
+    public float floorY = 0;
     public float verticalVelocity = 0f;
     public Vector2 velocity;
 
@@ -242,13 +242,14 @@ public class NewPlayerController : MonoBehaviour
     public Vector2 CalculateAllowedMovement(Vector2 desiredMove)
     {
         Vector2 actualMove = PushboxCalculator(desiredMove);
+        return GetClampedPositionForDelta(actualMove);
+    }
 
-        Vector2 nextPos = rb.position + actualMove;
-
-        // Clamping to allowed range (wall collision)
+    public Vector2 GetClampedPositionForDelta(Vector2 delta)
+    {
+        Vector2 nextPos = rb.position + delta;
         nextPos.x = Mathf.Clamp(nextPos.x, minX, maxX);
-
-        // Move the player
+        nextPos.y = Mathf.Max(nextPos.y, floorY);
         return nextPos;
     }
 
@@ -295,12 +296,22 @@ public class NewPlayerController : MonoBehaviour
 
         if (dist > pushDistance)
         {
-            // Calculate push direction (away from each other)
             Vector2 pushDir = (body.transform.position - enemy.body.transform.position).normalized;
 
-            // Apply a *tiny* push to both players
-            rb.MovePosition(rb.position + pushDir * 0.02f);
-            enemy.rb.MovePosition(enemy.rb.position - pushDir * 0.02f);
+            // Small push deltas
+            Vector2 myDelta = pushDir * 0.02f;
+            Vector2 enemyDelta = -pushDir * 0.02f;
+
+            // Compute clamped world positions WITHOUT invoking pushbox/push recursion
+            Vector2 myNext = GetClampedPositionForDelta(myDelta);
+            Vector2 enemyNext = enemy.GetClampedPositionForDelta(enemyDelta);
+
+            // Only MovePosition if there's an actual change (avoid tiny redundant calls)
+            if ((myNext - rb.position).sqrMagnitude > 1e-6f)
+                rb.MovePosition(myNext);
+
+            if ((enemyNext - enemy.rb.position).sqrMagnitude > 1e-6f)
+                enemy.rb.MovePosition(enemyNext);
         }
     }
 
