@@ -10,40 +10,34 @@ using UnityEngine.Windows;
 public class WalkState : PlayerState
 {
     private float animationTimer;
-
     private float idleBuffer = 0.15f;
     private float idleTimer = 0f;
 
-    public WalkState(NewPlayerController player) : base(player) {}
+    public WalkState(NewPlayerController player) : base(player) { }
     // Start is called before the first frame update
     public override void Enter()
     {
         player.sr.sprite = player.walkSprites[1];
     }
+    public override void Exit()
+    {
+        player.Movement.SetIdle();
+    }
 
     // Update is called once per frame
     public override void Update()
     {
-        
         HandleNextState();
         PlayAnimation();
-
     }
 
     public override void FixedUpdate()
     {
-        // 1. Desired movement
-        Vector2 desiredMove = new Vector2(player.moveInput.x * player.walkSpeed, 0f) * Time.fixedDeltaTime;
-
-        // 2. Check collision / pushback logic
-
-        Vector2 nextPos = player.CalculateAllowedMovement(desiredMove);
-        player.rb.MovePosition(nextPos);
+        player.Movement.SetMove(player.moveInput.x, player.walkSpeed);
     }
 
     public override void HandleNextState()
     {
-
         if (player.shouldAttack)
         {
             player.stateMachine.ChangeState(new AttackState(player));

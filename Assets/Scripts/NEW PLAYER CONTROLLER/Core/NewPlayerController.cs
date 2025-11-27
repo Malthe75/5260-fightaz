@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class NewPlayerController : MonoBehaviour
 {
+    public PlayerMovement Movement { get; private set; }
     [HideInInspector] public float horizontalMultiplier = 0f;
     [Header("Move Map")]
     public MoveMap moveMap;
@@ -76,7 +77,7 @@ public class NewPlayerController : MonoBehaviour
     // State Machine
     public StateMachine stateMachine;
 
- 
+
 
     private int playerLayerMask;
     #endregion
@@ -86,6 +87,8 @@ public class NewPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         playerLayerMask = LayerMask.GetMask("Player");
+        Movement = GetComponent<PlayerMovement>();
+
 
         // Initialize state machine
         stateMachine = new StateMachine();
@@ -233,8 +236,8 @@ public class NewPlayerController : MonoBehaviour
                     desiredMove.x = 0f;          // stop leftward motion
 
                 Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
-                
-            }   
+
+            }
         }
         return desiredMove;
     }
@@ -290,7 +293,7 @@ public class NewPlayerController : MonoBehaviour
 
     private void PushPlayer()
     {
-     
+
         float dist = Vector2.Distance(body.transform.position, enemy.transform.position);
 
 
