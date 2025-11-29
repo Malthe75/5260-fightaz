@@ -111,6 +111,11 @@ public class PlayerMovement : MonoBehaviour
         return movement;
     }
 
+    public float CalculateJumpTime(float jumpForce)
+    {
+        return (2 * jumpForce) / gravity;
+    }
+
     private bool IsGrounded()
     {
         if (rb.position.y <= minY + 0.01f)

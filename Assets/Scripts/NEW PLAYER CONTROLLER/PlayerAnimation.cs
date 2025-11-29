@@ -20,12 +20,12 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Sprite[] hurtSprites;
 
     [Header("Animation Settings")]
-    [SerializeField] float walkAnimationSpeed = 0.2f;
+    [SerializeField] float animationSpeed = 0.2f;
     private SpriteRenderer sr;
     private AnimationState currentMovement = AnimationState.Idle;
     private float animationTimer;
-    private float animationSpeed = 0.14f;
     private bool shouldLoop = true;
+    private float animationLength = 1f;
 
     private void Awake()
     {
@@ -40,10 +40,11 @@ public class PlayerAnimation : MonoBehaviour
                 SetSprite(idleSprites[0]);
                 break;
             case AnimationState.Walking:
-                AnimateSprites(walkSprites, walkAnimationSpeed);
+                AnimateSprites(walkSprites, animationSpeed);
                 break;
             case AnimationState.Jumping:
-                AnimateSprites(jumpSprites, animationSpeed, shouldLoop);
+                float speed = CalculateAnimationSpeed(animationLength, jumpSprites.Length);
+                AnimateSprites(jumpSprites, speed, shouldLoop);
                 break;
             case AnimationState.Falling:
                 break;
@@ -54,9 +55,10 @@ public class PlayerAnimation : MonoBehaviour
     {
         currentMovement = AnimationState.Idle;
     }
-    public void SetAnimation(AnimationState animationState, bool shouldLoop = true)
+    public void SetAnimation(AnimationState animationState, float animationLength = 1f, bool shouldLoop = true)
     {
         this.shouldLoop = shouldLoop;
+        this.animationLength = animationLength;
         currentMovement = animationState;
     }
 
@@ -66,6 +68,8 @@ public class PlayerAnimation : MonoBehaviour
     }
     private void AnimateSprites(Sprite[] frames, float speed, bool shouldLoop = true)
     {
+        Debug.Log("Correct?");
+        Debug.Log(frames.Length);
         if (frames.Length == 0) return;
 
         animationTimer += Time.deltaTime;
@@ -86,6 +90,12 @@ public class PlayerAnimation : MonoBehaviour
             sr.sprite = frames[nextIndex];
             animationTimer = 0f;
         }
+    }
+
+    private float CalculateAnimationSpeed(float duration, int frameCount)
+    {
+        if (frameCount <= 0) return animationSpeed;
+        return duration / frameCount;
     }
 
 

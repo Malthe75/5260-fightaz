@@ -31,14 +31,6 @@ public class AttackState : PlayerState
         player.StartCoroutine(showFrames(player.attack));
     }
 
-    public override void FixedUpdate()
-    {
-        // if (dashForce != 0)
-        // {
-        //     Dash();
-        // }
-    }
-
     // Remember to delete coroutine if we exit the state early.
     private IEnumerator showFrames(AttackData attack)
     {

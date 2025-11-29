@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using UnityEngine;
 
 public enum JumpInput
@@ -24,33 +20,27 @@ public class JumpState : PlayerState
 
     public override void Enter()
     {
+        Debug.Log("Entered Jump State");
         player.isGrounded = false; // mark as airborne
         switch (jumpInput)
         {
             case JumpInput.Right:
                 jumpDirection = new Vector2(1f, 1f).normalized;
-                player.sr.sprite = player.jumpSprites[0];
                 xVelocity = 5f;
                 break;
             case JumpInput.Left:
                 jumpDirection = new Vector2(-1f, 1f).normalized;
                 xVelocity = -5f;
-                player.sr.sprite = player.jumpSprites[1];
-                break;
-            case JumpInput.Up:
-                jumpDirection = Vector2.up;
-                xVelocity = 0f;
-                player.sr.sprite = player.jumpSprites[2];
                 break;
             default:
                 jumpDirection = Vector2.up;
                 xVelocity = 0f;
-                player.sr.sprite = player.jumpSprites[0];
                 break;
         }
 
+        float jumpTime = player.Movement.CalculateJumpTime(player.jumpForce);
+        player.Animation.SetAnimation(AnimationState.Jumping, jumpTime, false);
         player.Movement.SetJump(xVelocity, player.jumpForce);
-        player.Animation.SetAnimation(AnimationState.Jumping, false);
 
         if (player.jumpSounds != null)
         {
@@ -71,7 +61,6 @@ public class JumpState : PlayerState
         {
             player.Movement.hasLanded = false;
             player.stateMachine.ChangeState(new IdleState(player));
-            return;
         }
     }
 

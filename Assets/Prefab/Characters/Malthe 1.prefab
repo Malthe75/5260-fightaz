@@ -271,7 +271,7 @@ MonoBehaviour:
   blockSprites: []
   fallSprites: []
   hurtSprites: []
-  walkAnimationSpeed: 0.1
+  animationSpeed: 0.14
 --- !u!1 &4062488458785150550
 GameObject:
   m_ObjectHideFlags: 0
