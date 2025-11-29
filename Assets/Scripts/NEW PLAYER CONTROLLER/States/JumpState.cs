@@ -50,6 +50,7 @@ public class JumpState : PlayerState
         }
 
         player.Movement.SetJump(xVelocity, player.jumpForce);
+        player.Animation.SetAnimation(AnimationState.Jumping, false);
 
         if (player.jumpSounds != null)
         {
@@ -73,31 +74,6 @@ public class JumpState : PlayerState
             return;
         }
     }
-
-    // private int jumpSpriteIndex = -1;
-
-    // private void UpdateJumpSprite_FullArc(float maxFall = -1f)
-    // {
-    //     var sprites = player.jumpSprites;
-    //     if (sprites == null || sprites.Length == 0) return;
-
-    //     float maxV = player.jumpForce;
-    //     // allow caller to pass a desired min (negative). Default use -maxV if not provided.
-    //     float minV = (maxFall < 0f) ? -maxV : maxFall;
-
-    //     if (Mathf.Approximately(maxV, minV)) return;
-
-    //     // t = 0 at maxV, 1 at minV (so index increases as velocity goes down)
-    //     float t = Mathf.InverseLerp(maxV, minV, player.verticalVelocity);
-
-    //     int idx = Mathf.Clamp(Mathf.FloorToInt(t * sprites.Length), 0, sprites.Length - 1);
-
-    //     if (idx != jumpSpriteIndex)
-    //     {
-    //         jumpSpriteIndex = idx;
-    //         player.sr.sprite = sprites[jumpSpriteIndex];
-    //     }
-    // }
 
     public override void Exit()
     {

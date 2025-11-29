@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5906971300936467384}
   - component: {fileID: 1526576385052128665}
+  - component: {fileID: 4772349562640015534}
   m_Layer: 12
   m_Name: Sprite
   m_TagString: Untagged
@@ -242,6 +243,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4772349562640015534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3856578251420467495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246ab6e8fa5cfd444bc78bab040248f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleSprites:
+  - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
+  walkSprites:
+  - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
+  - {fileID: 21300000, guid: b8cc9ad22a088064faeb6a04bc76e172, type: 3}
+  jumpSprites:
+  - {fileID: 21300000, guid: 37ca529439233994ebc72ab1885ceddb, type: 3}
+  - {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
+  - {fileID: 21300000, guid: 4c7540004c1c7ba4db1a1de9dcec94be, type: 3}
+  - {fileID: 21300000, guid: 18d8b14668bb9d047bf65459dd5676d2, type: 3}
+  - {fileID: 21300000, guid: a18881b2024c98248a63474a2da4ad9d, type: 3}
+  - {fileID: 21300000, guid: 037a619dbf4ebad4da980c4f598e9ebc, type: 3}
+  - {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
+  blockSprites: []
+  fallSprites: []
+  hurtSprites: []
+  walkAnimationSpeed: 0.1
 --- !u!1 &4062488458785150550
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea07964693a1c74dbf42d461d549c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalMultiplier: 0
   moveMap: {fileID: 11400000, guid: aa4377e2245783e44aa4d87207f8ac64, type: 2}
   idleSprites:
   - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
@@ -325,18 +354,9 @@ MonoBehaviour:
   isGrounded: 1
   fallSprite: {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
   fallSounds: []
-  gravity: -65
-  floorY: 0
-  verticalVelocity: 0
-  velocity: {x: 0, y: 0}
   hurtSounds:
   - {fileID: 0}
-  feet: {fileID: 0}
-  body: {fileID: 6557186444841896066}
-  pushDistance: 1
   attackHitbox: {fileID: 7909968727596106551}
-  maxX: 8.5
-  minX: -8.5
   rb: {fileID: 0}
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}
@@ -359,8 +379,6 @@ MonoBehaviour:
   minY: 0
   gravity: 65
   hasLanded: 0
-  pushRayExtra: 0.1
-  pushDebugLogs: 0
 --- !u!50 &2966674222527440294
 Rigidbody2D:
   serializedVersion: 4

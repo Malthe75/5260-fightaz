@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class NewPlayerController : MonoBehaviour
 {
     public PlayerMovement Movement { get; private set; }
+    public PlayerAnimation Animation { get; private set; }
     [Header("Move Map")]
     public MoveMap moveMap;
 
@@ -73,6 +74,7 @@ public class NewPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         Movement = GetComponent<PlayerMovement>();
+        Animation = GetComponentInChildren<PlayerAnimation>();
 
 
         // Initialize state machine

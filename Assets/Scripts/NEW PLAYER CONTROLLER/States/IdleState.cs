@@ -1,6 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IdleState : PlayerState
@@ -8,7 +5,7 @@ public class IdleState : PlayerState
     public IdleState(NewPlayerController player) : base(player) { }
     public override void Enter()
     {
-        player.sr.sprite = player.idleSprites[0];
+        player.Animation.SetIdleAnimation();
     }
 
     public override void Update()

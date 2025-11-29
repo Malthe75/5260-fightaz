@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-enum MovementState
+public enum MovementState
 {
     Idle,
     Walking,
