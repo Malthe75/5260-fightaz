@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class NewPlayerController : MonoBehaviour
 {
     public PlayerMovement Movement { get; private set; }
-    [HideInInspector] public float horizontalMultiplier = 0f;
     [Header("Move Map")]
     public MoveMap moveMap;
 
@@ -126,7 +125,6 @@ public class NewPlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Move input received");
         Vector2 input = context.ReadValue<Vector2>();
         moveInput = input;
     }
@@ -153,7 +151,6 @@ public class NewPlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        Debug.Log("Attack input received");
         if (!context.performed) return;
         // Resolve the attack
         if (context.performed)

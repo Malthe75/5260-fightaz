@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
                 proposedMovement = Vector2.zero;
                 break;
             case MovementState.Walking:
-                Debug.Log("Walking");
                 proposedMovement = HandleMove();
                 break;
             case MovementState.Jumping:
@@ -73,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
         // Move to current position + allowed displacement (absolute position)
         Vector2 finalPos = rb.position + allowedDisplacement;
 
-        // Debug.Log("Final Position: " + finalPos);
         rb.MovePosition(finalPos);
     }
 

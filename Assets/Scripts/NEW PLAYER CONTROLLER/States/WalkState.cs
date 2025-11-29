@@ -33,7 +33,6 @@ public class WalkState : PlayerState
 
     public override void FixedUpdate()
     {
-        Debug.Log("WALKING");
         player.Movement.SetMove(player.moveInput.x, player.walkSpeed);
     }
 
