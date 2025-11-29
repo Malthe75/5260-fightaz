@@ -87,18 +87,11 @@ public class NewPlayerController : MonoBehaviour
 
     }
 
-    private void Start()
+    public void SetEnemy(NewPlayerController enemy)
     {
-        if (transform.CompareTag("Player1"))
-        {
-            enemy = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerMovement>();
-            Movement.SetEnemy(enemy);
-        }
-        else
-        {
-            enemy = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerMovement>();
-            Movement.SetEnemy(enemy);
-        }
+        this.enemy = enemy.GetComponent<PlayerMovement>();
+        Debug.Log($"Enemy set to {enemy.gameObject.name}");
+        Movement.SetEnemy(this.enemy);
     }
 
     public int facing = 1;
@@ -125,8 +118,12 @@ public class NewPlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 input = context.ReadValue<Vector2>();
-        moveInput = input;
+        Vector2 input = context.action.ReadValue<Vector2>();
+
+        moveInput = new Vector2(
+            Mathf.Abs(input.x) > 0 ? Mathf.Sign(input.x) : 0,
+            Mathf.Abs(input.y) > 0 ? Mathf.Sign(input.y) : 0
+        );
     }
 
     public void OnBlock(InputAction.CallbackContext context)

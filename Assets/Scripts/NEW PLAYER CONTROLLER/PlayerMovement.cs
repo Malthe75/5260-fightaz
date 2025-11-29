@@ -61,20 +61,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void ApplyPhysics()
-    {
-        Vector2 clampedNextPos = ClampedMovement(proposedMovement); // absolute next pos
-        Vector2 desiredDisplacement = clampedNextPos - rb.position; // displacement for this tick
-
-        // PushboxCalculator(desiredDisplacement) -> allowed displacement
-        Vector2 allowedDisplacement = PushboxCalculator(desiredDisplacement);
-
-        // Move to current position + allowed displacement (absolute position)
-        Vector2 finalPos = rb.position + allowedDisplacement;
-
-        rb.MovePosition(finalPos);
-    }
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -137,89 +123,46 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetFacing(int facing)
-    {
-        Vector3 s = transform.localScale;
-        s.x = Mathf.Abs(s.x) * facing; // +1 or -1
-        transform.localScale = s;
-    }
-
-
-
-
-
-
-
-
-
-
-    public void PushPlayer(Vector2 force)
-    {
-        // Push player logic
-    }
-
-
-
 
 
     #region Physic constraints
 
+    
+    void ApplyPhysics()
+    {
+        Vector2 clampedNextPos = ClampedMovement(proposedMovement); // absolute next pos
+        Vector2 desiredDisplacement = clampedNextPos - rb.position; // displacement for this tick
 
-// private void PushPlayer()
-//     {
+        // PushboxCalculator(desiredDisplacement) -> allowed displacement
+        Vector2 allowedDisplacement = PushboxCalculator(desiredDisplacement);
 
-//         float dist = Vector2.Distance(body.transform.position, enemy.transform.position);
+        // Move to current position + allowed displacement (absolute position)
+        Vector2 finalPos = rb.position + allowedDisplacement;
 
-
-//         if (dist > pushDistance)
-//         {
-//             Vector2 pushDir = (body.transform.position - enemy.body.transform.position).normalized;
-
-//             // Small push deltas
-//             Vector2 myDelta = pushDir * 0.02f;
-//             Vector2 enemyDelta = -pushDir * 0.02f;
-
-//             // Compute clamped world positions WITHOUT invoking pushbox/push recursion
-//             Vector2 myNext = GetClampedPositionForDelta(myDelta);
-//             Vector2 enemyNext = enemy.GetClampedPositionForDelta(enemyDelta);
-
-//             // Only MovePosition if there's an actual change (avoid tiny redundant calls)
-//             if ((myNext - rb.position).sqrMagnitude > 1e-6f)
-//                 rb.MovePosition(myNext);
-
-//             if ((enemyNext - enemy.rb.position).sqrMagnitude > 1e-6f)
-//                 enemy.rb.MovePosition(enemyNext);
-//         }
-//     }
-
+        rb.MovePosition(finalPos);
+    }
 
     public Vector2 PushboxCalculator(Vector2 desiredMove)
     {
-        // Raycast from the player origin
         Vector2 rayOrigin = (Vector2)body.transform.position;
-        // Raycast in the direction of the of the enemy
         Vector2 enemyPosition = (Vector2)enemy.body.transform.position;
         Vector2 rayDirection = (enemyPosition - rayOrigin).normalized;
-        // Ray length changed the number 1 to anything for longer length
+
         float rayLength = Mathf.Abs(desiredMove.x) + 1f;
-        // Draw ray the length of the ray
         Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
-        // Raycasthits
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
-        // Foreach loop to iterate all raycasts and only getting the ones that hit the enemy player.
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider != null && hit.collider != pushbox)
             {
-                //PushPlayer();
                 bool blockedRight = rayDirection.x > 0;
                 bool blockedLeft = rayDirection.x < 0;
 
                 if (blockedRight && desiredMove.x > 0f)
-                    desiredMove.x = 0f;          // stop rightward motion
+                    desiredMove.x = 0f;
                 else if (blockedLeft && desiredMove.x < 0f)
-                    desiredMove.x = 0f;          // stop leftward motion
-
+                    desiredMove.x = 0f;
                 Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
 
             }
@@ -237,54 +180,20 @@ public class PlayerMovement : MonoBehaviour
         return nextPos;
     }
 
-
-//  public Vector2 PushboxFeetCalculator(Vector2 velocity)
-//     {
-//         Vector2 rayOrigin = (Vector2)feet.transform.position;
-//         Vector2 rayDirection = Vector2.down; // Only look downwards
-//         float rayLength = 0.2f; // Short ray, just under your feet
-
-//         Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.blue);
-
-//         int playerLayerMask = LayerMask.GetMask("Player");
-//         RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
-
-//         foreach (RaycastHit2D hit in hits)
-//         {
-
-//             if (hit.collider != null && hit.collider != pushbox)
-//             {
-//                 // We hit the opponent's body collider from above
-//                 Debug.DrawRay(hit.point, Vector2.up * 0.3f, Color.yellow);
-
-//                 // Push the jumper slightly away
-//                 float dir = Mathf.Sign(transform.position.x - hit.collider.transform.position.x);
-//                 rb.MovePosition(rb.position + Vector2.right * dir * 0.05f);
-
-//                 // Optional tiny bounce up
-//                 velocity.y = Mathf.Abs(velocity.y) * 0.5f;
-
-//                 // Optional: stop falling state and transition to fall or idle again
-//                 // (depending if they are still in the air)
-//                 break;
-//             }
-//         }
-
-//         return velocity;
-//     }
-
     #endregion
-
-
-
-
-
     #region OTHER FUNCS
 
     private PlayerMovement enemy;
 
     public void SetEnemy(PlayerMovement enemy) {
         this.enemy = enemy;
+    }
+
+    public void SetFacing(int facing)
+    {
+        Vector3 s = transform.localScale;
+        s.x = Mathf.Abs(s.x) * facing; // +1 or -1
+        transform.localScale = s;
     }
     #endregion
 }

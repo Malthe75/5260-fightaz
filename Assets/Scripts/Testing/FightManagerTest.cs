@@ -47,6 +47,13 @@ public class FightManagerTest : MonoBehaviour
         p2.transform.localScale = newScale2;
         p2.gameObject.name = "Player2";
         p2.tag = "Player2";
+
+
+        // Set enemies
+        NewPlayerController pc1 = p1.GetComponent<NewPlayerController>();
+        NewPlayerController pc2 = p2.GetComponent<NewPlayerController>();
+        pc1.SetEnemy(pc2);
+        pc2.SetEnemy(pc1);
     }
 }
 
