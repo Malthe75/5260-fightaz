@@ -33,10 +33,10 @@ public class AttackState : PlayerState
 
     public override void FixedUpdate()
     {
-        if (dashForce != 0)
-        {
-            Dash();
-        }
+        // if (dashForce != 0)
+        // {
+        //     Dash();
+        // }
     }
 
     // Remember to delete coroutine if we exit the state early.
@@ -47,10 +47,12 @@ public class AttackState : PlayerState
             // Sprite
             player.sr.sprite = attackFrame.frameSprite;
 
+
             // Dash if needed
             if (attackFrame.dashForce != 0)
             {
-                dashForce = attackFrame.dashForce;
+               dashForce = attackFrame.dashForce;
+               Dash();
             }
 
             // Activate hitbox if it exists
@@ -75,6 +77,8 @@ public class AttackState : PlayerState
                 player.attackHitbox.Deactivate();
             }
             dashForce = 0f;
+            player.Movement.SetMove(player.facing, dashForce);
+
         }
         HandleNextState();
     }
@@ -93,9 +97,7 @@ public class AttackState : PlayerState
 
     private void Dash()
     {
-        //Vector2 desiredMove = new Vector2(player.facing * dashForce, 0f) * Time.fixedDeltaTime;
-        //Vector2 actualMove = player.PushboxCalculator(desiredMove);
-        //player.rb.MovePosition(player.rb.position + actualMove);
+        player.Movement.SetMove(player.facing, dashForce);
     }
 
 }
