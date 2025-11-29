@@ -42,25 +42,13 @@ public class NewPlayerController : MonoBehaviour
     [Header("Fall state")]
     public Sprite fallSprite;
     public AudioClip[] fallSounds;
-    public float gravity = -65f;
-    public float floorY = 0;
-    public float verticalVelocity = 0f;
-    public Vector2 velocity;
 
     [Header("Hurt state")]
     public AudioClip[] hurtSounds;
 
 
-
     [Header("Physics")]
-    public Transform feet;
-    public Transform body;
-    public float pushDistance = 1f;
-    private Collider2D pushbox;
     public AttackHitbox attackHitbox;
-    private NewPlayerController enemy;
-    public float maxX = 8.5f;
-    public float minX = -8.5f;
     [Header("JumpAttack state")]
 
 
@@ -68,7 +56,6 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer sr;
     //[HideInInspector] public CapsuleCollider2D capsule;
-    //[HideInInspector] public AttackHitbox attackHitbox;
 
     // Input
     [HideInInspector] public Vector2 moveInput;
@@ -78,15 +65,14 @@ public class NewPlayerController : MonoBehaviour
     public StateMachine stateMachine;
 
 
-
-    private int playerLayerMask;
+    // ENEMY REFERENCE
+    private PlayerMovement enemy;
     #endregion
     private void Awake()
     {
         moveResolver = new MoveResolver();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        playerLayerMask = LayerMask.GetMask("Player");
         Movement = GetComponent<PlayerMovement>();
 
 
@@ -96,7 +82,7 @@ public class NewPlayerController : MonoBehaviour
         if (stateMachine.CurrentState == null)
         {
 
-            stateMachine.ChangeState(new FallState(this));
+            stateMachine.ChangeState(new IdleState(this));
         }
         // Start with IdleState
 
@@ -104,28 +90,30 @@ public class NewPlayerController : MonoBehaviour
 
     private void Start()
     {
-        if (gameObject.tag == "Player1")
+        if (transform.CompareTag("Player1"))
         {
-            GameObject enemy = GameObject.FindGameObjectWithTag("Player2");
-            this.enemy = enemy.GetComponent<NewPlayerController>();
+            enemy = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerMovement>();
+            Movement.SetEnemy(enemy);
         }
-        else if (gameObject.tag == "Player2")
+        else
         {
-            GameObject enemy = GameObject.FindGameObjectWithTag("Player1");
-            this.enemy = enemy.GetComponent<NewPlayerController>();
-
+            enemy = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerMovement>();
+            Movement.SetEnemy(enemy);
         }
-        pushbox = body.GetComponent<Collider2D>();
     }
 
+    public int facing = 1;
     private void FixedUpdate()
     {
         if (stateMachine != null)
             stateMachine.CurrentState?.FixedUpdate();
+
+        
+        facing = transform.position.x < enemy.transform.position.x ? 1 : -1;
+        Movement.SetFacing(facing);
     }
     private void Update()
     {
-        UpdateFacing();
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
         if (stateMachine != null)
             stateMachine.Update();
@@ -138,6 +126,7 @@ public class NewPlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("Move input received");
         Vector2 input = context.ReadValue<Vector2>();
         moveInput = input;
     }
@@ -164,8 +153,8 @@ public class NewPlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        Debug.Log("Attack input received");
         if (!context.performed) return;
-
         // Resolve the attack
         if (context.performed)
         {
@@ -179,143 +168,13 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
-    public int facing;
-    private void UpdateFacing()
-    {
-        facing = transform.position.x < enemy.transform.position.x ? 1 : -1;
-
-        Vector3 localScale = transform.localScale;
-        localScale.x = Mathf.Abs(localScale.x) * facing; // positive for right, negative for left
-        transform.localScale = localScale;
-    }
 
     #endregion
-
 
     public void TakeHit(int damage, AttackFrameData attack)
     {
         Debug.Log("IT did this damage");
         stateMachine.ChangeState(new HurtState(this, attack.knockback));
-    }
-
-
-
-    // THIS IS FOR PHYSICS PUSHING PLAYERS:
-
-    public Vector2 PushboxCalculator(Vector2 desiredMove)
-    {
-        // Raycast from the player origin
-        Vector2 rayOrigin = (Vector2)body.transform.position;
-
-
-        // Raycast in the direction of the of the enemy
-        Vector2 enemyPosition = (Vector2)enemy.body.transform.position;
-        Vector2 rayDirection = (enemyPosition - rayOrigin).normalized;
-
-        // Ray length changed the number 1 to anything for longer length
-        float rayLength = Mathf.Abs(desiredMove.x) + 1f;
-
-        // Draw ray the length of the ray
-        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.red);
-
-        // Raycasthits
-        RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
-
-        // Foreach loop to iterate all raycasts and only getting the ones that hit the enemy player.
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider != null && hit.collider != pushbox)
-            {
-                PushPlayer();
-                bool blockedRight = rayDirection.x > 0;
-                bool blockedLeft = rayDirection.x < 0;
-
-                if (blockedRight && desiredMove.x > 0f)
-                    desiredMove.x = 0f;          // stop rightward motion
-                else if (blockedLeft && desiredMove.x < 0f)
-                    desiredMove.x = 0f;          // stop leftward motion
-
-                Debug.DrawRay(hit.point, Vector2.up * 0.5f, Color.green);
-
-            }
-        }
-        return desiredMove;
-    }
-
-    public Vector2 CalculateAllowedMovement(Vector2 desiredMove)
-    {
-        Vector2 actualMove = PushboxCalculator(desiredMove);
-        return GetClampedPositionForDelta(actualMove);
-    }
-
-    public Vector2 GetClampedPositionForDelta(Vector2 delta)
-    {
-        Vector2 nextPos = rb.position + delta;
-        nextPos.x = Mathf.Clamp(nextPos.x, minX, maxX);
-        nextPos.y = Mathf.Max(nextPos.y, floorY);
-        return nextPos;
-    }
-
-    public Vector2 PushboxFeetCalculator(Vector2 velocity)
-    {
-        Vector2 rayOrigin = (Vector2)feet.transform.position;
-        Vector2 rayDirection = Vector2.down; // Only look downwards
-        float rayLength = 0.2f; // Short ray, just under your feet
-
-        Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.blue);
-
-        int playerLayerMask = LayerMask.GetMask("Player");
-        RaycastHit2D[] hits = Physics2D.RaycastAll(rayOrigin, rayDirection, rayLength, playerLayerMask);
-
-        foreach (RaycastHit2D hit in hits)
-        {
-
-            if (hit.collider != null && hit.collider != pushbox)
-            {
-                // We hit the opponent's body collider from above
-                Debug.DrawRay(hit.point, Vector2.up * 0.3f, Color.yellow);
-
-                // Push the jumper slightly away
-                float dir = Mathf.Sign(transform.position.x - hit.collider.transform.position.x);
-                rb.MovePosition(rb.position + Vector2.right * dir * 0.05f);
-
-                // Optional tiny bounce up
-                velocity.y = Mathf.Abs(velocity.y) * 0.5f;
-
-                // Optional: stop falling state and transition to fall or idle again
-                // (depending if they are still in the air)
-                break;
-            }
-        }
-
-        return velocity;
-    }
-
-    private void PushPlayer()
-    {
-
-        float dist = Vector2.Distance(body.transform.position, enemy.transform.position);
-
-
-        if (dist > pushDistance)
-        {
-            Vector2 pushDir = (body.transform.position - enemy.body.transform.position).normalized;
-
-            // Small push deltas
-            Vector2 myDelta = pushDir * 0.02f;
-            Vector2 enemyDelta = -pushDir * 0.02f;
-
-            // Compute clamped world positions WITHOUT invoking pushbox/push recursion
-            Vector2 myNext = GetClampedPositionForDelta(myDelta);
-            Vector2 enemyNext = enemy.GetClampedPositionForDelta(enemyDelta);
-
-            // Only MovePosition if there's an actual change (avoid tiny redundant calls)
-            if ((myNext - rb.position).sqrMagnitude > 1e-6f)
-                rb.MovePosition(myNext);
-
-            if ((enemyNext - enemy.rb.position).sqrMagnitude > 1e-6f)
-                enemy.rb.MovePosition(enemyNext);
-        }
     }
 
 }

@@ -32,43 +32,43 @@ public class FallState : PlayerState
     
     private void Gravity()
     {
-        float dt = Time.fixedDeltaTime;
+        // float dt = Time.fixedDeltaTime;
 
-        // integrate velocity
-        player.velocity.x = xVelocity;
-        player.velocity.y += player.gravity * dt;
+        // // integrate velocity
+        // player.velocity.x = xVelocity;
+        // player.velocity.y += player.gravity * dt;
 
-        // allow existing push/feet logic to modify velocity (optional)
-        player.velocity = player.PushboxFeetCalculator(player.velocity);
+        // // allow existing push/feet logic to modify velocity (optional)
+        // //player.velocity = player.PushboxFeetCalculator(player.velocity);
 
-        // movement delta (what CalculateAllowedMovement expects)
-        Vector2 movement = player.velocity * dt;
+        // // movement delta (what CalculateAllowedMovement expects)
+        // Vector2 movement = player.velocity * dt;
 
-        // returns a world-space nextPos (it does rb.position + movement internally)
-        Vector2 nextPos = player.CalculateAllowedMovement(movement);
+        // // returns a world-space nextPos (it does rb.position + movement internally)
+        // Vector2 nextPos = player.CalculateAllowedMovement(movement);
 
-        const float eps = 0.001f;
+        // const float eps = 0.001f;
 
-        // landed on the floor: stop vertical velocity, mark grounded and switch state
-        if (nextPos.y <= player.floorY + eps && player.velocity.y <= 0f)
-        {
-            nextPos.y = player.floorY;
-            player.velocity.y = 0f;
-            player.rb.MovePosition(nextPos);
-            player.stateMachine.ChangeState(new IdleState(player));
-            return;
-        }
+        // // landed on the floor: stop vertical velocity, mark grounded and switch state
+        // if (nextPos.y <= player.floorY + eps && player.velocity.y <= 0f)
+        // {
+        //     nextPos.y = player.floorY;
+        //     player.velocity.y = 0f;
+        //     player.rb.MovePosition(nextPos);
+        //     player.stateMachine.ChangeState(new IdleState(player));
+        //     return;
+        // }
 
-        // normal movement
-        player.rb.MovePosition(nextPos);
-}
+        // // normal movement
+        // player.rb.MovePosition(nextPos);
+    }
 
 
     public override void Exit()
     {
-        player.isGrounded = true;
-        player.velocity.y = 0f;
-        player.velocity.x = 0f;
+        // player.isGrounded = true;
+        // player.velocity.y = 0f;
+        // player.velocity.x = 0f;
 
     }
 }

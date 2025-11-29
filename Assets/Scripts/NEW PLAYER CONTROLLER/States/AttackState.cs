@@ -93,9 +93,9 @@ public class AttackState : PlayerState
 
     private void Dash()
     {
-        Vector2 desiredMove = new Vector2(player.facing * dashForce, 0f) * Time.fixedDeltaTime;
-        Vector2 actualMove = player.PushboxCalculator(desiredMove);
-        player.rb.MovePosition(player.rb.position + actualMove);
+        //Vector2 desiredMove = new Vector2(player.facing * dashForce, 0f) * Time.fixedDeltaTime;
+        //Vector2 actualMove = player.PushboxCalculator(desiredMove);
+        //player.rb.MovePosition(player.rb.position + actualMove);
     }
 
 }

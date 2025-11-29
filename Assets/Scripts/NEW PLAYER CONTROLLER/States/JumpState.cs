@@ -24,7 +24,6 @@ public class JumpState : PlayerState
 
     public override void Enter()
     {
-        player.verticalVelocity = player.jumpForce; // start jump
         player.isGrounded = false; // mark as airborne
         switch (jumpInput)
         {
@@ -75,63 +74,30 @@ public class JumpState : PlayerState
         }
     }
 
-    private void Jump()
-    {
-        float dt = Time.fixedDeltaTime;
+    // private int jumpSpriteIndex = -1;
 
-        // integrate vertical velocity with gravity (gravity should be negative)
-        player.verticalVelocity += player.gravity * dt;
+    // private void UpdateJumpSprite_FullArc(float maxFall = -1f)
+    // {
+    //     var sprites = player.jumpSprites;
+    //     if (sprites == null || sprites.Length == 0) return;
 
-        // Optionally update sprite based on vertical velocity (you already have this helper)
-        UpdateJumpSprite_FullArc();
+    //     float maxV = player.jumpForce;
+    //     // allow caller to pass a desired min (negative). Default use -maxV if not provided.
+    //     float minV = (maxFall < 0f) ? -maxV : maxFall;
 
-        // Build movement delta (what CalculateAllowedMovement expects)
-        Vector2 movement = new Vector2(xVelocity, player.verticalVelocity) * dt;
+    //     if (Mathf.Approximately(maxV, minV)) return;
 
-        // CalculateAllowedMovement returns a world-space next position (it uses rb.position + movement internally)
-        Vector2 nextPos = player.CalculateAllowedMovement(movement);
+    //     // t = 0 at maxV, 1 at minV (so index increases as velocity goes down)
+    //     float t = Mathf.InverseLerp(maxV, minV, player.verticalVelocity);
 
-        // Landing detection — small epsilon to avoid float issues
-        const float eps = 0.001f;
-        if (nextPos.y <= player.floorY + eps && player.verticalVelocity <= 0f)
-        {
-            // Snap to exact floor, stop vertical movement, mark grounded and switch to Idle
-            nextPos.y = player.floorY;
-            player.verticalVelocity = 0f;
-            player.velocity = Vector2.zero;
-            player.rb.MovePosition(nextPos);
-            player.stateMachine.ChangeState(new IdleState(player));
-            return;
-        }
+    //     int idx = Mathf.Clamp(Mathf.FloorToInt(t * sprites.Length), 0, sprites.Length - 1);
 
-        // Normal movement while in air
-        player.rb.MovePosition(nextPos);
-    }
-
-    private int jumpSpriteIndex = -1;
-
-    private void UpdateJumpSprite_FullArc(float maxFall = -1f)
-    {
-        var sprites = player.jumpSprites;
-        if (sprites == null || sprites.Length == 0) return;
-
-        float maxV = player.jumpForce;
-        // allow caller to pass a desired min (negative). Default use -maxV if not provided.
-        float minV = (maxFall < 0f) ? -maxV : maxFall;
-
-        if (Mathf.Approximately(maxV, minV)) return;
-
-        // t = 0 at maxV, 1 at minV (so index increases as velocity goes down)
-        float t = Mathf.InverseLerp(maxV, minV, player.verticalVelocity);
-
-        int idx = Mathf.Clamp(Mathf.FloorToInt(t * sprites.Length), 0, sprites.Length - 1);
-
-        if (idx != jumpSpriteIndex)
-        {
-            jumpSpriteIndex = idx;
-            player.sr.sprite = sprites[jumpSpriteIndex];
-        }
-    }
+    //     if (idx != jumpSpriteIndex)
+    //     {
+    //         jumpSpriteIndex = idx;
+    //         player.sr.sprite = sprites[jumpSpriteIndex];
+    //     }
+    // }
 
     public override void Exit()
     {

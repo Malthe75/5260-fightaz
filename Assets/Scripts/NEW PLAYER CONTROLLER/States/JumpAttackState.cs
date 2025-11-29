@@ -17,38 +17,38 @@ public class JumpAttackState : PlayerState
         this.verticalVelocity = verticalVelocity;
     }
 
-    public override void Enter()
-    {
-    }
-    public override void Exit() { base.Exit(); }
+    // public override void Enter()
+    // {
+    // }
+    // public override void Exit() { base.Exit(); }
 
-    public override void Update() 
-    { 
-        HandleNextState();
-    }
+    // public override void Update() 
+    // { 
+    //     HandleNextState();
+    // }
 
-    public override Vector2 GetDesiredMovement()
-    {
-        // Apply movement and gravity
-        verticalVelocity += player.gravity * Time.fixedDeltaTime;
-        return new Vector2(player.horizontalMultiplier * xVelocity, verticalVelocity) * Time.fixedDeltaTime;
-    }
+    // public override Vector2 GetDesiredMovement()
+    // {
+    //     // Apply movement and gravity
+    //     verticalVelocity += player.gravity * Time.fixedDeltaTime;
+    //     return new Vector2(player.horizontalMultiplier * xVelocity, verticalVelocity) * Time.fixedDeltaTime;
+    // }
 
-    public override void HandleNextState()
-    {
-        if (player.isGrounded)
-        {
-            if (Mathf.Abs(player.moveInput.x) > 0.1f)
-            {
-                player.stateMachine.ChangeState(new WalkState(player));
-            }
-            else
-            {
-                player.stateMachine.ChangeState(new IdleState(player));
+    // public override void HandleNextState()
+    // {
+    //     if (player.isGrounded)
+    //     {
+    //         if (Mathf.Abs(player.moveInput.x) > 0.1f)
+    //         {
+    //             player.stateMachine.ChangeState(new WalkState(player));
+    //         }
+    //         else
+    //         {
+    //             player.stateMachine.ChangeState(new IdleState(player));
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 
     //private void attack(MoveInput attackInput)
     //{
