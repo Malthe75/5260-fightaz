@@ -99,8 +99,7 @@ public class NewPlayerController : MonoBehaviour
     public int facing = 1;
     private void FixedUpdate()
     {
-        if (stateMachine != null)
-            stateMachine.CurrentState?.FixedUpdate();
+        stateMachine?.CurrentState?.FixedUpdate();
 
         
         facing = transform.position.x < enemy.transform.position.x ? 1 : -1;
@@ -109,8 +108,7 @@ public class NewPlayerController : MonoBehaviour
     private void Update()
     {
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
-        if (stateMachine != null)
-            stateMachine.Update();
+        stateMachine?.Update();
         input = MoveInput.Nothing;
     }
 
@@ -140,10 +138,14 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
+    [Header("Input Buffer")]
+    public float jumpBufferTime = 0.2f;
+    public float jumpPressedTime = -1f;
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            jumpPressedTime = Time.time;
             shouldJump = true;
         }
     }

@@ -9,37 +9,37 @@ public enum JumpInput
 }
 public class JumpState : PlayerState
 {
-
-    private Vector2 jumpDirection;
     private JumpInput jumpInput = JumpInput.Nothing;
     private float xVelocity = 0f;
+    private bool animateBackwards;
     public JumpState(NewPlayerController player, JumpInput jumpInput) : base(player)
     {
+        animateBackwards = false;
         this.jumpInput = jumpInput;
     }
 
     public override void Enter()
     {
-        Debug.Log("Entered Jump State");
         player.isGrounded = false; // mark as airborne
         switch (jumpInput)
         {
             case JumpInput.Right:
-                jumpDirection = new Vector2(1f, 1f).normalized;
                 xVelocity = 5f;
+                if(player.facing == -1) animateBackwards = true;
                 break;
             case JumpInput.Left:
-                jumpDirection = new Vector2(-1f, 1f).normalized;
                 xVelocity = -5f;
+                if(player.facing == 1) animateBackwards = true;
                 break;
             default:
-                jumpDirection = Vector2.up;
                 xVelocity = 0f;
                 break;
         }
-
+        
         float jumpTime = player.Movement.CalculateJumpTime(player.jumpForce);
-        player.Animation.SetAnimation(AnimationState.Jumping, jumpTime, false);
+
+        if(animateBackwards) player.Animation.SetJumpAnimation(AnimationState.BackwardsJumping, jumpTime);
+        else player.Animation.SetJumpAnimation(AnimationState.Jumping, jumpTime);
         player.Movement.SetJump(xVelocity, player.jumpForce);
 
         if (player.jumpSounds != null)
@@ -47,17 +47,26 @@ public class JumpState : PlayerState
             AudioManagerTwo.Instance.PlaySFX(player.jumpSounds[0]);
         }
 
-
     }
     public override void Update()
-
     {
-        HandleNextState();
+        HandleBufferedJump();
+
     }
 
-    public override void FixedUpdate()
+
+    private void HandleBufferedJump()
     {
-        if (player.Movement.hasLanded)
+        if (player.Movement.hasLanded && Time.time - player.jumpPressedTime <= player.jumpBufferTime)
+        {
+            Debug.Log("Buffered jump executed");
+            player.Movement.hasLanded = false;
+            player.jumpPressedTime = -1f; // consume the buffered input
+            // Transition to JumpState again based on input direction
+            if (player.moveInput.x > 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Right));
+            else if (player.moveInput.x < 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Left));
+            else player.stateMachine.ChangeState(new JumpState(player, JumpInput.Up));
+        }else if (player.Movement.hasLanded)
         {
             player.Movement.hasLanded = false;
             player.stateMachine.ChangeState(new IdleState(player));

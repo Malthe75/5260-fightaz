@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum AnimationState
@@ -7,6 +5,7 @@ public enum AnimationState
     Idle,
     Walking,
     Jumping,
+    BackwardsJumping,
     Falling,
 }
 public class PlayerAnimation : MonoBehaviour
@@ -26,6 +25,7 @@ public class PlayerAnimation : MonoBehaviour
     private float animationTimer;
     private bool shouldLoop = true;
     private float animationLength = 1f;
+    private int currentIndex;
 
     private void Awake()
     {
@@ -46,6 +46,10 @@ public class PlayerAnimation : MonoBehaviour
                 float speed = CalculateAnimationSpeed(animationLength, jumpSprites.Length);
                 AnimateSprites(jumpSprites, speed, shouldLoop);
                 break;
+            case AnimationState.BackwardsJumping:
+                float animSpeed = CalculateAnimationSpeed(animationLength, jumpSprites.Length);
+                AnimateSpritesBackwards(jumpSprites, animSpeed, shouldLoop);
+                break;
             case AnimationState.Falling:
                 break;
         }
@@ -55,12 +59,22 @@ public class PlayerAnimation : MonoBehaviour
     {
         currentMovement = AnimationState.Idle;
     }
-    public void SetAnimation(AnimationState animationState, float animationLength = 1f, bool shouldLoop = true)
+    public void SetAnimation(AnimationState animationState, bool shouldLoop = true)
     {
         this.shouldLoop = shouldLoop;
-        this.animationLength = animationLength;
+        currentIndex = 0;
         currentMovement = animationState;
     }
+
+    public void SetJumpAnimation(AnimationState animationState, float animationLength)
+    {
+        this.animationLength = animationLength;
+        this.shouldLoop = false;
+        currentIndex = 0;
+        if(animationState == AnimationState.BackwardsJumping) currentIndex = jumpSprites.Length -1;
+        currentMovement = animationState;
+    }
+
 
     private void SetSprite(Sprite sprite)
     {
@@ -68,29 +82,50 @@ public class PlayerAnimation : MonoBehaviour
     }
     private void AnimateSprites(Sprite[] frames, float speed, bool shouldLoop = true)
     {
-        Debug.Log("Correct?");
-        Debug.Log(frames.Length);
         if (frames.Length == 0) return;
 
         animationTimer += Time.deltaTime;
 
         if (animationTimer >= speed)
         {
-            int currentIndex = System.Array.IndexOf(frames, sr.sprite);
-            int nextIndex = currentIndex + 1;
+            sr.sprite = frames[currentIndex];
+            currentIndex++;
 
-            if (nextIndex >= frames.Length)
+            if (currentIndex >= frames.Length)
             {
                 if (shouldLoop)
-                    nextIndex = 0;          // Loop back to start
+                    currentIndex = 0;          // Loop back to start
                 else
-                    nextIndex = frames.Length - 1; // Stay on last frame
+                    currentIndex = frames.Length - 1; // Stay on last frame
             }
 
-            sr.sprite = frames[nextIndex];
             animationTimer = 0f;
         }
     }
+
+    private void AnimateSpritesBackwards(Sprite[] frames, float speed, bool shouldLoop = true)
+    {
+        if (frames.Length == 0) return;
+
+        animationTimer += Time.deltaTime;
+
+        if (animationTimer >= speed)
+        {
+            sr.sprite = frames[currentIndex];
+            currentIndex--;
+
+            if (currentIndex < 0)
+            {
+                if (shouldLoop)
+                    currentIndex = frames.Length - 1; // Loop back to end
+                else
+                    currentIndex = 0;          // Stay on first frame
+            }
+
+            animationTimer = 0f;
+        }
+    }
+
 
     private float CalculateAnimationSpeed(float duration, int frameCount)
     {
