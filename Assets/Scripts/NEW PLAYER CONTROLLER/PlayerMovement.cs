@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxX = 5f;
     public float minY = 0f;
     public float gravity = 65f;
-    public bool hasLanded = false;
+    public bool hasLanded = true;
 
     private float xVelocity;
     private float speed;
@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
                 // Falling logic
                 break;
         }
-
         ApplyPhysics();
 
     }
@@ -116,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         return (2 * jumpForce) / gravity;
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         if (rb.position.y <= minY + 0.01f)
         {
@@ -126,6 +125,13 @@ public class PlayerMovement : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public JumpInput GetJumpInput(float moveInput)
+    {
+        if (moveInput > 0f) return JumpInput.Right;
+        else if(moveInput < 0f) return JumpInput.Left;
+        else return JumpInput.Up;
     }
 
 

@@ -20,6 +20,7 @@ public class JumpState : PlayerState
 
     public override void Enter()
     {
+        player.Movement.hasLanded = false;
         player.isGrounded = false; // mark as airborne
         switch (jumpInput)
         {
@@ -59,23 +60,25 @@ public class JumpState : PlayerState
     {
         if (player.shouldAttack)
         {
-            player.SetAttack(MoveInput.Hit_Jump);
-            player.stateMachine.ChangeState(new AttackState(player, player.Animation.GetCurrentIndex(), true));
+            SetJumpAttack();
         }
         if (player.Movement.hasLanded && Time.time - player.jumpPressedTime <= player.jumpBufferTime)
         {
             Debug.Log("Buffered jump executed");
-            player.Movement.hasLanded = false;
-            player.jumpPressedTime = -1f; // consume the buffered input
-            // Transition to JumpState again based on input direction
-            if (player.moveInput.x > 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Right));
-            else if (player.moveInput.x < 0f) player.stateMachine.ChangeState(new JumpState(player, JumpInput.Left));
-            else player.stateMachine.ChangeState(new JumpState(player, JumpInput.Up));
+            player.jumpPressedTime = -1f; 
+            player.stateMachine.ChangeState(new JumpState(player, player.Movement.GetJumpInput(player.moveInput.x)));
         }else if (player.Movement.hasLanded)
         {
-            player.Movement.hasLanded = false;
+            player.Movement.hasLanded = true;
             player.stateMachine.ChangeState(new IdleState(player));
         }
+    }
+
+    private void SetJumpAttack()
+    {
+        player.SetAttack(MoveInput.Hit_Jump);
+        int index = player.Animation.GetCurrentIndex();
+        player.stateMachine.ChangeState(new JumpAttackState(player, index, animateBackwards));
     }
 
     public override void Exit()

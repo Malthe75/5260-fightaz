@@ -5,7 +5,6 @@ public class IdleState : PlayerState
     public IdleState(NewPlayerController player) : base(player) { }
     public override void Enter()
     {
-        Debug.Log("Entered Idle State");
         player.Animation.SetIdleAnimation();
         player.Movement.SetIdle();
     }

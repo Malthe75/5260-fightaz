@@ -347,7 +347,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a18881b2024c98248a63474a2da4ad9d, type: 3}
   - {fileID: 21300000, guid: 037a619dbf4ebad4da980c4f598e9ebc, type: 3}
   - {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
-  jumpForce: 25
+  jumpForce: 21
   jumpSounds:
   - {fileID: 8300000, guid: c3d317669fac1ef499505e624973d804, type: 3}
   shouldJump: 0
@@ -378,8 +378,8 @@ MonoBehaviour:
   body: {fileID: 6557186444841896066}
   minX: -8.5
   maxX: 8.5
-  minY: 0
-  gravity: 65
+  minY: -2
+  gravity: 44
   hasLanded: 0
 --- !u!50 &2966674222527440294
 Rigidbody2D:

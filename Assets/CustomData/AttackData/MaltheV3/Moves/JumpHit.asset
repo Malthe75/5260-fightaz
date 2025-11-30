@@ -20,7 +20,7 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0
+    frameDuration: 0.14
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0
+    frameDuration: 0.14
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 9e73b3905e3cf614db1096d44a009617, type: 3}
@@ -38,7 +38,7 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.13
+    frameDuration: 0.14
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 2b6cf1f5c55b1834899235b1687f6a7e, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.13
+    frameDuration: 0.14
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 489b03ed70057cf49854cf9ada836a5f, type: 3}
@@ -56,7 +56,7 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.13
+    frameDuration: 0.14
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 6ae1db739dd30314c95be4a1de03971c, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.13
+    frameDuration: 0.14
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
@@ -74,6 +74,6 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.13
+    frameDuration: 0.25
     knockback: 0
     dashForce: 0
