@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum AnimationState
 {
+    Nothing,
     Idle,
     Walking,
     Jumping,
@@ -21,7 +22,7 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Animation Settings")]
     [SerializeField] float animationSpeed = 0.2f;
     private SpriteRenderer sr;
-    private AnimationState currentMovement = AnimationState.Idle;
+    private AnimationState currentState = AnimationState.Idle;
     private float animationTimer;
     private bool shouldLoop = true;
     private float animationLength = 1f;
@@ -34,7 +35,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        switch (currentMovement)
+        switch (currentState)
         {
             case AnimationState.Idle:
                 SetSprite(idleSprites[0]);
@@ -52,18 +53,20 @@ public class PlayerAnimation : MonoBehaviour
                 break;
             case AnimationState.Falling:
                 break;
+            default:
+                break;
         }
     }
 
     public void SetIdleAnimation()
     {
-        currentMovement = AnimationState.Idle;
+        currentState = AnimationState.Idle;
     }
     public void SetAnimation(AnimationState animationState, bool shouldLoop = true)
     {
         this.shouldLoop = shouldLoop;
         currentIndex = 0;
-        currentMovement = animationState;
+        currentState = animationState;
     }
 
     public void SetJumpAnimation(AnimationState animationState, float animationLength)
@@ -72,13 +75,19 @@ public class PlayerAnimation : MonoBehaviour
         this.shouldLoop = false;
         currentIndex = 0;
         if(animationState == AnimationState.BackwardsJumping) currentIndex = jumpSprites.Length -1;
-        currentMovement = animationState;
+        currentState = animationState;
     }
 
 
-    private void SetSprite(Sprite sprite)
+    public void SetSprite(Sprite sprite)
     {
+        currentState = AnimationState.Nothing;
         sr.sprite = sprite;
+    }
+
+    public void SetColor(Color color)
+    {
+        sr.color = color;
     }
     private void AnimateSprites(Sprite[] frames, float speed, bool shouldLoop = true)
     {

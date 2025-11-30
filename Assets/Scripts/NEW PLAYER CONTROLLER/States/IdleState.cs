@@ -7,6 +7,7 @@ public class IdleState : PlayerState
     {
         Debug.Log("Entered Idle State");
         player.Animation.SetIdleAnimation();
+        player.Movement.SetIdle();
     }
 
     public override void Update()

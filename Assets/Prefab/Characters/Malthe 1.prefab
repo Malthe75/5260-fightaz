@@ -258,8 +258,8 @@ MonoBehaviour:
   idleSprites:
   - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
   walkSprites:
-  - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
   - {fileID: 21300000, guid: b8cc9ad22a088064faeb6a04bc76e172, type: 3}
+  - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
   jumpSprites:
   - {fileID: 21300000, guid: 37ca529439233994ebc72ab1885ceddb, type: 3}
   - {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
@@ -271,7 +271,7 @@ MonoBehaviour:
   blockSprites: []
   fallSprites: []
   hurtSprites: []
-  animationSpeed: 0.14
+  animationSpeed: 0.2
 --- !u!1 &4062488458785150550
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +361,8 @@ MonoBehaviour:
   sr: {fileID: 0}
   moveInput: {x: 0, y: 0}
   facing: 0
+  jumpBufferTime: 0.2
+  jumpPressedTime: -1
 --- !u!114 &-5782329083259197981
 MonoBehaviour:
   m_ObjectHideFlags: 0

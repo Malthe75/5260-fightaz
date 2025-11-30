@@ -6,7 +6,7 @@ using UnityEngine;
 public class HurtState : PlayerState
 {
     float knockbackForce; // How strong the knockback is
-    float hurtTimer = 0.4f; // How long the player stays in hurt state (total time in hurt state)
+    float hurtTimer = 0.5f; // How long the player stays in hurt state (total time in hurt state)
 
     public HurtState(NewPlayerController player, float knockbackForce) : base(player)
     {
@@ -16,8 +16,10 @@ public class HurtState : PlayerState
     public override void Enter()
     {
         // Set color to red, when hurt.
-        player.sr.sprite = player.idleSprites[1];
-        player.sr.color = Color.red;
+
+        player.Animation.SetSprite(player.idleSprites[1]);
+        player.Animation.SetColor(Color.red);
+        player.Movement.SetMove(-player.facing, knockbackForce);
 
         if (player.hurtSounds != null)
         {
@@ -26,11 +28,11 @@ public class HurtState : PlayerState
 
     }
 
-    public override void FixedUpdate()
+    public override void Update()
     {
-        if (hurtTimer > 0f)
+         if (hurtTimer > 0f)
         {
-            hurtTimer -= Time.fixedDeltaTime;
+            hurtTimer -= Time.deltaTime;
         }
         else
         {
@@ -39,7 +41,7 @@ public class HurtState : PlayerState
     }
     public override void Exit()
     {
-        player.sr.color = Color.white;
+        player.Animation.SetColor(Color.white);
     }
 
 }
