@@ -24,9 +24,9 @@ MonoBehaviour:
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 0d049178456d61946b5adcccafda6a8c, type: 3}
-    hitboxSize: {x: 0, y: 0}
-    hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
+    hitboxSize: {x: 1.71, y: 1.11}
+    hitboxOffset: {x: 2.1, y: -4.79}
+    hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 0.3

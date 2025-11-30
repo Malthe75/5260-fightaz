@@ -29,51 +29,51 @@ MonoBehaviour:
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.14
+    frameDuration: 0.1
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 9e73b3905e3cf614db1096d44a009617, type: 3}
-    hitboxSize: {x: 0, y: 0}
-    hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
+    hitboxSize: {x: 1.02, y: 1.6}
+    hitboxOffset: {x: -0.73, y: -2.97}
+    hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.14
+    frameDuration: 0.23
     knockback: 0
     dashForce: 0
   - frameSprite: {fileID: 21300000, guid: 2b6cf1f5c55b1834899235b1687f6a7e, type: 3}
+    hitboxSize: {x: 1.5, y: 0.69}
+    hitboxOffset: {x: -1.18, y: 3.04}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.23
+    knockback: 0
+    dashForce: 0
+  - frameSprite: {fileID: 21300000, guid: 489b03ed70057cf49854cf9ada836a5f, type: 3}
+    hitboxSize: {x: 1.87, y: 1.05}
+    hitboxOffset: {x: 2.75, y: 1.87}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.23
+    knockback: 0
+    dashForce: 0
+  - frameSprite: {fileID: 21300000, guid: 6ae1db739dd30314c95be4a1de03971c, type: 3}
+    hitboxSize: {x: 3.1, y: 0.83}
+    hitboxOffset: {x: 2.19, y: -2.01}
+    hasHitbox: 1
+    hitboxPrefab: {fileID: 0}
+    attackSound: {fileID: 0}
+    frameDuration: 0.23
+    knockback: 0
+    dashForce: 0
+  - frameSprite: {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
     hitboxSize: {x: 0, y: 0}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.14
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 489b03ed70057cf49854cf9ada836a5f, type: 3}
-    hitboxSize: {x: 10, y: 2}
-    hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.14
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 6ae1db739dd30314c95be4a1de03971c, type: 3}
-    hitboxSize: {x: 10, y: 10}
-    hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.14
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
-    hitboxSize: {x: 10, y: 10}
-    hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.25
+    frameDuration: 0.05
     knockback: 0
     dashForce: 0
