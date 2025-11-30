@@ -166,7 +166,6 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
-
     #endregion
 
     public void TakeHit(int damage, AttackFrameData attack)
@@ -174,5 +173,12 @@ public class NewPlayerController : MonoBehaviour
         Debug.Log("IT did this damage");
         stateMachine.ChangeState(new HurtState(this, attack.knockback));
     }
+
+
+    public void SetAttack(MoveInput moveInput)
+    {
+        attack = moveResolver.SetAttack(moveInput, moveMap);
+    }
+
 
 }

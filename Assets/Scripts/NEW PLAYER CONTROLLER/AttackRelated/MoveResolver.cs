@@ -73,9 +73,15 @@ public class MoveResolver
                     return movemap.GetAttack(MoveInput.Kick_Run_Backward);
             }
         }
-
         return movemap.GetAttack(moveInput);
 
     }
+
+    public AttackData SetAttack(MoveInput moveInput, MoveMap moveMap)
+    {
+        return moveMap.GetAttack(moveInput);
+    }
+
+    
 
 }

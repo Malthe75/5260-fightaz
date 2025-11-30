@@ -142,6 +142,11 @@ public class PlayerAnimation : MonoBehaviour
         return duration / frameCount;
     }
 
+    public int GetCurrentIndex()
+    {
+        return currentIndex;
+    }
+
 
     
 

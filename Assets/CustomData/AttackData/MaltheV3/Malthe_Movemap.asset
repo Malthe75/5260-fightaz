@@ -16,7 +16,7 @@ MonoBehaviour:
   - input: 0
     attack: {fileID: 0}
   - input: 1
-    attack: {fileID: 11400000, guid: 4dfb0898139a543429923e74c76d0861, type: 2}
+    attack: {fileID: 11400000, guid: 636924bcf2ab50645b0e2d8084e6ee46, type: 2}
   - input: 2
     attack: {fileID: 11400000, guid: 015a149e5b3b42f448c68da6ba075448, type: 2}
   - input: 3

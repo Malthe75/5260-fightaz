@@ -6,9 +6,13 @@ public class AttackState : PlayerState
 {
     private Coroutine attackRoutine;
     private float dashForce = 0f;
+    private int currentIndex;
+    private bool isJumpAttack;
 
-    public AttackState(NewPlayerController player) : base(player)
+    public AttackState(NewPlayerController player, int currentIndex = 0, bool isJumpAttack = false) : base(player)
     {
+        this.currentIndex = currentIndex;
+        this.isJumpAttack = isJumpAttack;
     }
 
     public override void Enter()
@@ -34,16 +38,14 @@ public class AttackState : PlayerState
     // Remember to delete coroutine if we exit the state early.
     private IEnumerator showFrames(AttackData attack)
     {
-        foreach(var attackFrame in attack.frames)
+        for(int i = currentIndex; i < attack.frames.Count; i++)
         {
+            AttackFrameData attackFrame = attack.frames[i];
             // Sprite
             player.Animation.SetSprite(attackFrame.frameSprite);
 
-            // Dash if needed
-            if (attackFrame.dashForce != 0)
-            {
-               player.Movement.SetMove(player.facing, attackFrame.dashForce);
-            }
+            // Dash if there is dash, and it isnt a jump attack.
+            if(!isJumpAttack) player.Movement.SetMove(player.facing, attackFrame.dashForce);
             // Activate hitbox if it exists
             if (attackFrame.hasHitbox)
             {
@@ -62,8 +64,8 @@ public class AttackState : PlayerState
             {
                 player.attackHitbox.Deactivate();
             }
-            dashForce = 0f;
-            player.Movement.SetMove(player.facing, dashForce);
+            // dashForce = 0f;
+            // player.Movement.SetMove(player.facing, dashForce);
 
         }
         HandleNextState();

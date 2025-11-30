@@ -50,13 +50,18 @@ public class JumpState : PlayerState
     }
     public override void Update()
     {
-        HandleBufferedJump();
+        HandleNextState();
 
     }
 
 
-    private void HandleBufferedJump()
+    public override void HandleNextState()
     {
+        if (player.shouldAttack)
+        {
+            player.SetAttack(MoveInput.Hit_Jump);
+            player.stateMachine.ChangeState(new AttackState(player, player.Animation.GetCurrentIndex(), true));
+        }
         if (player.Movement.hasLanded && Time.time - player.jumpPressedTime <= player.jumpBufferTime)
         {
             Debug.Log("Buffered jump executed");
@@ -76,7 +81,7 @@ public class JumpState : PlayerState
     public override void Exit()
     {
         player.shouldJump = false;
-        player.Movement.SetIdle();
+        //player.Movement.SetIdle();
     }
 
 }
