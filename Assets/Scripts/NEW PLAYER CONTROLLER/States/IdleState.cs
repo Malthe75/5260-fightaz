@@ -5,6 +5,7 @@ public class IdleState : PlayerState
     public IdleState(NewPlayerController player) : base(player) { }
     public override void Enter()
     {
+        Debug.Log("mdsa");
         player.Animation.SetIdleAnimation();
         player.Movement.SetIdle();
     }
@@ -27,7 +28,7 @@ public class IdleState : PlayerState
             player.stateMachine.ChangeState(new BlockState(player));
         }
 
-        if(player.shouldJump)
+        if (player.shouldJump)
         {
             player.stateMachine.ChangeState(new JumpState(player, JumpInput.Up));
             return;

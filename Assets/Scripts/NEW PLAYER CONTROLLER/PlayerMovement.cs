@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private Transform body;
     private Collider2D pushbox;
-    private MovementState currentMovement = MovementState.Idle;
+    private MovementState currentMovement;
     private int playerLayerMask;
 
     private Vector2 proposedMovement;
@@ -50,10 +50,9 @@ public class PlayerMovement : MonoBehaviour
                     hasLanded = true;
                     currentMovement = MovementState.Idle;
                 }
-
                 break;
             case MovementState.Falling:
-                // Falling logic
+                proposedMovement = HandleJump();
                 break;
         }
         ApplyPhysics();
@@ -86,6 +85,14 @@ public class PlayerMovement : MonoBehaviour
         currentMovement = MovementState.Jumping;
     }
 
+    public void SetFall(float xVelocity, float yVelocity)
+    {
+        Debug.Log("set fall");
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
+        this.currentMovement = MovementState.Falling;
+    }
+
     private Vector2 HandleMove()
     {
         Vector2 desiredMove = new Vector2(xVelocity * speed, 0f) * Time.fixedDeltaTime;
@@ -94,14 +101,14 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 HandleJump()
     {
-        if (IsGrounded() && yVelocity <= 0f) // landed
-        {
-            yVelocity = 0f;
-            xVelocity = 0f;
-            hasLanded = true;
-            currentMovement = MovementState.Idle;
-            return Vector2.zero;
-        }
+        // if (IsGrounded() && yVelocity <= 0f) // landed
+        // {
+        //     yVelocity = 0f;
+        //     xVelocity = 0f;
+        //     hasLanded = true;
+        //     currentMovement = MovementState.Idle;
+        //     return Vector2.zero;
+        // }
         float xMovement = xVelocity * Time.fixedDeltaTime;
         yVelocity -= gravity * Time.fixedDeltaTime;
         float yMovement = yVelocity * Time.fixedDeltaTime;
@@ -119,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.position.y <= minY + 0.01f)
         {
+            Debug.Log("is grounded?");
             return true;
         }
         else
@@ -130,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
     public JumpInput GetJumpInput(float moveInput)
     {
         if (moveInput > 0f) return JumpInput.Right;
-        else if(moveInput < 0f) return JumpInput.Left;
+        else if (moveInput < 0f) return JumpInput.Left;
         else return JumpInput.Up;
     }
 
@@ -138,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Physic constraints
 
-    
+
     void ApplyPhysics()
     {
         Vector2 clampedNextPos = ClampedMovement(proposedMovement); // absolute next pos
@@ -196,7 +204,8 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerMovement enemy;
 
-    public void SetEnemy(PlayerMovement enemy) {
+    public void SetEnemy(PlayerMovement enemy)
+    {
         this.enemy = enemy;
     }
 

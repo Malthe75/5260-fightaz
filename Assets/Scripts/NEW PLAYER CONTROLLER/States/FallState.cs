@@ -2,73 +2,50 @@ using UnityEngine;
 
 public class FallState : PlayerState
 {
-    Sprite sprite = null;
-    float xVelocity = 0f;
-    public FallState(NewPlayerController player, Sprite sprite, float xVelocity) : base(player)
+    private float xVelocity;
+    private float yVelocity;
+    public FallState(NewPlayerController player, float xVelocity, float yVelocity) : base(player)
     {
-        this.sprite = sprite;
         this.xVelocity = xVelocity;
-    }
-    public FallState(NewPlayerController player) : base(player)
-    {
-    }
-
-    public override void FixedUpdate()
-    {
-        Gravity();
+        this.yVelocity = yVelocity;
     }
 
     public override void Enter()
     {
-        
-        player.sr.sprite = player.fallSprite;
-        player.isGrounded = false;
+        Debug.Log(xVelocity + " : " + 5);
+        player.Movement.SetFall(xVelocity, 5);
 
-        if (player.fallSounds != null && player.fallSounds.Length > 0)
+        if (player.fallSounds != null)
         {
-            AudioManagerTwo.Instance.PlaySFX(player.fallSounds[0]);
+            AudioManagerTwo.Instance.PlaySFX(player.jumpSounds[0]);
         }
+
     }
-    
-    private void Gravity()
+    public override void Update()
     {
-        // float dt = Time.fixedDeltaTime;
+        // HandleNextState();
 
-        // // integrate velocity
-        // player.velocity.x = xVelocity;
-        // player.velocity.y += player.gravity * dt;
-
-        // // allow existing push/feet logic to modify velocity (optional)
-        // //player.velocity = player.PushboxFeetCalculator(player.velocity);
-
-        // // movement delta (what CalculateAllowedMovement expects)
-        // Vector2 movement = player.velocity * dt;
-
-        // // returns a world-space nextPos (it does rb.position + movement internally)
-        // Vector2 nextPos = player.CalculateAllowedMovement(movement);
-
-        // const float eps = 0.001f;
-
-        // // landed on the floor: stop vertical velocity, mark grounded and switch state
-        // if (nextPos.y <= player.floorY + eps && player.velocity.y <= 0f)
-        // {
-        //     nextPos.y = player.floorY;
-        //     player.velocity.y = 0f;
-        //     player.rb.MovePosition(nextPos);
-        //     player.stateMachine.ChangeState(new IdleState(player));
-        //     return;
-        // }
-
-        // // normal movement
-        // player.rb.MovePosition(nextPos);
     }
 
+
+    public override void HandleNextState()
+    {
+        // if (player.Movement.hasLanded && Time.time - player.jumpPressedTime <= player.jumpBufferTime)
+        // {
+        //     Debug.Log("Buffered jump executed");
+        //     player.jumpPressedTime = -1f;
+        //     player.stateMachine.ChangeState(new JumpState(player, player.Movement.GetJumpInput(player.moveInput.x)));
+        // }
+        // else if (player.Movement.hasLanded)
+        // {
+        //     player.Movement.hasLanded = true;
+        //     player.stateMachine.ChangeState(new IdleState(player));
+        // }
+    }
 
     public override void Exit()
     {
-        // player.isGrounded = true;
-        // player.velocity.y = 0f;
-        // player.velocity.x = 0f;
-
+        player.shouldJump = false;
     }
+
 }

@@ -14,66 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: 
   frames:
-  - frameSprite: {fileID: 21300000, guid: 37ca529439233994ebc72ab1885ceddb, type: 3}
+  - frameSprite: {fileID: 21300000, guid: baf46910a1d7d07499a5553664f83873, type: 3}
     hitboxSize: {x: 10, y: 10}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.14
+    frameDuration: 0.25
     knockback: 0
     dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
+  - frameSprite: {fileID: 21300000, guid: aa6a0804edfa2054f9460f3a8c94f22f, type: 3}
     hitboxSize: {x: 10, y: 10}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.1
+    attackSound: {fileID: 8300000, guid: d674dc88ad04d3b479d928653394a50a, type: 3}
+    frameDuration: 0.15
     knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 9e73b3905e3cf614db1096d44a009617, type: 3}
-    hitboxSize: {x: 1.02, y: 1.6}
-    hitboxOffset: {x: -0.73, y: -2.97}
-    hasHitbox: 1
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.23
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 2b6cf1f5c55b1834899235b1687f6a7e, type: 3}
-    hitboxSize: {x: 1.5, y: 0.69}
-    hitboxOffset: {x: -1.18, y: 3.04}
-    hasHitbox: 1
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.23
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 489b03ed70057cf49854cf9ada836a5f, type: 3}
-    hitboxSize: {x: 1.87, y: 1.05}
-    hitboxOffset: {x: 2.75, y: 1.87}
-    hasHitbox: 1
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.23
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 6ae1db739dd30314c95be4a1de03971c, type: 3}
-    hitboxSize: {x: 3.1, y: 0.83}
-    hitboxOffset: {x: 2.19, y: -2.01}
-    hasHitbox: 1
-    hitboxPrefab: {fileID: 0}
-    attackSound: {fileID: 0}
-    frameDuration: 0.23
-    knockback: 0
-    dashForce: 0
-  - frameSprite: {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
-    hitboxSize: {x: 0, y: 0}
+    dashForce: 5
+  - frameSprite: {fileID: 21300000, guid: 21f20847c520ced42972451822a374cc, type: 3}
+    hitboxSize: {x: 10, y: 10}
     hitboxOffset: {x: 0, y: 0}
-    hasHitbox: 0
+    hasHitbox: 1
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
-    frameDuration: 0.05
+    frameDuration: 0.4
     knockback: 0
-    dashForce: 0
+    dashForce: 30

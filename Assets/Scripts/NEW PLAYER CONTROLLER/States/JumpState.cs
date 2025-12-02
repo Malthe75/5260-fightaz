@@ -26,20 +26,20 @@ public class JumpState : PlayerState
         {
             case JumpInput.Right:
                 xVelocity = 5f;
-                if(player.facing == -1) animateBackwards = true;
+                if (player.facing == -1) animateBackwards = true;
                 break;
             case JumpInput.Left:
                 xVelocity = -5f;
-                if(player.facing == 1) animateBackwards = true;
+                if (player.facing == 1) animateBackwards = true;
                 break;
             default:
                 xVelocity = 0f;
                 break;
         }
-        
+
         float jumpTime = player.Movement.CalculateJumpTime(player.jumpForce);
 
-        if(animateBackwards) player.Animation.SetJumpAnimation(AnimationState.BackwardsJumping, jumpTime);
+        if (animateBackwards) player.Animation.SetJumpAnimation(AnimationState.BackwardsJumping, jumpTime);
         else player.Animation.SetJumpAnimation(AnimationState.Jumping, jumpTime);
         player.Movement.SetJump(xVelocity, player.jumpForce);
 
@@ -61,13 +61,15 @@ public class JumpState : PlayerState
         if (player.shouldAttack)
         {
             SetJumpAttack();
+            return;
         }
         if (player.Movement.hasLanded && Time.time - player.jumpPressedTime <= player.jumpBufferTime)
         {
             Debug.Log("Buffered jump executed");
-            player.jumpPressedTime = -1f; 
+            player.jumpPressedTime = -1f;
             player.stateMachine.ChangeState(new JumpState(player, player.Movement.GetJumpInput(player.moveInput.x)));
-        }else if (player.Movement.hasLanded)
+        }
+        else if (player.Movement.hasLanded)
         {
             player.Movement.hasLanded = true;
             player.stateMachine.ChangeState(new IdleState(player));
@@ -78,7 +80,7 @@ public class JumpState : PlayerState
     {
         player.SetAttack(MoveInput.Hit_Jump);
         int index = player.Animation.GetCurrentIndex();
-        player.stateMachine.ChangeState(new JumpAttackState(player, index, animateBackwards));
+        player.stateMachine.ChangeState(new AttackState(player, 5, -5));
     }
 
     public override void Exit()

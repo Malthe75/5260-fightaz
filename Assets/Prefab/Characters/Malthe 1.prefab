@@ -261,13 +261,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b8cc9ad22a088064faeb6a04bc76e172, type: 3}
   - {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
   jumpSprites:
-  - {fileID: 21300000, guid: 37ca529439233994ebc72ab1885ceddb, type: 3}
+  - {fileID: 21300000, guid: 46f507e900947814cad177d34987fbdb, type: 3}
+  - {fileID: 21300000, guid: 7f3c21833c90c9448b896739f44f5eba, type: 3}
+  - {fileID: 21300000, guid: 99754b61a9b09c84f8807119ff8a937c, type: 3}
   - {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
   - {fileID: 21300000, guid: 4c7540004c1c7ba4db1a1de9dcec94be, type: 3}
   - {fileID: 21300000, guid: 18d8b14668bb9d047bf65459dd5676d2, type: 3}
   - {fileID: 21300000, guid: a18881b2024c98248a63474a2da4ad9d, type: 3}
-  - {fileID: 21300000, guid: 037a619dbf4ebad4da980c4f598e9ebc, type: 3}
-  - {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
   blockSprites: []
   fallSprites: []
   hurtSprites: []
@@ -340,13 +340,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6b751b9cfffaeb440b5da7aa3b763ccd, type: 3}
   isBlocking: 0
   jumpSprites:
-  - {fileID: 21300000, guid: 37ca529439233994ebc72ab1885ceddb, type: 3}
+  - {fileID: 21300000, guid: 46f507e900947814cad177d34987fbdb, type: 3}
+  - {fileID: 21300000, guid: 7f3c21833c90c9448b896739f44f5eba, type: 3}
+  - {fileID: 21300000, guid: 99754b61a9b09c84f8807119ff8a937c, type: 3}
   - {fileID: 21300000, guid: 9081ac850aba8a647ad7a463c349f85a, type: 3}
   - {fileID: 21300000, guid: 4c7540004c1c7ba4db1a1de9dcec94be, type: 3}
   - {fileID: 21300000, guid: 18d8b14668bb9d047bf65459dd5676d2, type: 3}
   - {fileID: 21300000, guid: a18881b2024c98248a63474a2da4ad9d, type: 3}
-  - {fileID: 21300000, guid: 037a619dbf4ebad4da980c4f598e9ebc, type: 3}
-  - {fileID: 21300000, guid: 8933ce638f05bd84fa590f9d92aa7217, type: 3}
   jumpForce: 21
   jumpSounds:
   - {fileID: 8300000, guid: c3d317669fac1ef499505e624973d804, type: 3}
