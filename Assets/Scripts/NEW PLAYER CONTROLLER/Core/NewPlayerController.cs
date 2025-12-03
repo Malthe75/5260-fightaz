@@ -101,7 +101,12 @@ public class NewPlayerController : MonoBehaviour
     {
         stateMachine?.CurrentState?.FixedUpdate();
 
-        
+        SetFacing();
+    }
+
+    private void SetFacing()
+    {
+        if (shouldAttack || shouldJump) return;
         facing = transform.position.x < enemy.transform.position.x ? 1 : -1;
         Movement.SetFacing(facing);
     }

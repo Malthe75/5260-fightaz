@@ -80,7 +80,7 @@ public class JumpState : PlayerState
     {
         player.SetAttack(MoveInput.Hit_Jump);
         int index = player.Animation.GetCurrentIndex();
-        player.stateMachine.ChangeState(new AttackState(player, 5, -5));
+        player.stateMachine.ChangeState(new AttackState(player, 0, -0.02f));
     }
 
     public override void Exit()

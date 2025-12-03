@@ -5,7 +5,6 @@ public class IdleState : PlayerState
     public IdleState(NewPlayerController player) : base(player) { }
     public override void Enter()
     {
-        Debug.Log("mdsa");
         player.Animation.SetIdleAnimation();
         player.Movement.SetIdle();
     }
@@ -14,7 +13,6 @@ public class IdleState : PlayerState
     {
         if (player.shouldAttack)
         {
-            Debug.Log("Should attack");
             player.stateMachine.ChangeState(new AttackState(player));
         }
 

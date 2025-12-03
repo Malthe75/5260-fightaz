@@ -58,14 +58,17 @@ public class AttackState : PlayerState
         if (yVelocity != 0)
         {
             player.stateMachine.ChangeState(new FallState(player, xVelocity, yVelocity));
+            return;
         }
         if (player.moveInput != Vector2.zero)
         {
             player.stateMachine.ChangeState(new WalkState(player));
+            return;
         }
         else
         {
             player.stateMachine.ChangeState(new IdleState(player));
+            return;
         }
     }
 

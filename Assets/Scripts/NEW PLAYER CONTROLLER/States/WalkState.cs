@@ -30,7 +30,7 @@ public class WalkState : PlayerState
 
     public override void HandleNextState()
     {
-        if(player.moveInput.x == 0f)
+        if (player.moveInput.x == 0f)
         {
             idleTimer += Time.deltaTime;
             if (idleTimer >= idleBuffer)

@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case MovementState.Falling:
                 proposedMovement = HandleJump();
+
                 break;
         }
         ApplyPhysics();
@@ -87,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetFall(float xVelocity, float yVelocity)
     {
-        Debug.Log("set fall");
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
         this.currentMovement = MovementState.Falling;
@@ -101,14 +101,14 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 HandleJump()
     {
-        // if (IsGrounded() && yVelocity <= 0f) // landed
-        // {
-        //     yVelocity = 0f;
-        //     xVelocity = 0f;
-        //     hasLanded = true;
-        //     currentMovement = MovementState.Idle;
-        //     return Vector2.zero;
-        // }
+        if (IsGrounded() && yVelocity <= 0f) // landed
+        {
+            yVelocity = 0f;
+            xVelocity = 0f;
+            hasLanded = true;
+            currentMovement = MovementState.Idle;
+            return Vector2.zero;
+        }
         float xMovement = xVelocity * Time.fixedDeltaTime;
         yVelocity -= gravity * Time.fixedDeltaTime;
         float yMovement = yVelocity * Time.fixedDeltaTime;
@@ -126,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.position.y <= minY + 0.01f)
         {
-            Debug.Log("is grounded?");
             return true;
         }
         else
