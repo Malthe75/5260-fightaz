@@ -176,7 +176,7 @@ public class NewPlayerController : MonoBehaviour
     public void TakeHit(int damage, AttackFrameData attack)
     {
         Debug.Log("IT did this damage");
-        stateMachine.ChangeState(new HurtState(this, attack.knockback));
+        stateMachine.ChangeState(new HurtState(this, attack.xKnockback));
     }
 
 

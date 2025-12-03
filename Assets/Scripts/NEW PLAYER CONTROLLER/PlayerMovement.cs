@@ -7,6 +7,7 @@ public enum MovementState
     Walking,
     Jumping,
     Falling,
+    YDashing,
 }
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float minY = 0f;
     public float gravity = 65f;
     public bool hasLanded = true;
+    private float gravityMultiplier = 1;
 
     private float xVelocity;
     private float speed;
@@ -42,18 +44,10 @@ public class PlayerMovement : MonoBehaviour
                 proposedMovement = HandleMove();
                 break;
             case MovementState.Jumping:
-                proposedMovement = HandleJump();
-                if (IsGrounded() && yVelocity <= 0f) // landed
-                {
-                    yVelocity = 0f;
-                    xVelocity = 0f;
-                    hasLanded = true;
-                    currentMovement = MovementState.Idle;
-                }
-                break;
             case MovementState.Falling:
+            case MovementState.YDashing:
+                // All these cases leads to handleJump
                 proposedMovement = HandleJump();
-
                 break;
         }
         ApplyPhysics();
@@ -83,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         this.xVelocity = xVelocity;
         this.yVelocity = jumpForce;
+        this.gravityMultiplier = 1f;
         currentMovement = MovementState.Jumping;
     }
 
@@ -90,7 +85,15 @@ public class PlayerMovement : MonoBehaviour
     {
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
+        this.gravityMultiplier = 1f;
         this.currentMovement = MovementState.Falling;
+    }
+
+    public void SetYDash(float force, float gravityMultiplier)
+    {
+        yVelocity = force;
+        this.gravityMultiplier = gravityMultiplier;
+        currentMovement = MovementState.YDashing;
     }
 
     private Vector2 HandleMove()
@@ -101,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 HandleJump()
     {
+        // LANDING LOGIC ----------
         if (IsGrounded() && yVelocity <= 0f) // landed
         {
             yVelocity = 0f;
@@ -109,12 +113,13 @@ public class PlayerMovement : MonoBehaviour
             currentMovement = MovementState.Idle;
             return Vector2.zero;
         }
-        float xMovement = xVelocity * Time.fixedDeltaTime;
-        yVelocity -= gravity * Time.fixedDeltaTime;
-        float yMovement = yVelocity * Time.fixedDeltaTime;
 
-        Vector2 movement = new Vector2(xMovement, yMovement);
-        return movement;
+        // APPLY MOVEMENT AND GRAVITY---
+        yVelocity -= gravity * gravityMultiplier * Time.fixedDeltaTime;
+
+        float xMovement = xVelocity * Time.fixedDeltaTime;
+        float yMovement = yVelocity * Time.fixedDeltaTime;
+        return new Vector2(xMovement, yMovement);
     }
 
     public float CalculateJumpTime(float jumpForce)

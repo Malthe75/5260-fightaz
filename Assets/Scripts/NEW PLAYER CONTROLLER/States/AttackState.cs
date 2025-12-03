@@ -28,8 +28,20 @@ public class AttackState : PlayerState
             // Sprite
             player.Animation.SetSprite(attackFrame.frameSprite);
 
+
             // Dash
-            player.Movement.SetMove(player.facing, attackFrame.dashForce);
+            if (attackFrame.yDash != 0)
+            {
+                player.Movement.SetYDash(attackFrame.yDash, 0.2f);
+            }
+            else
+            {
+                player.Movement.SetMove(player.facing, attackFrame.xDash);
+            }
+            // else
+            // {
+            //     player.Movement.SetMove(player.facing, attackFrame.xDash);
+            // }
             // Activate hitbox if it exists
             if (attackFrame.hasHitbox)
             {
@@ -55,18 +67,21 @@ public class AttackState : PlayerState
 
     public override void HandleNextState()
     {
-        if (yVelocity != 0)
+        if (!player.Movement.IsGrounded())
         {
-            player.stateMachine.ChangeState(new FallState(player, xVelocity, yVelocity));
+            Debug.Log("Fall");
+            player.stateMachine.ChangeState(new FallState(player));
             return;
         }
         if (player.moveInput != Vector2.zero)
         {
+            Debug.Log("walk");
             player.stateMachine.ChangeState(new WalkState(player));
             return;
         }
         else
         {
+            Debug.Log("idle");
             player.stateMachine.ChangeState(new IdleState(player));
             return;
         }
