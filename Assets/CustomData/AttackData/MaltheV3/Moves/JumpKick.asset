@@ -21,8 +21,10 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 0.25
-    knockback: 0
-    dashForce: 0
+    xKnockback: 0
+    yKnockup: 0
+    xDash: 0
+    yDash: 0
   - frameSprite: {fileID: 21300000, guid: aa6a0804edfa2054f9460f3a8c94f22f, type: 3}
     hitboxSize: {x: 10, y: 10}
     hitboxOffset: {x: 0, y: 0}
@@ -30,8 +32,10 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 8300000, guid: d674dc88ad04d3b479d928653394a50a, type: 3}
     frameDuration: 0.15
-    knockback: 0
-    dashForce: 5
+    xKnockback: 0
+    yKnockup: 0
+    xDash: 0
+    yDash: 0
   - frameSprite: {fileID: 21300000, guid: 21f20847c520ced42972451822a374cc, type: 3}
     hitboxSize: {x: 10, y: 10}
     hitboxOffset: {x: 0, y: 0}
@@ -39,5 +43,7 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 0.3
-    knockback: 0
-    dashForce: 27
+    xKnockback: 0
+    yKnockup: 0
+    xDash: 20
+    yDash: 0

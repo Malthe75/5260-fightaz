@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: 
   frames:
-  - frameSprite: {fileID: 21300000, guid: f92ed966bfb4cd94a8ce0bd8c8b0eaa6, type: 3}
+  - frameSprite: {fileID: 21300000, guid: fa62ad6661845b24bb529145fa8ab575, type: 3}
     hitboxSize: {x: 0, y: 0}
     hitboxOffset: {x: 0, y: 0}
     hasHitbox: 0
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 1
-    knockback: 0
-    dashForce: 0
+    xKnockback: 0
+    yKnockup: 0
+    xDash: 0
+    yDash: 0
   - frameSprite: {fileID: 21300000, guid: 04958465d06da804288e963b815fd938, type: 3}
     hitboxSize: {x: 4.24, y: 0.95}
     hitboxOffset: {x: 2.21, y: -1.18}
@@ -30,5 +32,7 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 0.4
-    knockback: 10
-    dashForce: 25
+    xKnockback: 0
+    yKnockup: 0
+    xDash: 20
+    yDash: 0
