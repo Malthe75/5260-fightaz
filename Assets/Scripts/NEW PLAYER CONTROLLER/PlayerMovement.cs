@@ -8,6 +8,7 @@ public enum MovementState
     Jumping,
     Falling,
     YDashing,
+    Knockup,
 }
 public class PlayerMovement : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
             case MovementState.Jumping:
             case MovementState.Falling:
             case MovementState.YDashing:
+            case MovementState.Knockup:
                 // All these cases leads to handleJump
                 proposedMovement = HandleJump();
                 break;
@@ -94,6 +96,14 @@ public class PlayerMovement : MonoBehaviour
         yVelocity = force;
         this.gravityMultiplier = gravityMultiplier;
         currentMovement = MovementState.YDashing;
+    }
+
+    public void SetKnockup(float xMovement, float yMovement, int facing)
+    {
+        this.xVelocity = xMovement * -facing;
+        this.yVelocity = yMovement;
+        this.gravityMultiplier = 1f;
+        currentMovement = MovementState.Knockup;
     }
 
     private Vector2 HandleMove()

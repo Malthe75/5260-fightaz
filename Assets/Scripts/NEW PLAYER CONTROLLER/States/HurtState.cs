@@ -6,11 +6,13 @@ using UnityEngine;
 public class HurtState : PlayerState
 {
     float knockbackForce; // How strong the knockback is
+    float knockupForce; // How strong the knockup is
     float hurtTimer = 0.5f; // How long the player stays in hurt state (total time in hurt state)
 
-    public HurtState(NewPlayerController player, float knockbackForce) : base(player)
+    public HurtState(NewPlayerController player, float knockbackForce, float knockupForce) : base(player)
     {
         this.knockbackForce = knockbackForce;
+        this.knockupForce = knockupForce;
     }
 
     public override void Enter()
@@ -19,7 +21,7 @@ public class HurtState : PlayerState
 
         player.Animation.SetSprite(player.idleSprites[1]);
         player.Animation.SetColor(Color.red);
-        player.Movement.SetMove(-player.facing, knockbackForce);
+        player.Movement.SetKnockup(knockbackForce, knockupForce, player.facing);
 
         if (player.hurtSounds != null)
         {
@@ -36,7 +38,9 @@ public class HurtState : PlayerState
         }
         else
         {
-            player.stateMachine.ChangeState(new IdleState(player));
+            if(player.Movement.IsGrounded()){
+                player.stateMachine.ChangeState(new IdleState(player));
+            }
         }
     }
     public override void Exit()

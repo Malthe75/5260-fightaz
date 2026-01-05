@@ -43,7 +43,7 @@ MonoBehaviour:
     hitboxPrefab: {fileID: 0}
     attackSound: {fileID: 0}
     frameDuration: 0.3
-    xKnockback: 0
-    yKnockup: 10
-    xDash: 0
-    yDash: 15
+    xKnockback: 4
+    yKnockup: 20
+    xDash: 7
+    yDash: 8
