@@ -137,6 +137,11 @@ public class PlayerMovement : MonoBehaviour
         return (2 * jumpForce) / gravity;
     }
 
+    public float CalculateAirTime(float jumpForce, float gravityMultiplier)
+    {
+        return (2 * jumpForce) / (gravity * gravityMultiplier);
+    }
+
     public bool IsGrounded()
     {
         if (rb.position.y <= minY + 0.01f)

@@ -1,3 +1,4 @@
+using System.IO.Pipes;
 using UnityEngine;
 
 public enum AnimationState
@@ -8,6 +9,7 @@ public enum AnimationState
     Jumping,
     BackwardsJumping,
     Falling,
+    Knockup,
 }
 public class PlayerAnimation : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Sprite[] blockSprites;
     [SerializeField] private Sprite[] fallSprites;
     [SerializeField] private Sprite[] hurtSprites;
+    [SerializeField] private Sprite[] knockupSprites;
 
     [Header("Animation Settings")]
     [SerializeField] float animationSpeed = 0.2f;
@@ -28,6 +31,7 @@ public class PlayerAnimation : MonoBehaviour
     private float animationLength = 1f;
     private int currentIndex;
 
+    
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -41,11 +45,15 @@ public class PlayerAnimation : MonoBehaviour
                 SetSprite(idleSprites[0]);
                 break;
             case AnimationState.Walking:
-                AnimateSprites(walkSprites, animationSpeed);
+                AnimateSprites(walkSprites, animationSpeed, true);
                 break;
             case AnimationState.Jumping:
                 float speed = CalculateAnimationSpeed(animationLength, jumpSprites.Length);
                 AnimateSprites(jumpSprites, speed, shouldLoop);
+                break;
+            case AnimationState.Knockup:
+                float knockupSpeed = CalculateAnimationSpeed(animationLength, knockupSprites.Length);
+                AnimateSprites(knockupSprites, knockupSpeed, shouldLoop);
                 break;
             case AnimationState.BackwardsJumping:
                 float animSpeed = CalculateAnimationSpeed(animationLength, jumpSprites.Length);
@@ -61,6 +69,15 @@ public class PlayerAnimation : MonoBehaviour
     public void SetIdleAnimation()
     {
         currentState = AnimationState.Idle;
+    }
+
+    public void SetKnockupAnimation(float animationLength)
+    {
+        this.animationLength = animationLength;
+        this.shouldLoop = false;
+        this.animationTimer = 0f;
+        currentIndex = 0;
+        currentState = AnimationState.Knockup;
     }
     public void SetAnimation(AnimationState animationState, bool shouldLoop = true)
     {
@@ -89,25 +106,25 @@ public class PlayerAnimation : MonoBehaviour
     {
         sr.color = color;
     }
+    
     private void AnimateSprites(Sprite[] frames, float speed, bool shouldLoop = true)
     {
         if (frames.Length == 0) return;
-
+        sr.sprite = frames[currentIndex];
         animationTimer += Time.deltaTime;
-
         if (animationTimer >= speed)
         {
-            sr.sprite = frames[currentIndex];
             currentIndex++;
 
             if (currentIndex >= frames.Length)
             {
                 if (shouldLoop)
                     currentIndex = 0;          // Loop back to start
-                else
-                    currentIndex = frames.Length - 1; // Stay on last frame
+                else {
+                    currentState = AnimationState.Nothing;
+                    return;
+                }
             }
-
             animationTimer = 0f;
         }
     }

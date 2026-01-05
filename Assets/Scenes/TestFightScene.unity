@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1325806379}
   shakeDuration: 0.1
-  shakeMagnitude: 0.2
+  shakeMagnitude: 0.05
   hitStopTime: 0.1
 --- !u!4 &289245467
 Transform:

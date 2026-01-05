@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -18,16 +16,32 @@ public class HurtState : PlayerState
     public override void Enter()
     {
         // Set color to red, when hurt.
-
-        player.Animation.SetSprite(player.idleSprites[1]);
         player.Animation.SetColor(Color.red);
-        player.Movement.SetKnockup(knockbackForce, knockupForce, player.facing);
+        
+        if(knockupForce > 0){
+            Knockup();
+        } else {
+            Knockback();
+        }
 
         if (player.hurtSounds != null)
         {
             AudioManagerTwo.Instance.PlaySFX(player.hurtSounds[0]);
         }
 
+    }
+
+    private void Knockup()
+    {
+        float totalAnimationTime = player.Movement.CalculateAirTime(knockupForce, 1f);
+        player.Animation.SetKnockupAnimation(totalAnimationTime);
+        player.Movement.SetKnockup(knockbackForce, knockupForce, player.facing);
+    }
+
+    private void Knockback()
+    {
+        player.Animation.SetSprite(player.idleSprites[0]);
+        player.Movement.SetMove(-player.facing, knockbackForce);
     }
 
     public override void Update()

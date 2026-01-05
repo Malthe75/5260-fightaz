@@ -69,19 +69,16 @@ public class AttackState : PlayerState
     {
         if (!player.Movement.IsGrounded())
         {
-            Debug.Log("Fall");
             player.stateMachine.ChangeState(new FallState(player));
             return;
         }
         if (player.moveInput != Vector2.zero)
         {
-            Debug.Log("walk");
             player.stateMachine.ChangeState(new WalkState(player));
             return;
         }
         else
         {
-            Debug.Log("idle");
             player.stateMachine.ChangeState(new IdleState(player));
             return;
         }

@@ -271,6 +271,9 @@ MonoBehaviour:
   blockSprites: []
   fallSprites: []
   hurtSprites: []
+  knockupSprites:
+  - {fileID: 21300000, guid: a5a796b3f86c1e6489869c48b358f2f5, type: 3}
+  - {fileID: 21300000, guid: 5ea7830747c1f0c4e8eb39a30f2703e5, type: 3}
   animationSpeed: 0.2
 --- !u!1 &4062488458785150550
 GameObject:
@@ -355,7 +358,7 @@ MonoBehaviour:
   fallSprite: {fileID: 21300000, guid: c123db2367a698e4c9cb35932fddb3ac, type: 3}
   fallSounds: []
   hurtSounds:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: b502e6fa67a1c89419a5529b0d100e13, type: 3}
   attackHitbox: {fileID: 7909968727596106551}
   rb: {fileID: 0}
   sr: {fileID: 0}
