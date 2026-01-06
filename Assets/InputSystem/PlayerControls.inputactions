@@ -529,6 +529,94 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Clash",
+            "id": "2507fb7c-ef46-4366-80b3-bc805a61ee82",
+            "actions": [
+                {
+                    "name": "Cross",
+                    "type": "Button",
+                    "id": "445dc744-cb1b-4dc0-835a-1cbaf585c3c7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Square",
+                    "type": "Button",
+                    "id": "d27ad8f2-b31b-44be-83e8-16e557c4595f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Triangle",
+                    "type": "Button",
+                    "id": "907347e5-190f-40e4-9577-5d90387efa4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Circle",
+                    "type": "Button",
+                    "id": "19869c49-cd02-46cd-bb31-e283f365ccd8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b329b083-a576-462d-80b2-e0b4f4aaf813",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cross",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31cf01d9-67a2-4169-93fe-f67967fd3f61",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Square",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ccabc44-0f24-4661-9201-4cde12cc08e4",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Triangle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a77d513-e991-4636-a74c-a3ac7850641e",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Circle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

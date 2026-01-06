@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -32,16 +33,17 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action OnSignature2;
     public event Action<bool> OnCrouchChanged;
     public event Action<Vector2> OnMove;
+    public event Action OnCross, OnCircle, OnSquare, OnTriangle;
+
 
     private InputAction moveAction, jumpAction, hitAction, kickAction, crouchAction, shootAction, tauntAction, signature1Action, signature2Action;
-
+    private InputAction clashCrossAction, clashCircleAction, clashSquareAction, clashTriangleAction;
     [SerializeField] private PlayerInputHandler inputHandler;
 
     private void Awake()
     {
         var input = GetComponent<PlayerInput>();
         var map = input.actions.FindActionMap("Player");
-
         moveAction = map.FindAction(move);
         jumpAction = map.FindAction(jump);
         hitAction = map.FindAction(hit);
@@ -53,6 +55,8 @@ public class PlayerInputHandler : MonoBehaviour
         signature2Action = map.FindAction(signature2);
 
         RegisterInputActions();
+
+        RegisterClashInputActions(input);
     }
 
     private void RegisterInputActions()
@@ -70,6 +74,29 @@ public class PlayerInputHandler : MonoBehaviour
         tauntAction.performed += ctx => OnTaunt?.Invoke();
         signature1Action.performed += ctx => OnSignature1?.Invoke();
         signature2Action.performed += ctx => OnSignature2?.Invoke();
+    }
+
+    private void RegisterClashInputActions(PlayerInput input)
+    {
+        var clashMap = input.actions.FindActionMap("Clash");
+
+        clashCrossAction = clashMap.FindAction("Cross");
+        clashCircleAction = clashMap.FindAction("Circle");
+        clashSquareAction = clashMap.FindAction("Square");
+        clashTriangleAction = clashMap.FindAction("Triangle");
+
+        GameObject clashObject = GameObject.FindWithTag("ClashEffect");
+
+        clashCrossAction.performed += ctx => OnCross?.Invoke();
+        clashCircleAction.performed += ctx => OnCircle?.Invoke();
+        clashSquareAction.performed += ctx => OnSquare?.Invoke();
+        clashTriangleAction.performed += ctx => OnTriangle?.Invoke();
+    }
+
+    public void SwitchCurrentActionMap(string actionMap)
+    {
+        var input = GetComponent<PlayerInput>();
+        input.SwitchCurrentActionMap(actionMap);
     }
 
     private void OnEnable()

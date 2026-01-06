@@ -3,20 +3,25 @@ using UnityEngine;
 
 public class ClashState : PlayerState
 {
-    private float timer = 0.5f;
     public ClashState(NewPlayerController player) : base(player)
     {
     }
 
+
     public override void Update()
     {
-
-        
-        HandleNextState();
+        if(player.Clash.hasEnded)
+        {
+            player.stateMachine.ChangeState(new IdleState(player));
+        }
     }
     public override void Enter()
     {
-        Debug.Log("Im clashing, are u clashing?");
+        player.Clash.PlayClashEffect();
     }
+
+
+    
+
 
 }

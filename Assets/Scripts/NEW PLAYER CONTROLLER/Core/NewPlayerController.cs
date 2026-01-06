@@ -1,3 +1,4 @@
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ public class NewPlayerController : MonoBehaviour
 {
     public PlayerMovement Movement { get; private set; }
     public PlayerAnimation Animation { get; private set; }
+    public PlayerClash Clash { get; private set; }   
     [Header("Move Map")]
     public MoveMap moveMap;
 
@@ -25,6 +27,9 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public bool shouldAttack = false;
     [SerializeField] float attackBufferTime = 0.2f;
     private float lastAttackInputTime;
+
+    [Header("Attack state - Clash")]
+    public bool inClash = false;
 
     [Header("Block state")]
     public Sprite[] blockSprites;
@@ -73,6 +78,7 @@ public class NewPlayerController : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         Movement = GetComponent<PlayerMovement>();
         Animation = GetComponentInChildren<PlayerAnimation>();
+        Clash = GetComponentInChildren<PlayerClash>();
 
 
         // Initialize state machine
@@ -92,6 +98,7 @@ public class NewPlayerController : MonoBehaviour
         this.enemy = enemy.GetComponent<PlayerMovement>();
         Debug.Log($"Enemy set to {enemy.gameObject.name}");
         Movement.SetEnemy(this.enemy);
+        Clash.SetEnemy(enemy.GetComponentInChildren<PlayerClash>());
     }
     public void SetClashState()
     {

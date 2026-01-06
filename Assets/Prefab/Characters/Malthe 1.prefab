@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3555872547497860655}
   - component: {fileID: 435794528401058694}
+  - component: {fileID: 6183080510338838618}
   m_Layer: 12
   m_Name: Clash
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 697547b5ae1914e499fdac01ba623236, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,9 +82,31 @@ SpriteRenderer:
   m_Size: {x: 0.53333336, y: 0.53333336}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6183080510338838618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919201515186296552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad733f70aa4a43745adcb520b08a9e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clashSprites:
+  - sprite: {fileID: 21300000, guid: e4f2174ae72210c4ba34d5cddcbfdcce, type: 3}
+    value: Cross
+  - sprite: {fileID: 21300000, guid: cee055e25aab8684aa53aae6ed29625c, type: 3}
+    value: Square
+  - sprite: {fileID: 21300000, guid: 6a9af481eaab6e840ac4ace0cf57ba45, type: 3}
+    value: Triangle
+  - sprite: {fileID: 21300000, guid: 697547b5ae1914e499fdac01ba623236, type: 3}
+    value: Circle
+  clashList: []
 --- !u!1 &2878379861559304349
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +449,7 @@ MonoBehaviour:
   attack: {fileID: 0}
   shouldAttack: 0
   attackBufferTime: 0.2
+  inClash: 0
   blockSprites:
   - {fileID: 21300000, guid: 024526497d306a84c8b1df30d0c6bfcc, type: 3}
   - {fileID: 21300000, guid: 6b751b9cfffaeb440b5da7aa3b763ccd, type: 3}
@@ -672,6 +696,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8d2e54c8-150b-4ab4-92df-93b33c8b0b47
     m_ActionName: Player/Block[/DualSenseGamepadHID/rightTrigger,/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6183080510338838618}
+        m_TargetAssemblyTypeName: Clash, Assembly-CSharp
+        m_MethodName: OnCross
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 445dc744-cb1b-4dc0-835a-1cbaf585c3c7
+    m_ActionName: Clash/Cross[/DualSenseGamepadHID1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6183080510338838618}
+        m_TargetAssemblyTypeName: Clash, Assembly-CSharp
+        m_MethodName: OnSquare
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d27ad8f2-b31b-44be-83e8-16e557c4595f
+    m_ActionName: Clash/Square[/DualSenseGamepadHID1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6183080510338838618}
+        m_TargetAssemblyTypeName: Clash, Assembly-CSharp
+        m_MethodName: OnTriangle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 907347e5-190f-40e4-9577-5d90387efa4a
+    m_ActionName: Clash/Triangle[/DualSenseGamepadHID1/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6183080510338838618}
+        m_TargetAssemblyTypeName: Clash, Assembly-CSharp
+        m_MethodName: OnCircle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 19869c49-cd02-46cd-bb31-e283f365ccd8
+    m_ActionName: Clash/Circle[/DualSenseGamepadHID1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

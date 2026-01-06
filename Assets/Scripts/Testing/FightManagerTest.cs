@@ -71,6 +71,8 @@ public class FightManagerTest : MonoBehaviour
     {
         if(p1Hitbox.shouldClash && p2Hitbox.shouldClash)
         {
+            p1.SwitchCurrentActionMap("Clash");
+            p2.SwitchCurrentActionMap("Clash");
             p1Hitbox.shouldClash = false;
             p2Hitbox.shouldClash = false;
             p1Hitbox.cancelRoutine = true;
@@ -78,6 +80,7 @@ public class FightManagerTest : MonoBehaviour
             pc1.SetClashState();
             pc2.SetClashState();
             Debug.Log("WE ARE CLASHING!");
+
         }
     }
 
