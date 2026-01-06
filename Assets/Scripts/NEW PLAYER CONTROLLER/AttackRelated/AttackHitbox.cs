@@ -10,7 +10,7 @@ public class AttackHitbox : MonoBehaviour
     private bool isActive = false;
     private int damage;
     AttackFrameData attack;
-    private float clashTimer = 0.01f;
+    private float clashTimer = 0.001f;
     public bool shouldClash = false;
     public Coroutine clashCoroutine;
     public bool cancelRoutine = false;
