@@ -338,6 +338,8 @@ MonoBehaviour:
   input: 0
   attack: {fileID: 0}
   shouldAttack: 0
+  attackBufferTime: 0.2
+  clashTimer: 1
   blockSprites:
   - {fileID: 21300000, guid: 024526497d306a84c8b1df30d0c6bfcc, type: 3}
   - {fileID: 21300000, guid: 6b751b9cfffaeb440b5da7aa3b763ccd, type: 3}

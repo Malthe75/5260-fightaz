@@ -37,14 +37,12 @@ public class UIHandler : MonoBehaviour
     {
         currentHealth1 -= amount;
         currentHealth1 = Mathf.Clamp(currentHealth1, 0, maxHealth1);
-        Debug.Log(amount + " damage taken!   1");
         UpdateHealthBar();
     }
     private void TakeDamage2(float amount)
     {
         currentHealth2 -= amount;
         currentHealth2 = Mathf.Clamp(currentHealth2, 0, maxHealth2);
-        Debug.Log(amount + " damage taken!   2");
         UpdateHealthBar();
     }
     void UpdateHealthBar()

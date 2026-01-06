@@ -13,7 +13,6 @@ public class FallState : PlayerState
     public override void Enter()
     {
         player.Animation.SetSprite(player.fallSprite);
-        Debug.Log(xVelocity + " " + yVelocity);
         player.Movement.SetFall(xVelocity, yVelocity);
 
 
@@ -34,7 +33,6 @@ public class FallState : PlayerState
     {
         if (player.Movement.IsGrounded() && Time.time - player.jumpPressedTime <= player.jumpBufferTime)
         {
-            Debug.Log("Buffered jump executed");
             player.jumpPressedTime = -1f;
             player.stateMachine.ChangeState(new JumpState(player, player.Movement.GetJumpInput(player.moveInput.x)));
         }

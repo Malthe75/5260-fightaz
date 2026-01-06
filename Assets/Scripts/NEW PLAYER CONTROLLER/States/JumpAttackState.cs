@@ -21,7 +21,6 @@ public class JumpAttackState : PlayerState
    
     private IEnumerator ShowFrames(AttackData attack)
     {
-        Debug.Log(currentIndex);
         if (!playBackwards)
         {
             for (int i = currentIndex; i < attack.frames.Count; i++)

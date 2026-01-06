@@ -13,11 +13,20 @@ public class FightManagerTest : MonoBehaviour
     public List<GameObject> stages;
     public PlayerInput p1;
     public PlayerInput p2;
+    private NewPlayerController pc1;
+    private NewPlayerController pc2;
+
+    private AttackHitbox p1Hitbox;
+    private AttackHitbox p2Hitbox;
+
     private void Start()
     {
         SpawnPlayers();
        
-
+    }
+    private void Update()
+    {
+        ClashMechanic();
     }
     private void SpawnPlayers()
     {
@@ -50,10 +59,27 @@ public class FightManagerTest : MonoBehaviour
 
 
         // Set enemies
-        NewPlayerController pc1 = p1.GetComponent<NewPlayerController>();
-        NewPlayerController pc2 = p2.GetComponent<NewPlayerController>();
+        pc1 = p1.GetComponent<NewPlayerController>();
+        pc2 = p2.GetComponent<NewPlayerController>();
         pc1.SetEnemy(pc2);
         pc2.SetEnemy(pc1);
+        p1Hitbox = p1.GetComponentInChildren<AttackHitbox>();
+        p2Hitbox = p2.GetComponentInChildren<AttackHitbox>();
     }
+
+    private void ClashMechanic()
+    {
+        if(p1Hitbox.shouldClash && p2Hitbox.shouldClash)
+        {
+            p1Hitbox.shouldClash = false;
+            p2Hitbox.shouldClash = false;
+            p1Hitbox.cancelRoutine = true;
+            p2Hitbox.cancelRoutine = true;
+            pc1.SetClashState();
+            pc2.SetClashState();
+            Debug.Log("WE ARE CLASHING!");
+        }
+    }
+
 }
 

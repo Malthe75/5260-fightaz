@@ -10,6 +10,10 @@ public class AttackHitbox : MonoBehaviour
     private bool isActive = false;
     private int damage;
     AttackFrameData attack;
+    private float clashTimer = 0.01f;
+    public bool shouldClash = false;
+    public Coroutine clashCoroutine;
+    public bool cancelRoutine = false;
 
     private void Awake()
     {
@@ -45,19 +49,31 @@ public class AttackHitbox : MonoBehaviour
         Hurtbox hurtbox = otherPlayer.GetComponent<Hurtbox>();
         if (hurtbox != null)
         {
-            NewPlayerController player = otherPlayer.GetComponentInParent<NewPlayerController>();
-            Debug.Log(player);
-            if (player.isBlocking)
-            {
-                Debug.Log("PLAYER WAS BLOCKING!");
-            }
-            else {
-                Debug.Log("HIT PLAYER");
-                hurtbox.TakeDamage(damage, attack);
-                HitFeedback.Instance.TriggerHitEffect();
-                // Optional: prevent multiple hits per attack
-            }
-                Deactivate();
+            clashCoroutine = StartCoroutine(ChooseEvent(otherPlayer, hurtbox));
+            Deactivate();
+
+        }
+    }
+
+    public IEnumerator ChooseEvent(Collider2D otherPlayer, Hurtbox hurtbox)
+    { 
+        cancelRoutine = false;
+        // This timer is for clash detection
+        shouldClash = true;
+        yield return new WaitForSeconds(clashTimer);
+        shouldClash = false;
+        if (cancelRoutine) yield break;
+        
+        NewPlayerController player = otherPlayer.GetComponentInParent<NewPlayerController>();
+        if( player.isBlocking)
+        {
+            Debug.Log("Blocked Attack!");
+        }
+        else 
+        {
+            hurtbox.TakeDamage(damage, attack);
+            HitFeedback.Instance.TriggerHitEffect();
+            // Optional: prevent multiple hits per attack
         }
     }
 

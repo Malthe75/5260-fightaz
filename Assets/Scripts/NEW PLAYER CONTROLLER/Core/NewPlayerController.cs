@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -97,6 +93,10 @@ public class NewPlayerController : MonoBehaviour
         Debug.Log($"Enemy set to {enemy.gameObject.name}");
         Movement.SetEnemy(this.enemy);
     }
+    public void SetClashState()
+    {
+        stateMachine.ChangeState(new ClashState(this));
+    }
 
     public int facing = 1;
     private void FixedUpdate()
@@ -182,7 +182,6 @@ public class NewPlayerController : MonoBehaviour
 
     public void TakeHit(int damage, AttackFrameData attack)
     {
-        Debug.Log("IT did this damage");
         stateMachine.ChangeState(new HurtState(this, attack.xKnockback, attack.yKnockup));
     }
 

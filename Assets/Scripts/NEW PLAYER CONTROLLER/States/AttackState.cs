@@ -5,18 +5,15 @@ using UnityEngine;
 public class AttackState : PlayerState
 {
     private Coroutine attackRoutine;
-    private float xVelocity;
-    private float yVelocity;
 
-    public AttackState(NewPlayerController player, float xVelocity = 0, float yVelocity = 0) : base(player)
+    public AttackState(NewPlayerController player) : base(player)
     {
-        this.xVelocity = xVelocity;
-        this.yVelocity = yVelocity;
     }
 
     public override void Enter()
     {
-        player.StartCoroutine(ShowFrames(player.attack));
+        player.shouldAttack = false; // Reset attack flag
+        attackRoutine = player.StartCoroutine(ShowFrames(player.attack));
     }
 
     // Remember to delete coroutine if we exit the state early.
@@ -38,11 +35,6 @@ public class AttackState : PlayerState
             {
                 player.Movement.SetMove(player.facing, attackFrame.xDash);
             }
-            // else
-            // {
-            //     player.Movement.SetMove(player.facing, attackFrame.xDash);
-            // }
-            // Activate hitbox if it exists
             if (attackFrame.hasHitbox)
             {
                 player.attackHitbox.Activate(attackFrame);
@@ -88,11 +80,11 @@ public class AttackState : PlayerState
     {
         if (attackRoutine != null)
         {
+            Debug.Log("Exiting AttackState early, stopping attack coroutine.");
             player.StopCoroutine(attackRoutine);
             attackRoutine = null;
             player.attackHitbox.Deactivate();
         }
-        player.shouldAttack = false;
     }
 
 
