@@ -27,6 +27,8 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public MoveInput input = MoveInput.Nothing;
     [HideInInspector] public AttackData attack;
     [HideInInspector] public bool shouldAttack = false;
+    [SerializeField] float attackBufferTime = 0.2f;
+    private float lastAttackInputTime;
 
     [Header("Block state")]
     public Sprite[] blockSprites;
@@ -112,6 +114,10 @@ public class NewPlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (shouldAttack && Time.time - lastAttackInputTime > attackBufferTime)
+        {
+            shouldAttack = false;
+        }
         // Update the current state. THe if statement is only there to avoid errors when recompiling.
         stateMachine?.Update();
         input = MoveInput.Nothing;
@@ -168,6 +174,7 @@ public class NewPlayerController : MonoBehaviour
                 moveMap
             );
             shouldAttack = true;
+            lastAttackInputTime = Time.time;
         }
     }
 

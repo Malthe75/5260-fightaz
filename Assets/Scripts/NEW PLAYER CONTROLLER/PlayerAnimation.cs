@@ -106,7 +106,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         sr.color = color;
     }
-    
+
     private void AnimateSprites(Sprite[] frames, float speed, bool shouldLoop = true)
     {
         if (frames.Length == 0) return;
