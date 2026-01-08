@@ -33,7 +33,7 @@ MonoBehaviour:
     attackSound: {fileID: 8300000, guid: df22394acffbc9c49a7aaf6338962595, type: 3}
     frameDuration: 0.2
     xKnockback: 4
-    yKnockup: 0
+    yKnockup: 10
     xDash: 4
     yDash: 0
   - frameSprite: {fileID: 21300000, guid: f5588a55611d9d9419e693963b1190e7, type: 3}
@@ -55,6 +55,6 @@ MonoBehaviour:
     attackSound: {fileID: 8300000, guid: df22394acffbc9c49a7aaf6338962595, type: 3}
     frameDuration: 0.2
     xKnockback: 4
-    yKnockup: 0
+    yKnockup: 10
     xDash: 4
     yDash: 0
