@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class FightManagerTest : MonoBehaviour
 {
+
+    public static FightManagerTest Instance {get; private set; }
     // Needed for spawning prefab.
     public Transform player1Spawn;
     public Transform player2Spawn;
@@ -18,6 +20,16 @@ public class FightManagerTest : MonoBehaviour
 
     private AttackHitbox p1Hitbox;
     private AttackHitbox p2Hitbox;
+
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -71,17 +83,20 @@ public class FightManagerTest : MonoBehaviour
     {
         if(p1Hitbox.shouldClash && p2Hitbox.shouldClash)
         {
-            p1.SwitchCurrentActionMap("Clash");
-            p2.SwitchCurrentActionMap("Clash");
+            SwitchAllActionMaps("Clash");
             p1Hitbox.shouldClash = false;
             p2Hitbox.shouldClash = false;
             p1Hitbox.cancelRoutine = true;
             p2Hitbox.cancelRoutine = true;
             pc1.SetClashState();
             pc2.SetClashState();
-            Debug.Log("WE ARE CLASHING!");
-
         }
+    }
+
+    public void SwitchAllActionMaps(string actionMap)
+    {
+        p1.SwitchCurrentActionMap(actionMap);
+        p2.SwitchCurrentActionMap(actionMap);
     }
 
 }

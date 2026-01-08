@@ -92,16 +92,22 @@ public class PlayerClash : MonoBehaviour
                 clashList.RemoveAt(0);
                 if(clashList.Count == 0)
                 {
-                    hasEnded = true;
-                    clashEnemy.hasEnded = true;
-                    sr.sprite = null;
-                    clashEnemy.sr.sprite = null;
+                    Clashended();
                     
                     return;
                 }
                 sr.sprite = clashList[0].sprite;
                 Debug.Log("Clash Hit!");
             }
+    }
+
+    private void Clashended()
+    {
+        hasEnded = true;
+        clashEnemy.hasEnded = true;
+        sr.sprite = null;
+        clashEnemy.sr.sprite = null;
+        FightManagerTest.Instance.SwitchAllActionMaps("Player");
     }
 
 
