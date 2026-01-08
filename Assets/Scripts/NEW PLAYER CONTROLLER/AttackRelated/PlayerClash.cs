@@ -1,43 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[System.Serializable]
-public struct ClashSpriteEntry
-{
-    public Sprite sprite;
-    public string value;
-}
 public class PlayerClash : MonoBehaviour
 {
 
-    public List<ClashSpriteEntry> clashSprites;
-    public List<ClashSpriteEntry> clashList = new List<ClashSpriteEntry>();
     private SpriteRenderer sr;
-    private PlayerClash clashEnemy;
+    public bool shouldClash = false;
+    public bool wonClash = false;
+    public bool isInClash = false;
+    List<ClashSpriteEntry> clashList = new List<ClashSpriteEntry>();
+    private AttackHitbox attackHitbox;
     
-    [HideInInspector] public bool hasEnded = false;
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        attackHitbox = GetComponentInParent<NewPlayerController>().GetComponentInChildren<AttackHitbox>();
+
     }
 
-    public void PlayClashEffect()
+    public void PlayClash(List<ClashSpriteEntry> clashList)
     {
-        hasEnded = false;
-        clashList.Clear();
-        for (int i = 0; i < 4; i++)
-        {
-            int r = Random.Range(0, 4); // 0, 1, 2, or 3
-            clashList.Add(clashSprites[r]);
-
-        }
-
-        sr.sprite = clashList[0].sprite;
+        attackHitbox.cancelRoutine = true;
+        this.clashList = clashList;
+        shouldClash = false;
+        isInClash = true;
+        sr.sprite = this.clashList[0].sprite;
     }
 
+    
+
+    #region InputHandlers
     public void OnCross(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -45,7 +38,6 @@ public class PlayerClash : MonoBehaviour
         {
             CheckForClashHit(context.action.name);
 
-            Debug.Log("Cross pressed");
         }
     }
 
@@ -56,9 +48,7 @@ public class PlayerClash : MonoBehaviour
         if (context.performed)
         {
             CheckForClashHit(context.action.name);
-            Debug.Log("Circle pressed");
         } 
-
     }
     public void OnSquare(InputAction.CallbackContext context)
     {
@@ -68,9 +58,7 @@ public class PlayerClash : MonoBehaviour
         if (context.performed)
         {
             CheckForClashHit(context.action.name);
-            Debug.Log("Square pressed");
         }
-
     }
     public void OnTriangle(InputAction.CallbackContext context)
     {
@@ -79,12 +67,11 @@ public class PlayerClash : MonoBehaviour
         if (context.performed)
         {
             CheckForClashHit(context.action.name);
-             Debug.Log("Triangle pressed");
         }
-       
 
     }
 
+    #endregion
     public void CheckForClashHit(string actionName)
     {
         if(clashList[0].value == actionName)
@@ -92,28 +79,19 @@ public class PlayerClash : MonoBehaviour
                 clashList.RemoveAt(0);
                 if(clashList.Count == 0)
                 {
-                    Clashended();
-                    
+                    wonClash = true;
                     return;
                 }
                 sr.sprite = clashList[0].sprite;
-                Debug.Log("Clash Hit!");
             }
     }
 
-    private void Clashended()
+    public void ResetClash()
     {
-        hasEnded = true;
-        clashEnemy.hasEnded = true;
         sr.sprite = null;
-        clashEnemy.sr.sprite = null;
-        FightManagerTest.Instance.SwitchAllActionMaps("Player");
-    }
-
-
-    public void SetEnemy(PlayerClash enemy)
-    {
-        clashEnemy = enemy;
+        isInClash = false;
+        wonClash = false;
+        clashList.Clear();
     }
 
 

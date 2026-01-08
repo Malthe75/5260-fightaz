@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class FightManagerTest : MonoBehaviour
 {
 
+    [SerializeField] ClashManager clashManager;
     public static FightManagerTest Instance {get; private set; }
     // Needed for spawning prefab.
     public Transform player1Spawn;
@@ -34,12 +35,8 @@ public class FightManagerTest : MonoBehaviour
     private void Start()
     {
         SpawnPlayers();
-       
     }
-    private void Update()
-    {
-        ClashMechanic();
-    }
+    
     private void SpawnPlayers()
     {
 
@@ -77,26 +74,19 @@ public class FightManagerTest : MonoBehaviour
         pc2.SetEnemy(pc1);
         p1Hitbox = p1.GetComponentInChildren<AttackHitbox>();
         p2Hitbox = p2.GetComponentInChildren<AttackHitbox>();
-    }
-
-    private void ClashMechanic()
-    {
-        if(p1Hitbox.shouldClash && p2Hitbox.shouldClash)
-        {
-            SwitchAllActionMaps("Clash");
-            p1Hitbox.shouldClash = false;
-            p2Hitbox.shouldClash = false;
-            p1Hitbox.cancelRoutine = true;
-            p2Hitbox.cancelRoutine = true;
-            pc1.SetClashState();
-            pc2.SetClashState();
-        }
+        clashManager.Initialize(p1.GetComponentInChildren<PlayerClash>(), p2.GetComponentInChildren<PlayerClash>());
     }
 
     public void SwitchAllActionMaps(string actionMap)
     {
         p1.SwitchCurrentActionMap(actionMap);
         p2.SwitchCurrentActionMap(actionMap);
+    }
+
+    public void ChangeAllStates(string stateName)
+    {
+        pc1.SetState(stateName);
+        pc2.SetState(stateName);
     }
 
 }

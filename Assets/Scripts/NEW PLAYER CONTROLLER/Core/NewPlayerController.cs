@@ -98,11 +98,36 @@ public class NewPlayerController : MonoBehaviour
         this.enemy = enemy.GetComponent<PlayerMovement>();
         Debug.Log($"Enemy set to {enemy.gameObject.name}");
         Movement.SetEnemy(this.enemy);
-        Clash.SetEnemy(enemy.GetComponentInChildren<PlayerClash>());
     }
-    public void SetClashState()
+    public void SetState(string stateName)
     {
-        stateMachine.ChangeState(new ClashState(this));
+        switch (stateName)
+        {
+            case "Idle":
+                stateMachine.ChangeState(new IdleState(this));
+                break;
+            case "Walk":
+                stateMachine.ChangeState(new WalkState(this));
+                break;
+            case "Attack":
+                stateMachine.ChangeState(new AttackState(this));
+                break;
+            case "Block":
+                stateMachine.ChangeState(new BlockState(this));
+                break;
+            case "Fall":
+                stateMachine.ChangeState(new FallState(this));
+                break;
+            case "Hurt":
+                stateMachine.ChangeState(new HurtState(this, 0, 0));
+                break;
+            case "Clash":
+                stateMachine.ChangeState(new ClashState(this));
+                break;
+            default:
+                Debug.LogWarning("State not recognized in SetState");
+                break;
+        }
     }
 
     public int facing = 1;
@@ -197,6 +222,8 @@ public class NewPlayerController : MonoBehaviour
     {
         attack = moveResolver.SetAttack(moveInput, moveMap);
     }
+
+    
 
 
 }

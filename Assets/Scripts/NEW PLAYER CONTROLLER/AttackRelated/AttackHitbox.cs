@@ -14,6 +14,7 @@ public class AttackHitbox : MonoBehaviour
     public bool shouldClash = false;
     public Coroutine clashCoroutine;
     public bool cancelRoutine = false;
+    
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class AttackHitbox : MonoBehaviour
 
     public void Activate(AttackFrameData attack)
     {
+        cancelRoutine = false;
         this.attack = attack;
         hitboxCollider.enabled = true;
         // AttackData should have damage?
@@ -58,17 +60,20 @@ public class AttackHitbox : MonoBehaviour
     public IEnumerator ChooseEvent(Collider2D otherPlayer, Hurtbox hurtbox)
     { 
         cancelRoutine = false;
+        NewPlayerController enemy = otherPlayer.GetComponentInParent<NewPlayerController>();
+
         // This timer is for clash detection
-        shouldClash = true;
+        enemy.Clash.shouldClash = true;
         yield return new WaitForSeconds(clashTimer);
-        shouldClash = false;
+        enemy.Clash.shouldClash = false;
         if (cancelRoutine) yield break;
-        
-        NewPlayerController player = otherPlayer.GetComponentInParent<NewPlayerController>();
-        if( player.isBlocking)
+
+        // Check for block
+        if( enemy.isBlocking)
         {
             Debug.Log("Blocked Attack!");
         }
+        // Take damage
         else 
         {
             hurtbox.TakeDamage(damage, attack);

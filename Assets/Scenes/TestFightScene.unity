@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 289245465}
   - component: {fileID: 289245468}
   - component: {fileID: 289245469}
+  - component: {fileID: 289245470}
   m_Layer: 0
   m_Name: Fightmanager
   m_TagString: Untagged
@@ -216,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a6cac68ca61564da56ab42ea2edf80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clashManager: {fileID: 289245470}
   player1Spawn: {fileID: 211918952}
   player2Spawn: {fileID: 1727048919}
   playerPrefab1: {fileID: 4062488458785150550, guid: ce2273450413dff4ea6fbfb4f806e1ac, type: 3}
@@ -235,6 +237,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77200c8cf00a744499aed54743b0ffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &289245470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289245464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c36b24d3a5f565438de2838102a91e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clashSprites:
+  - sprite: {fileID: 21300000, guid: 697547b5ae1914e499fdac01ba623236, type: 3}
+    value: Circle
+  - sprite: {fileID: 21300000, guid: e4f2174ae72210c4ba34d5cddcbfdcce, type: 3}
+    value: Cross
+  - sprite: {fileID: 21300000, guid: 6a9af481eaab6e840ac4ace0cf57ba45, type: 3}
+    value: Triangle
+  - sprite: {fileID: 21300000, guid: cee055e25aab8684aa53aae6ed29625c, type: 3}
+    value: Square
 --- !u!1 &717292421
 GameObject:
   m_ObjectHideFlags: 0

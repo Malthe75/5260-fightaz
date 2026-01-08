@@ -10,14 +10,14 @@ public class ClashState : PlayerState
 
     public override void Update()
     {
-        if(player.Clash.hasEnded)
+        if(!player.Clash.isInClash)
         {
             player.stateMachine.ChangeState(new IdleState(player));
         }
     }
     public override void Enter()
     {
-        player.Clash.PlayClashEffect();
+        Debug.Log("Entered Clash State");
     }
 
 
