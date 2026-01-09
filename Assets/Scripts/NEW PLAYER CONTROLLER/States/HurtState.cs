@@ -3,14 +3,12 @@ using UnityEngine;
 
 public class HurtState : PlayerState
 {
-    float knockbackForce; // How strong the knockback is
-    float knockupForce; // How strong the knockup is
     float hurtTimer = 0.5f; // How long the player stays in hurt state (total time in hurt state)
-
-    public HurtState(NewPlayerController player, float knockbackForce, float knockupForce) : base(player)
+    int juggleCounter = 0;
+    AttackFrameData attack;
+    public HurtState(NewPlayerController player, AttackFrameData attack) : base(player)
     {
-        this.knockbackForce = knockbackForce;
-        this.knockupForce = knockupForce;
+        this.attack = attack;
     }
 
     public override void Enter()
@@ -18,7 +16,7 @@ public class HurtState : PlayerState
         // Set color to red, when hurt.
         player.Animation.SetColor(Color.red);
         
-        if(knockupForce > 0){
+        if(attack.yKnockup > 0){
             Knockup();
         } else {
             Knockback();
@@ -33,15 +31,16 @@ public class HurtState : PlayerState
 
     private void Knockup()
     {
-        float totalAnimationTime = player.Movement.CalculateAirTime(knockupForce, 1f);
+        player.isKnockup = true;
+        float totalAnimationTime = player.Movement.CalculateAirTime(attack.yKnockup, 1f);
         player.Animation.SetKnockupAnimation(totalAnimationTime);
-        player.Movement.SetKnockup(knockbackForce, knockupForce, player.facing);
+        player.Movement.SetKnockup(attack.xKnockback, attack.yKnockup, player.facing);
     }
 
     private void Knockback()
     {
         player.Animation.SetSprite(player.idleSprites[0]);
-        player.Movement.SetMove(-player.facing, knockbackForce);
+        player.Movement.SetMove(-player.facing, attack.xKnockback);
     }
 
     public override void Update()
@@ -60,6 +59,8 @@ public class HurtState : PlayerState
     public override void Exit()
     {
         player.Animation.SetColor(Color.white);
+        player.juggleCount = 0;
+        player.isKnockup = false;
     }
 
 }

@@ -80,7 +80,6 @@ public class AttackState : PlayerState
     {
         if (attackRoutine != null)
         {
-            Debug.Log("Exiting AttackState early, stopping attack coroutine.");
             player.StopCoroutine(attackRoutine);
             attackRoutine = null;
             player.attackHitbox.Deactivate();

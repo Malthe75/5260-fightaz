@@ -16,6 +16,7 @@ public class AttackFrameData
     public float yKnockup = 0;
     public float xDash = 0;
     public float yDash = 0;
+    public int juggleValue = 1;
 }
 
 

@@ -1,6 +1,7 @@
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class NewPlayerController : MonoBehaviour
 {
@@ -48,6 +49,10 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Hurt state")]
     public AudioClip[] hurtSounds;
+    [HideInInspector] public int juggleCount = 0;
+    [HideInInspector] public bool isKnockup;
+    [HideInInspector] public bool isAirborne;
+    private readonly int MAX_JUGGLE = 5;
 
 
     [Header("Physics")]
@@ -117,9 +122,6 @@ public class NewPlayerController : MonoBehaviour
                 break;
             case "Fall":
                 stateMachine.ChangeState(new FallState(this));
-                break;
-            case "Hurt":
-                stateMachine.ChangeState(new HurtState(this, 0, 0));
                 break;
             case "Clash":
                 stateMachine.ChangeState(new ClashState(this));
@@ -212,17 +214,60 @@ public class NewPlayerController : MonoBehaviour
 
     #endregion
 
-    public void TakeHit(int damage, AttackFrameData attack)
-    {
-        stateMachine.ChangeState(new HurtState(this, attack.xKnockback, attack.yKnockup));
-    }
-
 
     public void SetAttack(MoveInput moveInput)
     {
         attack = moveResolver.SetAttack(moveInput, moveMap);
     }
 
+
+
+    # region HurtState
+    public void TakeHit(int damage, AttackFrameData attack)
+    {
+        if (isKnockup)
+        {
+            HandleAirHit(attack);
+        }
+        else if(attack.yKnockup > 0){
+            EnterAirborne(attack);
+        }
+        else
+        {
+            EnterHurt(attack);
+        }
+    }
+
+    private void HandleAirHit(AttackFrameData attack)
+    {
+        juggleCount += attack.juggleValue;
+
+        if (attack.juggleValue > 0)
+        {
+            float liftMultiplier = Mathf.Clamp01(1f - (juggleCount / (float)MAX_JUGGLE));
+            float finalLift = attack.juggleValue * liftMultiplier;
+
+            if (finalLift > 0)
+            {
+                Movement.SetKnockup(attack.xKnockback, finalLift, facing);
+                //Movement.SetVerticalVelocity(finalLift);
+            }
+        }   
+    }
+
+    private void EnterAirborne(AttackFrameData attack)
+    {
+        isAirborne = true;
+        juggleCount = 1;
+        stateMachine.ChangeState(new HurtState(this, attack));
+
+    }
+    private void EnterHurt(AttackFrameData attack)
+    {
+        stateMachine.ChangeState(new HurtState(this, attack));
+    }
+
+    # endregion
     
 
 
