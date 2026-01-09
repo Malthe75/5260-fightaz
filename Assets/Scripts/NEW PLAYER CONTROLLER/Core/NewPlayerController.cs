@@ -249,7 +249,7 @@ public class NewPlayerController : MonoBehaviour
 
             if (finalLift > 0)
             {
-                Movement.SetKnockup(attack.xKnockback, finalLift, facing);
+                Movement.SetKnockup(attack.xKnockback, finalLift, facing, 0.1f);
                 //Movement.SetVerticalVelocity(finalLift);
             }
         }   

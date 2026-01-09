@@ -29,9 +29,9 @@ public class PlayerMovement : MonoBehaviour
     public bool hasLanded = true;
     private float gravityMultiplier = 1;
 
-    private float xVelocity;
+    public float xVelocity;
     private float speed;
-    private float yVelocity;
+    public float yVelocity;
 
 
     void FixedUpdate()
@@ -98,13 +98,14 @@ public class PlayerMovement : MonoBehaviour
         currentMovement = MovementState.YDashing;
     }
 
-    public void SetKnockup(float xMovement, float yMovement, int facing)
+    public void SetKnockup(float xMovement, float yMovement, int facing, float gravityMultiplier = 1f)
     {
         this.xVelocity = xMovement * -facing;
         this.yVelocity = yMovement;
-        this.gravityMultiplier = 1f;
+        this.gravityMultiplier = gravityMultiplier;
         currentMovement = MovementState.Knockup;
     }
+    
 
     private Vector2 HandleMove()
     {
