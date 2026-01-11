@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float minY = 0f;
     public float gravity = 65f;
     public bool hasLanded = true;
-    private float gravityMultiplier = 1;
+    public float gravityMultiplier = 1;
 
     public float xVelocity;
     private float speed;
@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             case MovementState.YDashing:
             case MovementState.Knockup:
                 // All these cases leads to handleJump
+                Debug.Log(yVelocity);
                 proposedMovement = HandleJump();
                 break;
         }

@@ -242,15 +242,15 @@ public class NewPlayerController : MonoBehaviour
     {
         juggleCount += attack.juggleValue;
 
-        if (attack.juggleValue > 0)
+        if (attack.juggleValue > 0 && MAX_JUGGLE > juggleCount)
         {
-            float liftMultiplier = Mathf.Clamp01(1f - (juggleCount / (float)MAX_JUGGLE));
+            float liftMultiplier = 5f - (juggleCount / (float)MAX_JUGGLE);
             float finalLift = attack.juggleValue * liftMultiplier;
 
             if (finalLift > 0)
             {
-                Movement.SetKnockup(attack.xKnockback, finalLift, facing, 0.1f);
-                //Movement.SetVerticalVelocity(finalLift);
+                Movement.yVelocity = Mathf.Max(Movement.yVelocity, finalLift);
+                Movement.gravityMultiplier = 0.7f;
             }
         }   
     }
