@@ -10,8 +10,9 @@ public class CharacterSelectInputHandler : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        if (context.performed || context.canceled)
+        if (context.performed)
         {
+            Debug.Log("Move input detected: " + context.ReadValue<Vector2>());
             OnMove?.Invoke(context.ReadValue<Vector2>());
         }
     }

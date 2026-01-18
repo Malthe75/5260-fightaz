@@ -34,10 +34,13 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action<bool> OnCrouchChanged;
     public event Action<Vector2> OnMove;
     public event Action OnCross, OnCircle, OnSquare, OnTriangle;
+    public event Action OnMenuConfirm, OnMenuCancel;
+    public event Action<Vector2> OnMenuMove;
 
 
     private InputAction moveAction, jumpAction, hitAction, kickAction, crouchAction, shootAction, tauntAction, signature1Action, signature2Action;
     private InputAction clashCrossAction, clashCircleAction, clashSquareAction, clashTriangleAction;
+    private InputAction menuMoveAction, menuConfirmAction, menuCancelAction;
     [SerializeField] private PlayerInputHandler inputHandler;
 
     private void Awake()
@@ -57,6 +60,7 @@ public class PlayerInputHandler : MonoBehaviour
         RegisterInputActions();
 
         RegisterClashInputActions(input);
+        RegisterMenuInputActions(input);
     }
 
     private void RegisterInputActions()
@@ -91,6 +95,20 @@ public class PlayerInputHandler : MonoBehaviour
         clashCircleAction.performed += ctx => OnCircle?.Invoke();
         clashSquareAction.performed += ctx => OnSquare?.Invoke();
         clashTriangleAction.performed += ctx => OnTriangle?.Invoke();
+    }
+
+    private void RegisterMenuInputActions(PlayerInput input)
+    {
+        var menuMap = input.actions.FindActionMap("Menu");
+
+        menuMoveAction = menuMap.FindAction("Move");
+        menuConfirmAction = menuMap.FindAction("Confirm");
+        menuCancelAction = menuMap.FindAction("Cancel");
+
+        menuMoveAction.performed += ctx => OnMenuMove?.Invoke(ctx.ReadValue<Vector2>());
+        menuConfirmAction.performed += ctx => OnMenuConfirm?.Invoke();
+        menuCancelAction.performed += ctx => OnMenuCancel?.Invoke(); 
+
     }
 
     public void SwitchCurrentActionMap(string actionMap)

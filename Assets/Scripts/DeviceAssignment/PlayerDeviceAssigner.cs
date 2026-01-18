@@ -4,21 +4,18 @@ using UnityEngine.InputSystem;
 public class PlayerDeviceAssigner : MonoBehaviour
 {
 
-    //public PlayerInput player1Input;
-    //public PlayerInput player2Input;
+    public void OnDeviceLost(InputDevice device, InputAction.CallbackContext context)
+    {
+        Debug.Log("Device lost: " + device.displayName);
+    }
 
-    //void Start()
-    //{
-    //    var gamepads = Gamepad.all;
+    public void OnDeviceRegained(InputDevice device)
+    {
+        Debug.Log("Device regained: " + device.displayName);
+    }
 
-    //    if (gamepads.Count >= 2)
-    //    {
-    //        player1Input.SwitchCurrentControlScheme(gamepads[0]);
-    //        player2Input.SwitchCurrentControlScheme(gamepads[1]);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("You need 2 gamepads connected!");
-    //    }
-    //}
+    public void OnDeviceChange(InputDevice device, InputDeviceChange change)
+    {
+        Debug.Log("Device change: " + device.displayName + " Change: " + change.ToString());
+    }
 }
