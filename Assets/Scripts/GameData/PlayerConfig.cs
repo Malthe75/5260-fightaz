@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerConfig
 {
     public string playerName;
-    public GameObject characterPrefab;
+    public CharacterDefinition characterDefinition;
     public InputDevice inputDevice;
     public string controlScheme;
 }

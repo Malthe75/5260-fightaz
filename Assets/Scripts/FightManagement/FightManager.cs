@@ -24,38 +24,40 @@ public class FightManager : MonoBehaviour
         //var p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
         //p2.transform.position = player2Spawn.position;
 
-        var players = PlayerManager.Instance.players;
-        Debug.Log("Lets print out the players!");
-        Debug.Log(players[0].characterPrefab.name);
-        Debug.Log(players[0].playerName);
-        Debug.Log(players[0].inputDevice);
 
-        Debug.Log(players[1].characterPrefab.name);
-        Debug.Log(players[1].playerName);
-        Debug.Log(players[1].inputDevice);
-        var p1 = PlayerInput.Instantiate(players[0].characterPrefab, controlScheme: players[0].controlScheme, pairWithDevice: players[0].inputDevice);
-        p1.transform.position = player1Spawn.position;
-        Vector3 newScale = p1.transform.localScale;
-        newScale.x = -1f;
-        p1.transform.localScale = newScale;
+        ///////----------------------------------------------------------- TODO
+        // var players = PlayerManager.Instance.players;
+        // Debug.Log("Lets print out the players!");
+        // Debug.Log(players[0].characterDefinition.displayName);
+        // Debug.Log(players[0].playerName);
+        // Debug.Log(players[0].inputDevice);
 
-        p1.gameObject.name = "Player1";
-        p1.tag = "Player1";
-        SetupPlayerHitboxes(p1, "P1");
+        // Debug.Log(players[1].characterPrefab.name);
+        // Debug.Log(players[1].playerName);
+        // Debug.Log(players[1].inputDevice);
+        // var p1 = PlayerInput.Instantiate(players[0].characterPrefab, controlScheme: players[0].controlScheme, pairWithDevice: players[0].inputDevice);
+        // p1.transform.position = player1Spawn.position;
+        // Vector3 newScale = p1.transform.localScale;
+        // newScale.x = -1f;
+        // p1.transform.localScale = newScale;
+
+        // p1.gameObject.name = "Player1";
+        // p1.tag = "Player1";
+        // SetupPlayerHitboxes(p1, "P1");
 
 
-        var p2 = PlayerInput.Instantiate(players[1].characterPrefab, controlScheme: players[1].controlScheme, pairWithDevice: players[1].inputDevice);
-        p2.transform.position = player2Spawn.position;
-        Vector3 newScale2 = p2.transform.localScale;
-        newScale2.x = 1f;
-        p2.transform.localScale = newScale2;
+        // var p2 = PlayerInput.Instantiate(players[1].characterPrefab, controlScheme: players[1].controlScheme, pairWithDevice: players[1].inputDevice);
+        // p2.transform.position = player2Spawn.position;
+        // Vector3 newScale2 = p2.transform.localScale;
+        // newScale2.x = 1f;
+        // p2.transform.localScale = newScale2;
 
-        p2.gameObject.name = "Player2";
-        p2.tag = "Player2";
-        SetupPlayerHitboxes(p2, "P2");
+        // p2.gameObject.name = "Player2";
+        // p2.tag = "Player2";
+        // SetupPlayerHitboxes(p2, "P2");
 
-        GameObject stage;
-        stage = Instantiate(stages[StageData.selectedStageIndex]);
+        // GameObject stage;
+        // stage = Instantiate(stages[StageData.selectedStageIndex]);
 
     }
     void SetupPlayerHitboxes(PlayerInput playerRoot, string playerPrefix)

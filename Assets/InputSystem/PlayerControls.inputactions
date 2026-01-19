@@ -346,7 +346,7 @@
             "id": "9d4849d7-1f2b-48a5-8efd-899f19f918e5",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "MenuMove",
                     "type": "Button",
                     "id": "94424fef-7a61-4590-87eb-27ebc129ecb2",
                     "expectedControlType": "Button",
@@ -381,7 +381,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -392,7 +392,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -403,7 +403,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -414,7 +414,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -425,7 +425,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -436,7 +436,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -447,7 +447,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -458,7 +458,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -469,7 +469,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -480,7 +480,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -491,7 +491,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MenuMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
