@@ -45,7 +45,7 @@ public class JumpState : PlayerState
 
         if (player.jumpSounds != null)
         {
-            AudioManagerTwo.Instance.PlaySFX(player.jumpSounds[0]);
+            AudioManager.Instance.PlaySFX(player.jumpSounds[0]);
         }
 
     }

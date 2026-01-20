@@ -42,7 +42,7 @@ public class AttackState : PlayerState
             // Sound
             if (attackFrame.attackSound != null)
             {
-                AudioManagerTwo.Instance.PlaySFX(attackFrame.attackSound);
+                AudioManager.Instance.PlaySFX(attackFrame.attackSound);
             }
             // Timer
             yield return new WaitForSeconds(attackFrame.frameDuration);

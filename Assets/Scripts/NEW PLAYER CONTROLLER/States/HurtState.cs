@@ -24,7 +24,7 @@ public class HurtState : PlayerState
 
         if (player.hurtSounds != null)
         {
-            AudioManagerTwo.Instance.PlaySFX(player.hurtSounds[0]);
+            AudioManager.Instance.PlaySFX(player.hurtSounds[0]);
         }
 
     }

@@ -18,7 +18,7 @@ public class FallState : PlayerState
 
         // if (player.fallSounds != null)
         // {
-        //     AudioManagerTwo.Instance.PlaySFX(player.jumpSounds[0]);
+        //     AudioManager.Instance.PlaySFX(player.jumpSounds[0]);
         // }
 
     }

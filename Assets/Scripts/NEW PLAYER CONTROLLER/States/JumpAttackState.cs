@@ -46,7 +46,7 @@ public class JumpAttackState : PlayerState
 
         // Sound
         if (frame.attackSound != null)
-            AudioManagerTwo.Instance.PlaySFX(frame.attackSound);
+            AudioManager.Instance.PlaySFX(frame.attackSound);
 
         // Wait
         yield return new WaitForSeconds(frame.frameDuration);

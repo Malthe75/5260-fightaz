@@ -1,12 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManagerTwo : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public static AudioManagerTwo Instance;
+    public static AudioManager Instance;
     private AudioSource oneShotSource;
+    private AudioSource musicSource;
     [Range(0f, 1f)] public float defaultVolume = 0.5f;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
 
     private void Awake()
     {
@@ -18,6 +19,18 @@ public class AudioManagerTwo : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         oneShotSource = gameObject.AddComponent<AudioSource>();
+        musicSource = gameObject.AddComponent<AudioSource>();
+
+    }
+
+    public void PlayMusic(AudioClip clip)
+    {
+        if(musicSource == clip) return;
+        musicSource.clip = clip;
+        musicSource.volume = musicVolume;
+        musicSource.loop = true;
+        musicSource.Play();
+        
     }
 
     public void PlaySFX(AudioClip clip, float pitchVariance = 0.05f, float volume = 0.5f, float fadeOutTime = 0.1f)
