@@ -7,7 +7,7 @@ public class MenuItem : MenuItemBase
     [SerializeField] private string sceneToLoad;
     [SerializeField] private bool quitGame;
 
-    public override void Confirm()
+    public override void Confirm(int playerIndex = 0)
     {
         if (!string.IsNullOrEmpty(sceneToLoad))
         {

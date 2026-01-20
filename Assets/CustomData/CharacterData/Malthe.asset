@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   characterPrefab: {fileID: 4062488458785150550, guid: ce2273450413dff4ea6fbfb4f806e1ac, type: 3}
-  portrait: {fileID: 21300000, guid: 19a96f4d8888bb1408e66c5a1ac6edc3, type: 3}
+  portrait: {fileID: 21300000, guid: 27b6bd7a41be6c944b63259e786b48b5, type: 3}
   displayName: Ganni

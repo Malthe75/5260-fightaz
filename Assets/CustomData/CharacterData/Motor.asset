@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   characterPrefab: {fileID: 0}
-  portrait: {fileID: 21300000, guid: e67d4804eb8b0f94d81ffa67a23f3e59, type: 3}
+  portrait: {fileID: 21300000, guid: 51aa105f865e9d5489fd1e6d469ae842, type: 3}
   displayName: Motor

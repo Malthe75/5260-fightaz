@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class Selector : MonoBehaviour
 {
     [SerializeField] private List<MenuItemBase> selectables;
+    [SerializeField] private int playerIndex = 0;
     private bool isLocked = false;
     private int currentIndex = 0;
 
@@ -21,6 +22,11 @@ public class Selector : MonoBehaviour
         {
             MovePrevious();
         }
+
+        if(selectables[currentIndex] is IHoverable hoverable)
+        {
+            hoverable.Hover(playerIndex);
+        }
     }
     public void OnConfirm(InputValue value)
     {
@@ -29,7 +35,7 @@ public class Selector : MonoBehaviour
             
             Debug.Log("Selector Confirm at index: " + currentIndex);
             var item = selectables[currentIndex];
-            item.Confirm();
+            item.Confirm(playerIndex);
 
             // Lock
             if(item is ICancelable)

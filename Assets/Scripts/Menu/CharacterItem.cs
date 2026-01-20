@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class CharacterItem : MenuItemBase, ICancelable
+public class CharacterItem : MenuItemBase, ICancelable, IHoverable
 {
     [Header("Action")]
     [SerializeField] CharacterDefinition character;
-    [SerializeField] private int playerIndex;
 
 
     public void Cancel()
     {
     }
-    public override void Confirm( )
+    public override void Confirm(int playerIndex)
     {
-        Debug.Log("Character " + character + " selected.");
         CharacterSelectManager.Instance.SelectCharacter(playerIndex, character);
 
+    }
+
+    public void Hover(int playerIndex)
+    {
+        CharacterSelectManager.Instance.HoverCharacter(playerIndex, character);
     }
 }
