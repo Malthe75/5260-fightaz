@@ -35,6 +35,12 @@ public class PlayerManager : MonoBehaviour
         return players.Count;
     }
 
+    public CharacterDefinition GetCharacterForPlayer(int playerIndex)
+    {
+        var player = players.FirstOrDefault(p => p.playerIndex == playerIndex);
+        return player != null ? player.characterDefinition : null;
+    }
+
     public void RemovePlayer(int playerIndex)
     {
         var playerToRemove = players.FirstOrDefault(p => p.playerIndex == playerIndex);

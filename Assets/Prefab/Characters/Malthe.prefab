@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitboxCollider: {fileID: 1044950091121397859}
+  shouldClash: 0
+  cancelRoutine: 0
 --- !u!1 &3856578251420467495
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +385,7 @@ MonoBehaviour:
   attack: {fileID: 0}
   shouldAttack: 0
   attackBufferTime: 0.2
-  clashTimer: 2
+  inClash: 0
   blockSprites:
   - {fileID: 21300000, guid: 024526497d306a84c8b1df30d0c6bfcc, type: 3}
   - {fileID: 21300000, guid: 6b751b9cfffaeb440b5da7aa3b763ccd, type: 3}
@@ -405,6 +407,9 @@ MonoBehaviour:
   fallSounds: []
   hurtSounds:
   - {fileID: 0}
+  juggleCount: 0
+  isKnockup: 0
+  isAirborne: 0
   attackHitbox: {fileID: 7909968727596106551}
   rb: {fileID: 0}
   sr: {fileID: 0}
@@ -612,8 +617,24 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8d2e54c8-150b-4ab4-92df-93b33c8b0b47
     m_ActionName: Player/Block[/DualSenseGamepadHID/rightTrigger,/Keyboard/p]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 445dc744-cb1b-4dc0-835a-1cbaf585c3c7
+    m_ActionName: Clash/Cross[/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d27ad8f2-b31b-44be-83e8-16e557c4595f
+    m_ActionName: Clash/Square[/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 907347e5-190f-40e4-9577-5d90387efa4a
+    m_ActionName: Clash/Triangle[/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID1/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19869c49-cd02-46cd-bb31-e283f365ccd8
+    m_ActionName: Clash/Circle[/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID1/buttonEast]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

@@ -467,6 +467,9 @@ MonoBehaviour:
   fallSounds: []
   hurtSounds:
   - {fileID: 8300000, guid: b8f741c821b24884291d5cc19873c67f, type: 3}
+  juggleCount: 0
+  isKnockup: 0
+  isAirborne: 0
   attackHitbox: {fileID: 7909968727596106551}
   rb: {fileID: 0}
   sr: {fileID: 0}
@@ -492,6 +495,9 @@ MonoBehaviour:
   minY: -2
   gravity: 44
   hasLanded: 0
+  gravityMultiplier: 1
+  xVelocity: 0
+  yVelocity: 0
 --- !u!50 &2966674222527440294
 Rigidbody2D:
   serializedVersion: 4
@@ -756,8 +762,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 19869c49-cd02-46cd-bb31-e283f365ccd8
     m_ActionName: Clash/Circle[/DualSenseGamepadHID1/buttonEast]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

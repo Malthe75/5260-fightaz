@@ -24,7 +24,7 @@ public class StageSelectManager : MonoBehaviour
         if(stageSelections.Count == 2)
         {
             GameManager.Instance.SetStage(stage);
-            GameManager.Instance.LoadScene("TestFightScene");
+            GameManager.Instance.LoadScene("FightScene");
         }
     }
 

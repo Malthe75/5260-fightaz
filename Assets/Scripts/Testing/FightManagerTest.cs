@@ -45,9 +45,8 @@ public class FightManagerTest : MonoBehaviour
         {
             Destroy(input.gameObject);
         }
-
         // Spawn both players
-        p1 = PlayerInput.Instantiate(playerPrefab1, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+        p1 = PlayerInput.Instantiate(playerPrefab1, controlScheme: "Gamepad", pairWithDevice: Gamepad.current);
         p1.transform.position = player1Spawn.position;
         Vector3 newScale = p1.transform.localScale;
         newScale.x = -0.5f;
