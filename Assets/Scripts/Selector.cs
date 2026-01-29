@@ -9,8 +9,14 @@ public class Selector : MonoBehaviour
     private bool isLocked = false;
     private int currentIndex = 0;
 
+    void Start()
+    {
+        gameObject.GetComponent<PlayerInput>().enabled = true;
+    }
+
     public void OnMenuMove(InputValue value)
     {
+        Debug.Log("Selector OnMenuMove called.");
         if(isLocked) return;
         Vector2 input = value.Get<Vector2>();
         Debug.Log("Selector Move Input: " + input);
@@ -52,7 +58,7 @@ public class Selector : MonoBehaviour
             Debug.Log("Selector Cancel at index: " + currentIndex);
             if (selectables[currentIndex] is ICancelable cancelable)
             {
-                cancelable.Cancel();
+                cancelable.Cancel(playerIndex);
                 isLocked = false;
             }
         }

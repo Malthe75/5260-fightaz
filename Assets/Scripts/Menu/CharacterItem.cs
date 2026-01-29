@@ -6,8 +6,9 @@ public class CharacterItem : MenuItemBase, ICancelable, IHoverable
     [SerializeField] CharacterDefinition character;
 
 
-    public void Cancel()
+    public void Cancel(int playerIndex)
     {
+        CharacterSelectManager.Instance.DeselectCharacter(playerIndex);
     }
     public override void Confirm(int playerIndex)
     {

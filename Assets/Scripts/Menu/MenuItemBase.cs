@@ -7,7 +7,7 @@ public abstract class MenuItemBase : MonoBehaviour
 
 public interface ICancelable
 {
-    void Cancel();
+    void Cancel(int playerIndex);
 }
 
 public interface IHoverable

@@ -34,17 +34,18 @@ public class PlayerManager : MonoBehaviour
     {
         return players.Count;
     }
-    public bool IsDeviceUsed(InputDevice device)
-    {
-        return players.Any(p => p.inputDevice == device);
-    }
 
-    public void ChangeControlScheme(string controlScheme, int playerIndex)
+    public void RemovePlayer(int playerIndex)
     {
-        var player = players.Find(p => p.playerIndex == playerIndex);
-        if (player != null)
+        var playerToRemove = players.FirstOrDefault(p => p.playerIndex == playerIndex);
+        if (playerToRemove != null)
         {
-            player.controlScheme = controlScheme;
+            players.Remove(playerToRemove);
+            Debug.Log($"PlayerManager: Removed Player {playerToRemove.playerName}");
+        }
+        else
+        {
+            Debug.LogWarning($"PlayerManager: No player found with index {playerIndex} to remove.");
         }
     }
 

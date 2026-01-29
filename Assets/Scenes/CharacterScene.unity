@@ -718,6 +718,7 @@ GameObject:
   - component: {fileID: 752790341}
   - component: {fileID: 752790343}
   - component: {fileID: 752790344}
+  - component: {fileID: 752790345}
   m_Layer: 5
   m_Name: P2Selector
   m_TagString: Untagged
@@ -809,7 +810,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752790339}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -832,6 +833,18 @@ MonoBehaviour:
   m_DefaultActionMap: CharacterSelection
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &752790345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752790339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e647fc3b9086445b2161b2e4e5eb78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &767191517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,94 +1715,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1511541613
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1511541615}
-  - component: {fileID: 1511541614}
-  m_Layer: 0
-  m_Name: PlayerInputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1511541614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511541613}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: 2
-  m_AllowJoining: 1
-  m_JoinBehavior: 1
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1517972740}
-        m_TargetAssemblyTypeName: CharacterSelectManager, Assembly-CSharp
-        m_MethodName: OnPlayerJoined
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Join
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: b2a68b8e-956f-4b00-bc87-278a2c54695c
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5437609646966438052, guid: 185f0dc1ea063a243b271e1edb4ba3cd, type: 3}
-  m_PlayerPrefab: {fileID: 4139602797190308304, guid: 52bdb2eb3ad32fe41a9d8e87a6125101, type: 3}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!4 &1511541615
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511541613}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 571.82166, y: 1401.9905, z: -31.090073}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1517972737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,6 +2365,5 @@ SceneRoots:
   - {fileID: 934896301}
   - {fileID: 1762324924}
   - {fileID: 1517972739}
-  - {fileID: 1511541615}
   - {fileID: 174910885}
   - {fileID: 160538774}

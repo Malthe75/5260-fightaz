@@ -19,31 +19,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    
-    public void AddPlayer(PlayerConfig config)
+    public void LoadScene(string sceneName)
     {
-        if(config == null)
-        {
-            Debug.LogError("GameManager: Attempted to add a null PlayerConfig.");
-            return;
-        }
-
-        if (!Players.Contains(config))
-        {
-            Players.Add(config);
-            Debug.Log($"Added Player {config.playerName} with character {config.characterDefinition.displayName}");
-        }
-    }
-     public void OnPlayerJoined(PlayerInput input)
-    {
-        Debug.Log("Player Joined: " + input.playerIndex);
-    }
-
-    public void ClearPlayers()
-    {
-        Players.Clear();
-    }
-
+        Debug.Log("GameManager: Loading scene " + sceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
 
     
     }
+}

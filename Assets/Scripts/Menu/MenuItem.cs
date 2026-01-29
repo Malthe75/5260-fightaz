@@ -6,6 +6,7 @@ public class MenuItem : MenuItemBase
     [Header("Action")]
     [SerializeField] private string sceneToLoad;
     [SerializeField] private bool quitGame;
+    
 
     public override void Confirm(int playerIndex = 0)
     {
