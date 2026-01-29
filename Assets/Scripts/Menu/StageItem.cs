@@ -7,20 +7,13 @@ public class StageItem : MenuItemBase, ICancelable
     [SerializeField] private bool quitGame;
     
 
-    public override void Confirm(int playerIndex = 0)
+    public override void Confirm(int stageIndex)
     {
-        if (!string.IsNullOrEmpty("fdasf"))
-        {
-            GameManager.Instance.LoadScene("gfdsfd");
-        }
-        else if (quitGame)
-        {
-            Application.Quit();
-        }
+        StageSelectManager.Instance.SelectStage(stageIndex, stage);
     }
 
-    public void Cancel(int playerIndex)
+    public void Cancel(int stageIndex)
     {
-        // Implement cancel logic if needed
+        StageSelectManager.Instance.DeselectStage(stageIndex);
     }
 }

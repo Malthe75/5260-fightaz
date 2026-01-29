@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [HideInInspector] public PlayerConfig mainPlayerConfig = new PlayerConfig();
+    private StageDefinition stage;
 
     public List<PlayerConfig> Players = new List<PlayerConfig>();
     private void Awake()
@@ -25,5 +26,10 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
 
     
+    }
+
+    public void SetStage(StageDefinition stageDef)
+    {
+        stage = stageDef;
     }
 }

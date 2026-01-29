@@ -54,7 +54,6 @@ public class CharacterSelectManager : MonoBehaviour
 
     public void DeselectCharacter(int playerIndex)
     {
-        Debug.Log("HEllo!??");
         if (playerSelections.ContainsKey(playerIndex))
         {
             Debug.Log($"Player {playerIndex} deselected character:");
@@ -63,17 +62,5 @@ public class CharacterSelectManager : MonoBehaviour
         }
         OnCharacterDeselected?.Invoke(playerIndex);
     }
-
-    public CharacterDefinition GetSelection(int playerIndex)
-    {
-        playerSelections.TryGetValue(playerIndex, out var character);
-        return character;
-    }
-
-    public Dictionary<int, CharacterDefinition> GetAllSelections()
-    {
-        return new Dictionary<int, CharacterDefinition>(playerSelections);
-    }
-
 }
 
